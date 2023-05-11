@@ -11,22 +11,33 @@ import java.awt.event.ActionListener;
  * @File Name: Window
  * @description: _______
  */
-public class Window {
+public class Window extends JFrame {
+
+    private JPanel Frame;
     private JPanel StartPage;
-    private JPanel SheduleGeneratorPage;
+    private JPanel ScheduleGeneratorPage;
     private JButton button1;
 
-    private CardLayout cardLayout = new CardLayout();
+    public Window() {
+        windowInit();
+        Frame.add(StartPage, "StartPage");
+        Frame.add(ScheduleGeneratorPage, "ScheduleGeneratorPage");
+        setVisible(true);
 
-public Window() {
+        CardLayout cardLayout = (CardLayout) Frame.getLayout();
 
-    
+        button1.addActionListener(e -> cardLayout.show(Frame, "ScheduleGeneratorPage"));
+    }
 
-    button1.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    private void windowInit() {
+        setContentPane(Frame);
+        setTitle("Duty Scheduler");
+        setSize(500, 700);
+        setResizable(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 
-        }
-    });
-}
+    public static void main(String[] args) {
+        new Window();
+    }
 }
