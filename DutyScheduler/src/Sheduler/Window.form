@@ -42,7 +42,7 @@
           </component>
         </children>
       </grid>
-      <grid id="abb2f" binding="ScheduleGeneratorPage" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="abb2f" binding="ScheduleGeneratorPage" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <card name="Card2"/>
@@ -60,6 +60,17 @@
               <text value="Schedule Generator"/>
             </properties>
           </component>
+          <component id="63333" class="javax.swing.JComboBox" binding="TeacherDropDownSG">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <vspacer id="315f8">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
         </children>
       </grid>
       <grid id="a0d67" binding="SetupPage" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -79,34 +90,69 @@
               <text value="SETUP"/>
             </properties>
           </component>
-          <component id="6a79f" class="javax.swing.JComboBox" binding="TeacherDropDown">
+          <grid id="2eb86" binding="SetUpFrame" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <editable value="true"/>
-              <model/>
-              <toolTipText value="Teachers"/>
-            </properties>
-          </component>
-          <component id="b8763" class="javax.swing.JComboBox" binding="LocationsDropDown">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <editable value="true"/>
-              <toolTipText value="Locations"/>
-            </properties>
-          </component>
-          <component id="1119c" class="javax.swing.JComboBox" binding="TimesDropDown">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <editable value="true"/>
-              <toolTipText value="Times"/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="cc68f" binding="NameINIT" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <card name="Card1"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="6a79f" class="javax.swing.JComboBox" binding="TeacherDropDownS1">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <model/>
+                      <toolTipText value="Teachers"/>
+                    </properties>
+                  </component>
+                  <component id="b8763" class="javax.swing.JComboBox" binding="LocationsDropDownS1">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <toolTipText value="Locations"/>
+                    </properties>
+                  </component>
+                  <component id="1119c" class="javax.swing.JComboBox" binding="TimesDropDownS1">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <editable value="true"/>
+                      <toolTipText value="Times"/>
+                    </properties>
+                  </component>
+                  <component id="b0a3f" class="javax.swing.JButton" binding="NextButtonS1">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="NEXT"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="4fd25" binding="ValueINIT" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <card name="Card2"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="5b5e0" binding="optionsPage" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

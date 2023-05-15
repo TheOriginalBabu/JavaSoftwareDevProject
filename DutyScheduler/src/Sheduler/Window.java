@@ -19,12 +19,17 @@ public class Window extends JFrame {
     private JPanel ScheduleGeneratorPage;
     private JButton scheduleGeneratorBTN, optionsBTN;
     private JPanel SetupPage;
-    private JComboBox<Object> TeacherDropDown;
-    private JComboBox<Object> LocationsDropDown;
-    private JComboBox<Object> TimesDropDown;
+    private JComboBox<Object> TeacherDropDownS1;
+    private JComboBox<Object> LocationsDropDownS1;
+    private JComboBox<Object> TimesDropDownS1;
     private JPanel optionsPage;
     private JButton setUpButton;
     private JButton editButton;
+    private JComboBox TeacherDropDownSG;
+    private JPanel SetUpFrame;
+    private JPanel NameINIT;
+    private JButton NextButtonS1;
+    private JPanel ValueINIT;
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
@@ -52,52 +57,54 @@ public class Window extends JFrame {
      * Sets up the card layout for the frame and sets what each page each button goes to
      */
     private void cardLayoutInit() {
-        CardLayout cardLayout = (CardLayout) Frame.getLayout();
-        scheduleGeneratorBTN.addActionListener(e -> cardLayout.show(Frame, "ScheduleGeneratorPage"));
-        optionsBTN.addActionListener(e -> cardLayout.show(Frame, "OptionsPage"));
-        setUpButton.addActionListener(e -> cardLayout.show(Frame, "SetupPage"));
+        CardLayout mainCardLayout = (CardLayout) Frame.getLayout();
+        CardLayout setupCardLayout = (CardLayout) SetUpFrame.getLayout();
+        scheduleGeneratorBTN.addActionListener(e -> mainCardLayout.show(Frame, "ScheduleGeneratorPage"));
+        optionsBTN.addActionListener(e -> mainCardLayout.show(Frame, "OptionsPage"));
+        setUpButton.addActionListener(e -> mainCardLayout.show(Frame, "SetupPage"));
+        NextButtonS1.addActionListener(e -> setupCardLayout.show(SetUpFrame, "ValueINIT"));
     }
 
     /**
      * Sets up the dropdown menus on the setup page with the ability to add new items
      */
     private void setUpPageInit() {
-        TeacherDropDown.setEditable(true); // Gives the user the ability to type in the dropdown menu
-        TeacherDropDown.add(new JLabel("Teachers")); // Sets the default text shown on the dropdown menu
-        TeacherDropDown.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+        TeacherDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
+        TeacherDropDownS1.addItem("Teachers"); // Sets the default text shown on the dropdown menu
+        TeacherDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    TeacherDropDown.addItem(TeacherDropDown.getEditor().getItem());
-                    teachersArr.add((String) TeacherDropDown.getEditor().getItem());
-                    TeacherDropDown.getEditor().setItem("");
+                    TeacherDropDownS1.addItem(TeacherDropDownS1.getEditor().getItem());
+                    teachersArr.add((String) TeacherDropDownS1.getEditor().getItem());
+                    TeacherDropDownS1.getEditor().setItem("");
                 }
             }
         });
-        LocationsDropDown.setEditable(true); // Gives the user the ability to type in the dropdown menu
-        LocationsDropDown.add(new JLabel("Locations")); // Sets the default text shown on the dropdown menu
-        LocationsDropDown.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+        LocationsDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
+        LocationsDropDownS1.addItem("Locations"); // Sets the default text shown on the dropdown menu
+        LocationsDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    LocationsDropDown.addItem(LocationsDropDown.getEditor().getItem());
-                    locationsArr.add((String) LocationsDropDown.getEditor().getItem());
-                    LocationsDropDown.getEditor().setItem("");
+                    LocationsDropDownS1.addItem(LocationsDropDownS1.getEditor().getItem());
+                    locationsArr.add((String) LocationsDropDownS1.getEditor().getItem());
+                    LocationsDropDownS1.getEditor().setItem("");
                 }
             }
         });
-        TimesDropDown.setEditable(true); // Gives the user the ability to type in the dropdown menu
-        TimesDropDown.add(new JLabel("Times")); // Sets the default text shown on the dropdown menu
-        TimesDropDown.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
+        TimesDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
+        TimesDropDownS1.addItem("Times"); // Sets the default text shown on the dropdown menu
+        TimesDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    TimesDropDown.addItem(TimesDropDown.getEditor().getItem());
-                    timesArr.add((String) TimesDropDown.getEditor().getItem());
-                    TimesDropDown.getEditor().setItem("");
+                    TimesDropDownS1.addItem(TimesDropDownS1.getEditor().getItem());
+                    timesArr.add((String) TimesDropDownS1.getEditor().getItem());
+                    TimesDropDownS1.getEditor().setItem("");
                 }
             }
         });
