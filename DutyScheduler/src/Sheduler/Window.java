@@ -2,6 +2,8 @@ package Sheduler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -26,10 +28,16 @@ public class Window extends JFrame {
     private JButton setUpButton;
     private JButton editButton;
     private JComboBox TeacherDropDownSG;
-    private JPanel SetUpFrame;
-    private JPanel NameINIT;
+    private JTabbedPane SetUpFrame;
     private JButton NextButtonS1;
-    private JPanel ValueINIT;
+    private JPanel NameINIT;
+    private JPanel TeachersINIT;
+    private JComboBox<String> TeachersDropDownS2;
+    private JTextField TeacherHoursS2;
+    private JComboBox<String> LocationDropDownS3;
+    private JButton enterBtnS2;
+    private JTextField timesToBeSupervisedTextField;
+    private JButton enterBtnS3;
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
@@ -58,11 +66,10 @@ public class Window extends JFrame {
      */
     private void cardLayoutInit() {
         CardLayout mainCardLayout = (CardLayout) Frame.getLayout();
-        CardLayout setupCardLayout = (CardLayout) SetUpFrame.getLayout();
         scheduleGeneratorBTN.addActionListener(e -> mainCardLayout.show(Frame, "ScheduleGeneratorPage"));
         optionsBTN.addActionListener(e -> mainCardLayout.show(Frame, "OptionsPage"));
         setUpButton.addActionListener(e -> mainCardLayout.show(Frame, "SetupPage"));
-        NextButtonS1.addActionListener(e -> setupCardLayout.show(SetUpFrame, "ValueINIT"));
+        NextButtonS1.addActionListener(e -> SetUpFrame.setSelectedIndex(SetUpFrame.getSelectedIndex() + 1));
     }
 
     /**
@@ -82,6 +89,7 @@ public class Window extends JFrame {
                 }
             }
         });
+
         LocationsDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
         LocationsDropDownS1.addItem("Locations"); // Sets the default text shown on the dropdown menu
         LocationsDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
@@ -95,6 +103,7 @@ public class Window extends JFrame {
                 }
             }
         });
+
         TimesDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
         TimesDropDownS1.addItem("Times"); // Sets the default text shown on the dropdown menu
         TimesDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
@@ -106,6 +115,40 @@ public class Window extends JFrame {
                     timesArr.add((String) TimesDropDownS1.getEditor().getItem());
                     TimesDropDownS1.getEditor().setItem("");
                 }
+            }
+        });
+
+        SetUpFrame.addFocusListener(new FocusAdapter() {
+            /**
+             * @param e the event to be processed
+             */
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (e != null) {
+                    TeacherDropDownS1.removeAllItems();
+                    LocationsDropDownS1.removeAllItems();
+                    TimesDropDownS1.removeAllItems();
+                    TeachersDropDownS2.removeAllItems();
+                    LocationDropDownS3.removeAllItems();
+                    TeacherDropDownS1.addItem("Teachers");
+                    LocationsDropDownS1.addItem("Locations");
+                    TimesDropDownS1.addItem("Times");
+                    TeachersDropDownS2.addItem("Teacher");
+                    LocationDropDownS3.addItem("Location");
+                    for (String teacher : teachersArr) { // Adds teacher names to the dropdown menu
+                        TeacherDropDownS1.addItem(teacher);
+                        TeachersDropDownS2.addItem(teacher);
+                    }
+                    for (String location : locationsArr) { // Adds location names to the dropdown menu
+                        LocationsDropDownS1.addItem(location);
+                        LocationDropDownS3.addItem(location);
+                    }
+                    for (String time : timesArr) { // Adds time names to the dropdown menu
+                        TimesDropDownS1.addItem(time);
+                    }
+                }
+
             }
         });
     }
