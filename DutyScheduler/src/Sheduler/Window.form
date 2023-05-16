@@ -170,7 +170,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="Hours Required"/>
+                      <text value="Minutes Required"/>
                     </properties>
                   </component>
                   <component id="57113" class="javax.swing.JButton" binding="enterBtnS2">
@@ -183,7 +183,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="55b7" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="55b7" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Location Initlizer"/>
@@ -209,7 +209,25 @@
                       <text value="Times to be Supervised"/>
                     </properties>
                   </component>
-                  <component id="e109f" class="javax.swing.JButton" binding="enterBtnS3">
+                  <component id="7998b" class="javax.swing.JTextField" binding="descriptionLblS3">
+                    <constraints>
+                      <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="Description Of Duties"/>
+                    </properties>
+                  </component>
+                  <component id="6235e" class="javax.swing.JButton" binding="enterBtn2S3">
+                    <constraints>
+                      <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="ENTER"/>
+                    </properties>
+                  </component>
+                  <component id="e109f" class="javax.swing.JButton" binding="enterBtn1S3">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>

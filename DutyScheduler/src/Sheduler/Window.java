@@ -37,7 +37,9 @@ public class Window extends JFrame {
     private JComboBox<String> LocationDropDownS3;
     private JButton enterBtnS2;
     private JTextField timesToBeSupervisedTextField;
-    private JButton enterBtnS3;
+    private JButton enterBtn1S3;
+    private JTextField descriptionLblS3;
+    private JButton enterBtn2S3;
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
