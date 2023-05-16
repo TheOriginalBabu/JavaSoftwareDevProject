@@ -137,7 +137,7 @@
                       <toolTipText value="Times"/>
                     </properties>
                   </component>
-                  <component id="18859" class="javax.swing.JButton" binding="NextButtonS1">
+                  <component id="18859" class="javax.swing.JButton" binding="NextBtnS1">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -147,7 +147,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="bae8d" binding="TeachersINIT" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="bae8d" binding="TeachersINIT" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Teacher Initalizer"/>
@@ -181,12 +181,20 @@
                       <text value="ENTER"/>
                     </properties>
                   </component>
+                  <component id="21ed2" class="javax.swing.JButton" binding="NextBtnS2">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="NEXT"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
-              <grid id="55b7" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="55b7" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <tabbedpane title="Location Initlizer"/>
+                  <tabbedpane title="Location Initalizer"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -233,6 +241,40 @@
                     </constraints>
                     <properties>
                       <text value="ENTER"/>
+                    </properties>
+                  </component>
+                  <component id="88f78" class="javax.swing.JButton" binding="NextBtnS3">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="NEXT"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="9ec1b" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Time Initializer"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="3639" class="javax.swing.JComboBox" binding="TimeDropDownS4">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="eac51" class="javax.swing.JList" binding="LocationListS4">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="50"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <model/>
                     </properties>
                   </component>
                 </children>
