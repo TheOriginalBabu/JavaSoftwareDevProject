@@ -42,8 +42,8 @@ public class Window extends JFrame {
     private JButton enterBtn2S3;
     private JButton NextBtnS2;
     private JButton NextBtnS3;
-    private JComboBox TimeDropDownS4;
-    private JList<String> LocationListS4 = new JList<String>();
+    private JComboBox<String> TimeDropDownS4;
+    private JList LocationListS4;
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
@@ -98,6 +98,7 @@ public class Window extends JFrame {
             }
         });
 
+
         LocationsDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
         LocationsDropDownS1.addItem("Locations"); // Sets the default text shown on the dropdown menu
         LocationsDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
@@ -126,6 +127,11 @@ public class Window extends JFrame {
             }
         });
 
+        LocationListS4.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        LocationListS4.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        LocationListS4.setVisibleRowCount(-1);
+        DefaultListModel listModel = new DefaultListModel();
+
         SetUpFrame.addFocusListener(new FocusAdapter() {
             /**
              * @param e the event to be processed
@@ -153,8 +159,9 @@ public class Window extends JFrame {
                     for (String location : locationsArr) { // Adds location names to the dropdown menu
                         LocationsDropDownS1.addItem(location);
                         LocationDropDownS3.addItem(location);
-                        LocationListS4.setListData(locationsArr.toArray(new String[0]));
+                        listModel.addElement(location);
                     }
+                    LocationListS4.setModel(listModel);
                     for (String time : timesArr) { // Adds time names to the dropdown menu
                         TimesDropDownS1.addItem(time);
                         TimeDropDownS4.addItem(time);
