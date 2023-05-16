@@ -6,6 +6,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +44,11 @@ public class Window extends JFrame {
     private JButton NextBtnS2;
     private JButton NextBtnS3;
     private JComboBox<String> TimeDropDownS4;
-    private JList LocationListS4;
+    private JList<String> LocationListS4;
+    private JPanel LocationINIT;
+    private JPanel TimeINIT;
+    private JScrollPane LocationListScrollPaneS4;
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
@@ -65,6 +70,7 @@ public class Window extends JFrame {
         // Calls initialization methods
         cardLayoutInit();
         setUpPageInit();
+        jListInit();
     }
 
     /**
@@ -127,10 +133,6 @@ public class Window extends JFrame {
             }
         });
 
-        LocationListS4.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        LocationListS4.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        LocationListS4.setVisibleRowCount(-1);
-        DefaultListModel listModel = new DefaultListModel();
 
         SetUpFrame.addFocusListener(new FocusAdapter() {
             /**
@@ -161,7 +163,6 @@ public class Window extends JFrame {
                         LocationDropDownS3.addItem(location);
                         listModel.addElement(location);
                     }
-                    LocationListS4.setModel(listModel);
                     for (String time : timesArr) { // Adds time names to the dropdown menu
                         TimesDropDownS1.addItem(time);
                         TimeDropDownS4.addItem(time);
@@ -181,6 +182,16 @@ public class Window extends JFrame {
         setSize(500, 700); // Default Size of window
         setResizable(true); // Allows the window to be resized
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Sets the close button to close the program when clicked
+    }
+
+    private void jListInit() {
+        LocationListS4.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        LocationListS4.setLayoutOrientation(JList.VERTICAL);
+        LocationListS4.setVisibleRowCount(-1);
+
+        LocationListScrollPaneS4.setViewportView(LocationListS4);
+        listModel.addElement("Location");
+        LocationListS4 = new JList<>(listModel);
     }
 
     public static void main(String[] args) {
