@@ -6,7 +6,6 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -48,6 +47,7 @@ public class Window extends JFrame {
     private JPanel LocationINIT;
     private JPanel TimeINIT;
     private JScrollPane LocationListScrollPaneS4;
+    private JButton scheduleViewButton;
     private DefaultListModel<String> listModel = new DefaultListModel<>();
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
