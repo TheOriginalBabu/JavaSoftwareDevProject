@@ -10,7 +10,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 /**
- * @author: Griffin Robinson
+ * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023-05-11
  * @File Name: Window
  * @description: _______
@@ -78,6 +78,7 @@ public class Window extends JFrame {
      */
     private void cardLayoutInit() {
         CardLayout mainCardLayout = (CardLayout) Frame.getLayout();
+        //todo change card switcher to a method
         scheduleGeneratorBTN.addActionListener(e -> mainCardLayout.show(Frame, "ScheduleGeneratorPage"));
         optionsBTN.addActionListener(e -> mainCardLayout.show(Frame, "OptionsPage"));
         setUpButton.addActionListener(e -> mainCardLayout.show(Frame, "SetupPage"));
@@ -90,6 +91,7 @@ public class Window extends JFrame {
      * Sets up the dropdown menus on the setup page with the ability to add new items
      */
     private void setUpPageInit() {
+        //todo change drop-down setup to a method
         TeacherDropDownS1.setEditable(true); // Gives the user the ability to type in the dropdown menu
         TeacherDropDownS1.addItem("Teachers"); // Sets the default text shown on the dropdown menu
         TeacherDropDownS1.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
@@ -141,6 +143,7 @@ public class Window extends JFrame {
             @Override
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
+                //todo compact and convert to method
                 if (e != null) {
                     TeacherDropDownS1.removeAllItems();
                     LocationsDropDownS1.removeAllItems();
@@ -181,10 +184,16 @@ public class Window extends JFrame {
         setTitle("Duty Scheduler"); // Title at top of window
         setSize(500, 700); // Default Size of window
         setResizable(true); // Allows the window to be resized
+        //todo implement when window closed windowClose();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Sets the close button to close the program when clicked
     }
 
+    private void windowClose() {
+        //todo Implement fileWriter to save data on close
+    }
+
     private void jListInit() {
+        //todo Not working need to fix
         LocationListS4.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         LocationListS4.setLayoutOrientation(JList.VERTICAL);
         LocationListS4.setVisibleRowCount(-1);

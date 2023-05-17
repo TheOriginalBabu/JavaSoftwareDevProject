@@ -1,0 +1,65 @@
+/**
+* @author: Griffin, Izaan, Ronit, Shahmeer
+* @date: 2023-05-17
+* @File Name: CodeOutlineModel
+* @description: _______
+*/
+
+Classes
+    - Window
+        - Window
+        - main
+        - windowInit
+        - windowClose
+        - jButtonInit
+        - cardLayoutInit
+        - setUpPageInit
+    - Config
+        - Config
+        - getStorageFilePath
+        - getBackupFilePath
+        - getLastDateOpened
+        - setLastDateOpened
+        - getBackupDate
+        - setBackupDate
+        - getOpenNumber
+        - setOpenNumber
+    - FileReader
+        - FileReader
+        - readConfig
+        - readBackup
+        - readStorage
+    - FileWriter
+        - FileWriter
+        - writeConfig
+        - writeBackup
+        - writeStorage
+    - Generator
+        - Generator
+        - generateWeek
+        - generateDay
+        - generatePeriod
+    - Duty
+        - Duty
+        - getDuty
+        - setDuty
+        - setTime
+        - setLocation
+    - TeacherDuty
+        - TeacherDuty
+        - getTeacher
+        - setTeacher
+        - setDuty
+        - getDuty
+    - Teacher
+        - Teacher
+        - getName
+        - setName
+        - getClasses
+        - setClasses
+        - getPrepPeriods
+        - setPrepPeriods
+        - getTeacherDuties
+        - setTeacherDuties
+    - Time
+    - Location
