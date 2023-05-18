@@ -6,7 +6,21 @@
 */
 
 Classes
-    - Window:
+    - Controller: Main class that controls all other classes to run the program
+        Fields:
+            - Config
+            - FileReader
+            - FileWriter
+            - Generator
+            - Teacher
+            - TeacherDuty
+            - Duty
+            - Time
+            - Location
+            - Restriction
+        Methods:
+            - Controller
+    - Window: Controls GUI
         Fields:
             - All GUI elements
             - arrays/Hashmaps of all objects
