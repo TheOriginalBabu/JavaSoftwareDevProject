@@ -35,31 +35,50 @@ Classes
         - writeBackup
         - writeStorage
     - Generator
-        - Generator
+        - Generator(restriction)
         - generateWeek
         - generateDay
         - generatePeriod
     - Duty
-        - Duty
+        - Duty(Time, Location)
         - getDuty
         - setDuty
-        - setTime
-        - setLocation
+        - setTime(Time)
+        - getTime
+        - setLocation(Location)
+        - getLocation
     - TeacherDuty
-        - TeacherDuty
+        - TeacherDuty(teacher, duty)
         - getTeacher
-        - setTeacher
-        - setDuty
+        - setTeacher(Teacher)
+        - setDuty(Duty)
         - getDuty
     - Teacher
-        - Teacher
+        - Teacher(string, Time, Time, TeacherDuty)
         - getName
-        - setName
+        - setName(string)
         - getClasses
-        - setClasses
+        - setClasses(Time)
         - getPrepPeriods
-        - setPrepPeriods
+        - setPrepPeriods(Time)
         - getTeacherDuties
-        - setTeacherDuties
+        - setTeacherDuties(TeacherDuty)
     - Time
+        - Time(string)
+        - getTime
+        - setTime(string)
+        - getTimeArr
+        - setTimeArr(array)
+        - setRestriction(Restriction)
     - Location
+        - Location(string)
+        - getLocation
+        - setLocation(string)
+        - getLocationArr
+        - setLocationArr(array)
+    - Restriction
+        - Restriction(Teacher, Time, availableBool)
+        - getTeacher
+        - getAvailableBool
+        - setAvailableBool
+        - getTime
