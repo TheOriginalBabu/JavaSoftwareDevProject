@@ -125,9 +125,12 @@ Classes
             - Classes
             - PrepPeriods
             - Restrictions
-            - Minutes
+            - MinutesTotal
+            - MinutesUsed
+            - MinutesRemaining
+            - minutesScheduled
         Methods:
-            - Teacher(string, Time, Time, minutes)
+            - Teacher(string, Time, Time, minutes, restrictions)
             - getName
                 - Returns a string
             - setName(string)

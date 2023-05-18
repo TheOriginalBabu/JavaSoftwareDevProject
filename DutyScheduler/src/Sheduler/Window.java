@@ -203,8 +203,4 @@ public class Window extends JFrame {
         listModel.addElement("Location");
         LocationListS4 = new JList<>(listModel);
     }
-
-    public static void main(String[] args) {
-        new Window();
-    }
 }
