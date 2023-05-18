@@ -6,79 +6,164 @@
 */
 
 Classes
-    - Window
-        - Window
-        - main
-        - windowInit
-        - windowClose
-        - jButtonInit
-        - cardLayoutInit
-        - setUpPageInit
+    - Window:
+        Fields:
+            - All GUI elements
+            - arrays/Hashmaps of all objects
+        Methods:
+            - Window
+            - main
+            - windowInit
+            - windowClose
+            - jButtonInit(JButton)
+            - jListInit(JList)
+            - cardLayoutInit
+            - setUpPageInit
     - Config
-        - Config
-        - getStorageFilePath
-        - getBackupFilePath
-        - getLastDateOpened
-        - setLastDateOpened
-        - getBackupDate
-        - setBackupDate
-        - getOpenNumber
-        - setOpenNumber
+        Fields:
+            - ConfigFilePath
+            - StorageFilePath
+            - BackupFilePath
+            - LastDateOpened
+            - BackupDate
+            - OpenNumber
+        Methods:
+            - Config
+            - setConfigFilePath
+            - getConfigFilePath
+                - Returns a string
+            - setStorageFilePath
+            - getStorageFilePath
+                - Returns a string
+            - setBackupFilePath
+            - getBackupFilePath
+                - Returns a string
+            - getLastDateOpened
+            - setLastDateOpened
+            - getBackupDate
+                - Returns an Date object
+            - setBackupDate
+            - getOpenNumber
+                - Returns an Date object
+            - setOpenNumber
     - FileReader
-        - FileReader
-        - readConfig
-        - readBackup
-        - readStorage
+        Fields:
+            - configPath
+            - backUpPath
+            - StoragePath
+        Methods:
+            - FileReader
+                - returns information read
+            - readConfig
+                - returns information read
+            - readBackup
+                - returns information read
+            - readStorage
+                - returns information read
     - FileWriter
-        - FileWriter
-        - writeConfig
-        - writeBackup
-        - writeStorage
+        Fields:
+            - configPath
+            - backUpPath
+            - StoragePath
+        Methods:
+            - FileWriter
+            - writeConfig
+            - writeBackup
+            - writeStorage
     - Generator
-        - Generator(restriction)
-        - generateWeek
-        - generateDay
-        - generatePeriod
+        Fields:
+            - Restrictions
+        Methods:
+            - Generator(restrictions)
+            - generateWeek
+            - generateDay
+            - generatePeriod
     - Duty
-        - Duty(Time, Location)
-        - getDuty
-        - setDuty
-        - setTime(Time)
-        - getTime
-        - setLocation(Location)
-        - getLocation
+        Fields:
+            - Time
+            - Location
+        Methods:
+            - Duty(Time, Location)
+            - getDuty
+                - Returns a Time object
+            - setDuty
+            - setTime(Time)
+            - getTime
+                - Returns a Time object
+            - setLocation(Location)
+            - getLocation
+                - Returns a Location object
     - TeacherDuty
-        - TeacherDuty(teacher, duty)
-        - getTeacher
-        - setTeacher(Teacher)
-        - setDuty(Duty)
-        - getDuty
+        Fields:
+            - Teacher
+            - Duty
+        Methods:
+            - TeacherDuty(teacher, duty)
+            - getTeacher
+                - Returns a Teacher object
+            - setTeacher(Teacher)
+            - setDuty(Duty)
+            - getDuty
+                - Returns a Duty object
     - Teacher
-        - Teacher(string, Time, Time, TeacherDuty)
-        - getName
-        - setName(string)
-        - getClasses
-        - setClasses(Time)
-        - getPrepPeriods
-        - setPrepPeriods(Time)
-        - getTeacherDuties
-        - setTeacherDuties(TeacherDuty)
+        Fields:
+            - Name
+            - Classes
+            - PrepPeriods
+            - Restrictions
+            - Minutes
+        Methods:
+            - Teacher(string, Time, Time, minutes)
+            - getName
+                - Returns a string
+            - setName(string)
+            - getClasses
+                - Returns an array of Time objects
+            - setClasses(Time)
+            - getPrepPeriods
+                - Returns an array of Time objects
+            - setPrepPeriods(Time)
+            - setMinutes(int)
+            - getMinutes
+                - Returns an int
+            - setRestriction(Restriction)
+            - getRestrictions
+                - Returns an array of Restriction objects
     - Time
-        - Time(string)
-        - getTime
-        - setTime(string)
-        - getTimeArr
-        - setTimeArr(array)
-        - setRestriction(Restriction)
+        Fields:
+            - Name
+            - startTime
+            - endTime
+        Methods:
+            - Time(string)
+            - getTime
+                - Returns a string
+            - setTime(string)
     - Location
-        - Location(string)
-        - getLocation
-        - setLocation(string)
-        - getLocationArr
-        - setLocationArr(array)
+        Fields:
+            - Name
+            - Description
+        Methods:
+            - Location(name, description)
+            - getLocation
+                - Returns a string
+            - setLocation(string)
+            - getDescription
+                - Returns a string
+            - setDescription(string)
     - Restriction
-        - Restriction(Teacher, Time, availableBool)
-        - getTeacher
-        - getAvailableBool
-        - setAvailableBool
-        - getTime
+        Fields:
+                - Teacher
+                - Time
+                - Date
+                - availableBool
+        Methods:
+            - Restriction(Teacher, Time, availableBool, Date)
+            - getTeacher
+                - Returns a Teacher object
+            - setTeacher(Teacher)
+            - getAvailableBool
+                - Returns a boolean
+            - setAvailableBool
+            - getTime
+                - Returns a Time object
