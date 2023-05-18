@@ -2,7 +2,7 @@
 * @author: Griffin, Izaan, Ronit, Shahmeer
 * @date: 2023-05-17
 * @File Name: CodeOutlineModel
-* @description: _______
+* @description: Duty Scheduler for teachers. Needs to be extremely modular and easy to use.
 */
 
 Classes

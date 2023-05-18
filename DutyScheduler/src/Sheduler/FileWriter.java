@@ -7,4 +7,13 @@ package Sheduler;
  * @description: _______
  */
 public class FileWriter {
+    String configPath;
+    String backUpPath;
+    String storagePath;
+
+    public FileWriter() {
+        // initialization here
+    }
+
+    // other methods here
 }

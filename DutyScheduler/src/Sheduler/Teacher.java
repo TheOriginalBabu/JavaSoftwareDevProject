@@ -7,14 +7,14 @@ package Sheduler;
  * @description: _______
  */
 public class Teacher {
-    private String name;
-    private double minutesTotal;
-    private double minutesScheduled;
-    private double minutesRemaining;
-    private double minutesUsed;
-    private Restrictions[] restrictions;
-    private Time[] classes;
-    private Time[] prepPeriods;
+    String name;
+    Time[] prepPeriods;
+    Restriction[] restrictions;
+    double minutesTotal;
+    double minutesUsed;
+    double minutesRemaining;
+    double minutesScheduled;
+
 
     // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
     // Yes, I am able to use information from the other classes in this class.
@@ -30,7 +30,7 @@ public class Teacher {
      * @param classes
      * @param prepPeriods
      */
-    public Teacher(String name, double minutesTotal, double minutesScheduled, double minutesRemaining, double minutesUsed, Restrictions[] restrictions, Time[] classes, Time[] prepPeriods) {
+    public Teacher(String name, double minutesTotal, double minutesScheduled, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesScheduled = minutesScheduled;
@@ -114,14 +114,14 @@ public class Teacher {
     /**
      * @return
      */
-    public Restrictions[] getRestrictions() {
+    public Restriction[] getRestrictions() {
         return restrictions;
     }
 
     /**
      * @param restrictions
      */
-    public void setRestrictions(Restrictions[] restrictions) {
+    public void setRestrictions(Restriction[] restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -184,14 +184,14 @@ public class Teacher {
     /**
      * @param time
      */
-    public void addRestriction(Restrictions time) {
+    public void addRestriction(Restriction time) {
         // TODO implement here
     }
 
     /**
      * @param time
      */
-    public void removeRestriction(Restrictions time) {
+    public void removeRestriction(Restriction time) {
         // TODO implement here
     }
 
