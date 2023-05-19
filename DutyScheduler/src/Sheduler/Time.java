@@ -30,7 +30,7 @@ public class Time {
     /**
      * Gets name.
      *
-     * @return name name
+     * @return The name
      */
     public String getName() {
         return name;
