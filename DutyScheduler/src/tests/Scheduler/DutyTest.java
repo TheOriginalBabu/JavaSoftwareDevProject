@@ -1,4 +1,4 @@
-package tests.Scheduler;
+package Scheduler;
 
 import static org.junit.jupiter.api.Assertions.*;
 

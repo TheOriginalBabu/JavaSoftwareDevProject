@@ -1,4 +1,4 @@
-package tests.Scheduler;
+package Scheduler;
 
 import Sheduler.Config;
 import org.junit.jupiter.api.Test;
