@@ -7,13 +7,13 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: FileReader
  */
-public class FileReader {
+public class FileReader {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
     String configPath;
     /**
-     * The Back up path.
+     * The Backup path.
      */
     String backUpPath;
     /**

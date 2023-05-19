@@ -7,5 +7,6 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: Generator
  */
-public class Generator {
+public class Generator {//todo: Error Trapping/Handling
+    //todo add methods and fields
 }

@@ -7,7 +7,7 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: Duty
  */
-public class Duty {
+public class Duty {//todo: Error Trapping/Handling
     private Time time;
     private Location location;
 

@@ -7,7 +7,7 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: FileWriter
  */
-public class FileWriter {
+public class FileWriter {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */

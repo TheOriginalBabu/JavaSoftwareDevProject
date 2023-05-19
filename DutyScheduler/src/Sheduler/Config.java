@@ -9,7 +9,7 @@ import java.util.Date;
  * @date: 2023 -05-11
  * @File: Config
  */
-public class Config {
+public class Config {//todo: Error Trapping/Handling
     /**
      * The Config file path.
      */

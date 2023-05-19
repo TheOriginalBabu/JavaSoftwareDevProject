@@ -9,7 +9,7 @@ import javax.swing.*;
  * @date: 2023 -05-18
  * @File: Controller
  */
-public class Controller {
+public class Controller {//todo: Error Trapping/Handling
     /**
      * The Config.
      */

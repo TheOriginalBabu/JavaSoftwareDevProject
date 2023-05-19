@@ -7,7 +7,7 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: Teacher
  */
-public class Teacher {
+public class Teacher {//todo: Error Trapping/Handling
     private String name;
     private Time[] prepPeriods; //todo convert to list or map
     private Time[] classes; //todo convert to list or map

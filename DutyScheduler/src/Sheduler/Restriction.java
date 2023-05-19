@@ -7,5 +7,6 @@ package Sheduler;
  * @date: 2023 -05-18
  * @File: Restriction
  */
-public class Restriction {
+public class Restriction {//todo: Error Trapping/Handling
+    //todo add methods and fields
 }

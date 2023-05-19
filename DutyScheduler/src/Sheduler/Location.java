@@ -7,7 +7,7 @@ package Sheduler;
  * @date: 2023 -05-17
  * @File: Location
  */
-public class Location {
+public class Location {//todo: Error Trapping/Handling
     private String name;
     private String description;
     private Time[] timesToWatch;

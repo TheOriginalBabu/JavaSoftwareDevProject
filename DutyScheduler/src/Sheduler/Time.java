@@ -9,7 +9,7 @@ import java.time.LocalTime;
  * @date: 2023 -05-17
  * @File: Time
  */
-public class Time {
+public class Time {//todo: Error Trapping/Handling
     private String name;
     private LocalTime startTime;
     private LocalTime endTime;
