@@ -160,6 +160,7 @@ Classes
         Fields:
             - Name
             - Description
+            - TimesToWatch
         Methods:
             - Location(name, description)
             - getLocation
@@ -168,6 +169,9 @@ Classes
             - getDescription
                 - Returns a string
             - setDescription(string)
+            - setTimesToWatch(Time)
+            - getTimesToWatch
+                - Returns an array of Time objects
     - Restriction: Stores information about a restriction
         Fields:
                 - Teacher

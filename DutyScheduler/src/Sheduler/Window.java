@@ -9,10 +9,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
+ * The type Window. TODO: Add description
+ *
  * @author: Griffin, Izaan, Ronit, Shahmeer
- * @date: 2023-05-11
- * @File Name: Window
- * @description: _______
+ * @date: 2023 -05-11
+ * @File: Window
  */
 public class Window extends JFrame {
 
@@ -54,6 +55,9 @@ public class Window extends JFrame {
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
 
+    /**
+     * Instantiates a new Window.
+     */
     public Window() {
 
         // Calls a method that initializes the main window
@@ -167,6 +171,9 @@ public class Window extends JFrame {
                         LocationDropDownS3.addItem(location);
                         listModel.addElement(location);
                     }
+                    LocationListS4.setModel(listModel);
+                    LocationListS4.revalidate();
+                    LocationListS4.repaint();
                     for (String time : timesArr) { // Adds time names to the dropdown menu
                         TimesDropDownS1.addItem(time);
                         TimeDropDownS4.addItem(time);
@@ -200,7 +207,5 @@ public class Window extends JFrame {
         LocationListS4.setVisibleRowCount(-1);
 
         LocationListScrollPaneS4.setViewportView(LocationListS4);
-        listModel.addElement("Location");
-        LocationListS4 = new JList<>(listModel);
     }
 }

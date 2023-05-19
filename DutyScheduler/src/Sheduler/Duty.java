@@ -1,10 +1,69 @@
 package Sheduler;
 
 /**
+ * The type Duty. TODO: Add description
+ *
  * @author: Griffin, Izaan, Ronit, Shahmeer
- * @date: 2023-05-17
- * @File Name: Duty
- * @description: _______
+ * @date: 2023 -05-17
+ * @File: Duty
  */
 public class Duty {
+    private Time time;
+    private Location location;
+
+    /**
+     * Instantiates a new Duty.
+     *
+     * @param time     the time
+     * @param location the location
+     */
+    public Duty(Time time, Location location) {
+        this.time = time;
+        this.location = location;
+    }
+
+    /**
+     * Gets time.
+     *
+     * @return time time
+     */
+    public Time getTime() {
+        return time;
+    }
+
+    /**
+     * Sets time.
+     *
+     * @param newTime the new time
+     */
+    public void setTime(Time newTime) {
+        time = newTime;
+    }
+
+    /**
+     * Gets location.
+     *
+     * @return location location
+     */
+    public Location getLocation() {
+        return location;
+    }
+
+    /**
+     * Sets location.
+     *
+     * @param location the location
+     */
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return time + " " + location;
+    }
 }

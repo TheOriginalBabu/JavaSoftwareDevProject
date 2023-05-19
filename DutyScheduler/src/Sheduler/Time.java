@@ -1,18 +1,101 @@
 package Sheduler;
 
+import java.time.LocalTime;
+
 /**
+ * The type Time. TODO: Add description
+ *
  * @author: Griffin, Izaan, Ronit, Shahmeer
- * @date: 2023-05-17
- * @File Name: Time
- * @description: _______
+ * @date: 2023 -05-17
+ * @File: Time
  */
 public class Time {
-    //Hey copilot can yoy please use CodeOutline to make the outline of the code for this class. Please large chunks of code at a time and not line by line. Thanks
+    private String name;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    private int day;
-    private int hour;
-    private int minute;
-    private int duration;
-    private Location location;
-    private Duty duty;
+    /**
+     * Instantiates a new Time.
+     *
+     * @param name      the name
+     * @param startTime the start time
+     * @param endTime   the end time
+     */
+    public Time(String name, LocalTime startTime, LocalTime endTime) {
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return name name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Gets start time.
+     *
+     * @return start time
+     */
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Sets start time.
+     *
+     * @param startTime the start time
+     */
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    /**
+     * Gets end time.
+     *
+     * @return end time
+     */
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * Sets end time.
+     *
+     * @param endTime the end time
+     */
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
+     * Gets duration.
+     *
+     * @return duration duration
+     */
+    public int getDuration() {
+        return (endTime.getHour() - startTime.getHour()) * 60 + (endTime.getMinute() - startTime.getMinute());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return name + " " + startTime + " " + endTime;
+    }
 }

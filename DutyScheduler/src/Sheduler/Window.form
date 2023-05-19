@@ -298,6 +298,8 @@
                       <component id="eac51" class="javax.swing.JList" binding="LocationListS4">
                         <constraints/>
                         <properties>
+                          <dropMode value="ON"/>
+                          <enabled value="true"/>
                           <model/>
                           <visible value="true"/>
                         </properties>
