@@ -177,7 +177,6 @@ Classes
                 - Teacher
                 - Time
                 - Date
-                - availableBool
         Methods:
             - Restriction(Teacher, Time, availableBool, Date)
             - getTeacher
