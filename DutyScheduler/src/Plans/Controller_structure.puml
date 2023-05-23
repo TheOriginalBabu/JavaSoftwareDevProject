@@ -1,0 +1,317 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Sheduler.Controller",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_577039016 { 
+   	label=Sheduler
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Config577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Config</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   backupDate: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   backupFilePath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   configFilePath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   lastDateOpened: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   openNumber: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   storageFilePath: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Controller577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Controller</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   config: Config [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   duty: Duty [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fileReader: FileReader [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fileWriter: FileWriter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   generator: Generator [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   location: Location [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   restriction: Restriction [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   teacher: Teacher [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   teacherDuty: TeacherDuty [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   time: Time [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Duty577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Duty</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   location: Location [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   time: Time [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+FileReader577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FileReader</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   backUpPath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   configPath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   storagePath: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+FileWriter577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FileWriter</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   backUpPath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   configPath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   storagePath: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Generator577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Generator</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Location577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Location</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   timesToWatch: Time[] [0..*]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Restriction577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Restriction</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   date: Date [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacher: Teacher [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   time: Time [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Teacher577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Teacher</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   classes: Time[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minutesRemaining: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minutesScheduled: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minutesTotal: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minutesUsed: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   prepPeriods: Time[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   restrictions: Restriction[] [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addClass(time: Time)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addMinutesRemaining(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addMinutesScheduled(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addMinutesTotal(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addMinutesUsed(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addPrepPeriod(time: Time)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addRestriction(time: Restriction)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeClass(time: Time)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeMinutesRemaining(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeMinutesScheduled(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeMinutesTotal(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeMinutesUsed(time: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removePrepPeriod(time: Time)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeRestriction(time: Restriction)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TeacherDuty577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TeacherDuty</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   duty: Duty [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teacher: Teacher [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Time577039016[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Time</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   endTime: LocalTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: LocalTime [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Controller577039016 -> Config577039016[label="config
+[0..1]"];
+Controller577039016 -> Duty577039016[label="duty
+[0..1]"];
+Controller577039016 -> FileReader577039016[label="fileReader
+[0..1]"];
+Controller577039016 -> FileWriter577039016[label="fileWriter
+[0..1]"];
+Controller577039016 -> Generator577039016[label="generator
+[0..1]"];
+Controller577039016 -> Location577039016[label="location
+[0..1]"];
+Controller577039016 -> Restriction577039016[label="restriction
+[0..1]"];
+Controller577039016 -> Teacher577039016[label="teacher
+[0..1]"];
+Controller577039016 -> TeacherDuty577039016[label="teacherDuty
+[0..1]"];
+Controller577039016 -> Time577039016[label="time
+[0..1]"];
+Duty577039016 -> Location577039016[label="location
+[0..1]"];
+Duty577039016 -> Time577039016[label="time
+[0..1]"];
+Location577039016 -> Time577039016[label="timesToWatch
+[0..*]"];
+Restriction577039016 -> Teacher577039016[label="teacher
+[0..1]"];
+Restriction577039016 -> Time577039016[label="time
+[0..1]"];
+Teacher577039016 -> Restriction577039016[label="restrictions
+[0..*]"];
+Teacher577039016 -> Time577039016[label="classes
+[0..*]"];
+Teacher577039016 -> Time577039016[label="prepPeriods
+[0..*]"];
+TeacherDuty577039016 -> Duty577039016[label="duty
+[0..1]"];
+TeacherDuty577039016 -> Teacher577039016[label="teacher
+[0..1]"];
+    
+}
+@enduml
