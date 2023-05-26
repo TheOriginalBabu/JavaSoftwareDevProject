@@ -35,11 +35,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "settings.editor.selected.configurable": "settings.sync",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -63,6 +63,9 @@
       <workItem from="1684154587815" duration="1514000" />
       <workItem from="1684164768892" duration="14000" />
       <workItem from="1684857509212" duration="2298000" />
+      <workItem from="1685117401830" duration="53000" />
+      <workItem from="1685117479847" duration="32000" />
+      <workItem from="1685117527997" duration="83000" />
     </task>
     <servers />
   </component>

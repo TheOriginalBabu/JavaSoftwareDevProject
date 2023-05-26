@@ -69,10 +69,6 @@ public class Window extends JFrame {
         Frame.add(optionsPage, "OptionsPage");
         Frame.add(SetupPage, "SetupPage");
 
-        ImageIcon icon = new ImageIcon("resources/icon.png"); // Replace "icon.png" with the name of your image file
-        myButton.setIcon(icon);
-
-
         // Sets the main window to be visible
         setVisible(true);
 
