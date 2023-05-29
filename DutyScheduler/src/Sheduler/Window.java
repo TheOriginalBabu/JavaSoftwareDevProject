@@ -191,8 +191,8 @@ public class Window extends JFrame {
     private void windowInit() {
         setContentPane(Frame); // Setting main content pane
         setTitle("Duty Scheduler"); // Title at top of window
-        setSize(500, 700); // Default Size of window
-        setResizable(true); // Allows the window to be resized
+        setSize(630, 855); // Default Size of window
+        setResizable(false); // Allows the window to be resized
         //todo implement when window closed windowClose();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Sets the close button to close the program when clicked
     }
