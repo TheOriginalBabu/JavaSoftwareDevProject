@@ -50,6 +50,8 @@ public class Window extends JFrame {
     private JScrollPane LocationListScrollPaneS4;
     private JButton scheduleViewButton;
     private JComboBox LocationDropDownSG;
+    private JPanel EditSchedulePage;
+    private JComboBox ChooseSchedule;
     private DefaultListModel<String> listModel = new DefaultListModel<>();
     private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
     private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
