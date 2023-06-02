@@ -211,4 +211,8 @@ public class Window extends JFrame {
 
         LocationListScrollPaneS4.setViewportView(LocationListS4);
     }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
