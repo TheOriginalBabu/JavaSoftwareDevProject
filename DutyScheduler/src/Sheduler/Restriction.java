@@ -10,46 +10,74 @@ import java.util.Date;
  * @File: Restriction
  */
 public class Restriction {//todo: Error Trapping/Handling
-    private Teacher teacher;
     private String description;
     private Date date;
     private Time time;
+    private boolean isAvailable;
 
-    public Restriction(Teacher teacher, String description, Date date, Time time) {
-        this.teacher = teacher;
+    /**
+     * Instantiates a new Restriction.
+     *
+     * @param description the description
+     * @param date        the date
+     * @param time        the time
+     */
+    public Restriction(String description, Date date, Time time) {
         this.description = description;
         this.date = date;
         this.time = time;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Sets date.
+     *
+     * @param date the date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public Time getTime() {
         return time;
     }
 
+    /**
+     * Sets time.
+     *
+     * @param time the time
+     */
     public void setTime(Time time) {
         this.time = time;
     }

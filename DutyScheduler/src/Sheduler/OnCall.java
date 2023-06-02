@@ -14,9 +14,8 @@ public class OnCall extends Duty{
      *
      * @param time     the time
      * @param location the location
-     * @param teacher the teacher
      */
-    public OnCall(Time time, Location location, Teacher teacher) {
-        super(time, location, teacher);
+    public OnCall(Time time, Location location) {
+        super(time, location);
     }
 }

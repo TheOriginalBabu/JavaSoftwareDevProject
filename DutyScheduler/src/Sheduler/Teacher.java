@@ -1,5 +1,7 @@
 package Sheduler;
 
+import java.util.Date;
+
 /**
  * The type Teacher. TODO: Add description
  *
@@ -16,6 +18,7 @@ public class Teacher {//todo: Error Trapping/Handling
     private double minutesUsed;
     private double minutesRemaining;
     private double minutesScheduled;
+    private SupervisionDuty[] recentSupervisions;
 
 
     // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
@@ -25,16 +28,17 @@ public class Teacher {//todo: Error Trapping/Handling
     /**
      * Instantiates a new Teacher.
      *
-     * @param name             the name
-     * @param minutesTotal     the minutes total
-     * @param minutesScheduled the minutes scheduled
-     * @param minutesRemaining the minutes remaining
-     * @param minutesUsed      the minutes used
-     * @param restrictions     the restrictions
-     * @param classes          the classes
-     * @param prepPeriods      the prep periods
+     * @param name               the name
+     * @param minutesTotal       the minutes total
+     * @param minutesScheduled   the minutes scheduled
+     * @param minutesRemaining   the minutes remaining
+     * @param minutesUsed        the minutes used
+     * @param restrictions       the restrictions
+     * @param classes            the classes
+     * @param prepPeriods        the prep periods
+     * @param recentSupervisions the recent supervisions
      */
-    public Teacher(String name, double minutesTotal, double minutesScheduled, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods) {
+    public Teacher(String name, double minutesTotal, double minutesScheduled, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesScheduled = minutesScheduled;
@@ -43,12 +47,13 @@ public class Teacher {//todo: Error Trapping/Handling
         this.restrictions = restrictions;
         this.classes = classes;
         this.prepPeriods = prepPeriods;
+        this.recentSupervisions = recentSupervisions;
     }
 
     /**
      * Gets name.
      *
-     * @return name
+     * @return name name
      */
     public String getName() {
         return name;
@@ -313,5 +318,78 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public void removeMinutesTotal(double time) {
         // TODO implement here
+    }
+
+    /**
+     * Gets recent supervisions.
+     *
+     * @return recent supervisions
+     */
+    public SupervisionDuty[] getRecentSupervisions() {
+        return recentSupervisions;
+    }
+
+    /**
+     * Sets recent supervisions.
+     *
+     * @param recentSupervisions the recent supervisions
+     */
+    public void setRecentSupervisions(SupervisionDuty[] recentSupervisions) {
+        this.recentSupervisions = recentSupervisions;
+    }
+
+    /**
+     * Checks to see if teacher has been assigned to a duty at the same location in the last month.
+     * @param duty
+     * @return
+     */
+    private boolean hasRecentSupervision(Duty duty) {
+        for (SupervisionDuty supervisionDuty : recentSupervisions) {
+            if (supervisionDuty.getLocation().equals(duty.getLocation())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks to see if the time of the duty is during a class.
+     * @param time
+     * @return
+     */
+    private boolean isClassTime(Time time) {
+        for (Time classTime : classes) {
+            if (classTime.equals(time)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks to see if the teacher has a restriction on the date of the duty.
+     * @param duty Duty to be checked
+     * @param date Date to be checked
+     * @return True if the teacher has a restriction on the date/time of the duty, false otherwise
+     */
+    private boolean hasRestriction(Duty duty, Date date) {
+        for (Restriction restriction : restrictions) {
+            if (restriction.getDate().equals(date) && restriction.getTime().equals(duty.getTime())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Is available boolean.
+     *
+     * @param duty the duty
+     * @param date the date
+     * @return the boolean
+     */
+    public boolean isAvailable (Duty duty, Date date){
+        // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
+        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestriction(duty, date);
     }
 }

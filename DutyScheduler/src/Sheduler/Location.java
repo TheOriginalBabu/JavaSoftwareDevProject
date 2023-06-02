@@ -28,7 +28,7 @@ public class Location {//todo: Error Trapping/Handling
     /**
      * Gets name.
      *
-     * @return name
+     * @return name name
      */
     public String getName() {
         return name;
@@ -46,7 +46,7 @@ public class Location {//todo: Error Trapping/Handling
     /**
      * Gets description.
      *
-     * @return description
+     * @return description description
      */
     public String getDescription() {
         return description;

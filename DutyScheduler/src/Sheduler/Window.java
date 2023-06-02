@@ -70,6 +70,7 @@ public class Window extends JFrame {
         Frame.add(ScheduleGeneratorPage, "ScheduleGeneratorPage");
         Frame.add(optionsPage, "OptionsPage");
         Frame.add(SetupPage, "SetupPage");
+        Frame.add(EditSchedulePage, "EditSchedulePage");
         
 
         // Sets the main window to be visible

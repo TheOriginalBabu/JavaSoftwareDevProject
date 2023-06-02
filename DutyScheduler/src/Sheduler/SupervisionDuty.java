@@ -9,14 +9,14 @@ package Sheduler;
  */
 public class SupervisionDuty extends Duty{
 
-        /**
-        * Instantiates a new Duty.
-        *
-        * @param time     the time
-        * @param location the location
-        * @param teacher the teacher
-        */
-        public SupervisionDuty(Time time, Location location, Teacher teacher) {
-            super(time, location, teacher);
+    /**
+     * Instantiates a new Duty.
+     *
+     * @param time     the time
+     * @param location the location
+     * @param teacher  the teacher
+     */
+    public SupervisionDuty(Time time, Location location, Teacher teacher) {
+            super(time, location);
         }
 }
