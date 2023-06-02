@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * The type Controller. TODO: Add description
  *
- * @author: Griffin Robinson
+ * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023 -05-18
  * @File: Controller
  */
