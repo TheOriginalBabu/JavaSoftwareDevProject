@@ -3,7 +3,7 @@ package Sheduler;
 /**
  * The type Teacher duty. TODO: Add description
  *
- * @author: Griffin Robinson
+ * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023 -05-17
  * @File: TeacherDuty
  */

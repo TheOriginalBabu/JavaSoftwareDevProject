@@ -1,10 +1,11 @@
 package Sheduler;
 
 /**
- * @author: Griffin Robinson
- * @date: 2023-06-01
- * @File Name: SupervisionDuty
- * @description: _______
+ * The type SuperVisionDuty. TODO: Add description
+ *
+ * @author: Griffin, Izaan, Ronit, Shahmeer
+ * @date: 2023 -05-18
+ * @File: Restriction
  */
 public class SupervisionDuty extends Duty{
 

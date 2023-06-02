@@ -1,10 +1,11 @@
 package Sheduler;
 
 /**
- * @author: Griffin Robinson
- * @date: 2023-06-01
- * @File Name: OnCall
- * @description: _______
+ * The type OnCall. TODO: Add description
+ *
+ * @author: Griffin, Izaan, Ronit, Shahmeer
+ * @date: 2023 -05-17
+ * @File: OnCall
  */
 public class OnCall extends Duty{
 
