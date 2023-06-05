@@ -19,6 +19,7 @@ public class Teacher {//todo: Error Trapping/Handling
     private double minutesRemaining;
     private double minutesScheduled;
     private SupervisionDuty[] recentSupervisions;
+    private Duty currentDuty;
 
 
     // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
@@ -339,9 +340,27 @@ public class Teacher {//todo: Error Trapping/Handling
     }
 
     /**
+     * Gets currentDuty.
+     *
+     * @return the current duty
+     */
+    public Duty getCurrentDuty() {
+        return currentDuty;
+    }
+
+    /**
+     * Sets currentDuty.
+     *
+     * @param currentDuty the current duty
+     */
+    public void setCurrentDuty(Duty currentDuty) {
+        this.currentDuty = currentDuty;
+    }
+
+    /**
      * Checks to see if teacher has been assigned to a duty at the same location in the last month.
-     * @param duty
-     * @return
+     * @param duty Duty to be checked
+     * @return True if teacher has been assigned to a duty at the same location in the last month, false otherwise
      */
     private boolean hasRecentSupervision(Duty duty) {
         for (SupervisionDuty supervisionDuty : recentSupervisions) {
@@ -353,9 +372,17 @@ public class Teacher {//todo: Error Trapping/Handling
     }
 
     /**
+     * Checks to see if the teacher has a duty at the same time as another duty.
+     * @param duty Duty to be checked
+     */
+    private boolean hasDutyAtSameTime(Duty duty) {
+        return duty.getTime().equals(currentDuty.getTime());
+    }
+
+    /**
      * Checks to see if the time of the duty is during a class.
-     * @param time
-     * @return
+     * @param time Time to be checked
+     * @return True if the time of the duty is during a class, false otherwise
      */
     private boolean isClassTime(Time time) {
         for (Time classTime : classes) {
@@ -372,9 +399,24 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param date Date to be checked
      * @return True if the teacher has a restriction on the date/time of the duty, false otherwise
      */
-    private boolean hasRestriction(Duty duty, Date date) {
+    private boolean hasRestrictionOnDay(Duty duty, Date date) {
         for (Restriction restriction : restrictions) {
             if (restriction.getDate().equals(date) && restriction.getTime().equals(duty.getTime())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks to see if the teacher has a restriction on the week of the duty.
+     * @param duty Duty to be checked
+     * @param week Week to be checked
+     * @return True if the teacher has a restriction on the week/time of the duty, false otherwise
+     */
+    private boolean hasRestrictionOnWeek(Duty duty, int week) {
+        for (Restriction restriction : restrictions) {
+            if (restriction.getWeek() == week && restriction.getTime().equals(duty.getTime())) {
                 return true;
             }
         }
@@ -385,11 +427,21 @@ public class Teacher {//todo: Error Trapping/Handling
      * Is available boolean.
      *
      * @param duty the duty
-     * @param date the date
      * @return the boolean
      */
-    public boolean isAvailable (Duty duty, Date date){
+    public boolean isAvailable (Duty duty){
         // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
-        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestriction(duty, date);
+        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+    }
+
+    /**
+     * Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
+     *
+     * @param duty the duty
+     * @param week the week
+     * @return the boolean
+     */
+    public boolean isAvailable (Duty duty, int week) {
+        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, week);
     }
 }

@@ -11,6 +11,7 @@ public class Location {//todo: Error Trapping/Handling
     private String name;
     private String description;
     private Time[] timesToWatch;
+    private Restriction restriction;
 
     /**
      * Instantiates a new Location.
@@ -28,7 +29,7 @@ public class Location {//todo: Error Trapping/Handling
     /**
      * Gets name.
      *
-     * @return name name
+     * @return name
      */
     public String getName() {
         return name;
@@ -80,8 +81,26 @@ public class Location {//todo: Error Trapping/Handling
     }
 
     /**
+     * Gets restriction.
      *
-     * @return
+     * @return restriction restriction
+     */
+    public Restriction getRestriction() {
+        return restriction;
+    }
+
+    /**
+     * Sets restriction.
+     *
+     * @param newRestriction the new restriction
+     */
+    public void setRestriction(Restriction newRestriction) {
+        restriction = newRestriction;
+    }
+
+    /**
+     *
+     * @return location as a string
      */
     @Override
     public String toString() {

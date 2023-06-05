@@ -1,5 +1,7 @@
 package Sheduler;
 
+import java.util.Date;
+
 /**
  * The type Duty. TODO: Add description
  *
@@ -62,8 +64,14 @@ public abstract class Duty {//todo: Error Trapping/Handling
      *
      * @return String representation of Duty object
      */
-    @Override
     public String toString() {
         return time + " " + location;
     }
+
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
+    public abstract Date getDate();
 }
