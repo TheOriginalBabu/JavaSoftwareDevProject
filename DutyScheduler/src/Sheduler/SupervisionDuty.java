@@ -1,5 +1,7 @@
 package Sheduler;
 
+import java.util.Date;
+
 /**
  * The type SuperVisionDuty. TODO: Add description
  *
@@ -19,4 +21,8 @@ public class SupervisionDuty extends Duty{
     public SupervisionDuty(Time time, Location location, Teacher teacher) {
             super(time, location);
         }
+
+    public Date getDate() {
+        return null;
+    }
 }

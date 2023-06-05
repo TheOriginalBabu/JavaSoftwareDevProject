@@ -52,10 +52,10 @@ public class Window extends JFrame {
     private JComboBox LocationDropDownSG;
     private JPanel EditSchedulePage;
     private JComboBox ChooseSchedule;
-    private DefaultListModel<String> listModel = new DefaultListModel<>();
-    private ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
-    private ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
-    private ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
+    private final DefaultListModel<String> listModel = new DefaultListModel<>();
+    private final ArrayList<String> teachersArr = new ArrayList<String>(); //todo Change to hashmap
+    private final ArrayList<String> locationsArr = new ArrayList<String>(); //todo Change to hashmap
+    private final ArrayList<String> timesArr = new ArrayList<String>(); //todo Change to hashmap
 
     /**
      * Instantiates a new Window.
