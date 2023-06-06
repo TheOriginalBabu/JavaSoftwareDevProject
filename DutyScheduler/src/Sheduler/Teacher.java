@@ -429,7 +429,7 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param duty the duty
      * @return the boolean
      */
-    public boolean isAvailable (Duty duty){
+    public boolean isAvailable (OnCall duty){
         // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
         return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
     }
@@ -438,10 +438,9 @@ public class Teacher {//todo: Error Trapping/Handling
      * Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
      *
      * @param duty the duty
-     * @param week the week
      * @return the boolean
      */
-    public boolean isAvailable (Duty duty, int week) {
-        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, week);
+    public boolean isAvailable (SupervisionDuty duty) {
+        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
     }
 }

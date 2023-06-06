@@ -11,18 +11,35 @@ import java.util.Date;
  */
 public class SupervisionDuty extends Duty{
 
+    private int week;
+
     /**
      * Instantiates a new Duty.
      *
      * @param time     the time
      * @param location the location
      * @param teacher  the teacher
+     * @param week     the week
      */
-    public SupervisionDuty(Time time, Location location, Teacher teacher) {
-            super(time, location);
+    public SupervisionDuty(Time time, Location location, Teacher teacher, int week) {
+            super(time, location, teacher);
         }
 
-    public Date getDate() {
-        return null;
+    /**
+     * Gets week.
+     *
+     * @return the week
+     */
+    public int getWeek() {
+        return week;
+    }
+
+    /**
+     * Sets week.
+     *
+     * @param newWeek the new week
+     */
+    public void setWeek(int newWeek) {
+        week = newWeek;
     }
 }

@@ -9,7 +9,7 @@ package Sheduler;
  */
 public class SupervisionGenerator extends Generator {
 
-    private final Duty[] duties;
+    private final SupervisionDuty[] duties;
     private final Teacher[] teachers;
     private final int week;
 
@@ -20,7 +20,7 @@ public class SupervisionGenerator extends Generator {
      * @param teachers the teachers
      * @param week     the week
      */
-    public SupervisionGenerator(Duty[] duties, Teacher[] teachers, int week) {
+    public SupervisionGenerator(SupervisionDuty[] duties, Teacher[] teachers, int week) {
         this.duties = duties;
         this.teachers = teachers;
         this.week = week;
@@ -30,7 +30,7 @@ public class SupervisionGenerator extends Generator {
      * Generate.
      */
     public void generate() {
-        for (Duty duty : duties) {
+        for (SupervisionDuty duty : duties) {
             findBestTeacher(duty);
         }
     }
@@ -44,11 +44,11 @@ public class SupervisionGenerator extends Generator {
      * @param duty the duty to find a teacher for
      * @return teacher with most minutes available and that hasn't been assigned to the duty recently
      */
-    private Teacher findBestTeacher(Duty duty) {
+    private Teacher findBestTeacher(SupervisionDuty duty) {
         Teacher bestTeacher = null;
         double bestMinutesAvailable = 0.0;
         for (Teacher teacher : teachers) {
-            if (teacher.isAvailable(duty, week)) {
+            if (teacher.isAvailable(duty)) {
                 double minutesAvailable = teacher.getMinutesRemaining();
                 if (minutesAvailable > bestMinutesAvailable) {
                     bestTeacher = teacher;

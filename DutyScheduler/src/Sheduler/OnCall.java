@@ -20,8 +20,8 @@ public class OnCall extends Duty{
      * @param location the location
      * @param date     the date
      */
-    public OnCall(Time time, Location location, Date date) {
-        super(time, location);
+    public OnCall(Time time, Location location, Teacher teacher,Date date) {
+        super(time, location, teacher);
         this.date = date;
     }
 

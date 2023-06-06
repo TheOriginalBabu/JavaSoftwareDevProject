@@ -9,7 +9,7 @@ package Sheduler;
  */
 public class OnCallGenerator extends Generator {
 
-    private final Duty[] duties;
+    private final OnCall[] duties;
     private final Teacher[] teachers;
 
 
@@ -19,7 +19,7 @@ public class OnCallGenerator extends Generator {
      * @param duties   the duties
      * @param teachers the teachers
      */
-    public OnCallGenerator(Duty[] duties, Teacher[] teachers) {
+    public OnCallGenerator(OnCall[] duties, Teacher[] teachers) {
         this.duties = duties;
         this.teachers = teachers;
     }
@@ -28,7 +28,7 @@ public class OnCallGenerator extends Generator {
      * Generate.
      */
     public void generate() {
-        for (Duty duty : duties) {
+        for (OnCall duty : duties) {
             findBestTeacher(duty);
         }
     }
@@ -42,7 +42,7 @@ public class OnCallGenerator extends Generator {
      * @param duty the duty to find a teacher for
      * @return teacher with most minutes available and that hasn't been assigned to the duty recently
      */
-    private Teacher findBestTeacher(Duty duty) {
+    public Teacher findBestTeacher(OnCall duty) {
         Teacher bestTeacher = null;
         double bestMinutesAvailable = 0.0;
         for (Teacher teacher : teachers) {
@@ -54,6 +54,7 @@ public class OnCallGenerator extends Generator {
                 }
             }
         }
+        // todo: Add error handling (if bestTeacher is null)
         return bestTeacher;
     }
 }

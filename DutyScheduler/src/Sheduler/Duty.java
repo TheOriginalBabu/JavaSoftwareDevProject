@@ -12,6 +12,7 @@ import java.util.Date;
 public abstract class Duty {//todo: Error Trapping/Handling
     private Time time;
     private Location location;
+    private Teacher teacher;
 
     /**
      * Instantiates a new Duty.
@@ -19,15 +20,16 @@ public abstract class Duty {//todo: Error Trapping/Handling
      * @param time     the time
      * @param location the location
      */
-    public Duty(Time time, Location location) {
+    public Duty(Time time, Location location, Teacher teacher) {
         this.time = time;
         this.location = location;
+        this.teacher = teacher;
     }
 
     /**
      * Gets time.
      *
-     * @return time time
+     * @return time
      */
     public Time getTime() {
         return time;
@@ -61,17 +63,28 @@ public abstract class Duty {//todo: Error Trapping/Handling
     }
 
     /**
+     * Gets teacher.
+     *
+     * @return teacher teacher
+     */
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    /**
+     * Sets teacher.
+     *
+     * @param teacher the teacher
+     */
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    /**
      *
      * @return String representation of Duty object
      */
     public String toString() {
         return time + " " + location;
     }
-
-    /**
-     * Gets date.
-     *
-     * @return the date
-     */
-    public abstract Date getDate();
 }
