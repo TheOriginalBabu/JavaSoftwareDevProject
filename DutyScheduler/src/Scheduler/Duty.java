@@ -1,6 +1,4 @@
-package Sheduler;
-
-import java.util.Date;
+package Scheduler;
 
 /**
  * The type Duty. TODO: Add description
@@ -65,7 +63,7 @@ public abstract class Duty {//todo: Error Trapping/Handling
     /**
      * Gets teacher.
      *
-     * @return teacher teacher
+     * @return teacher
      */
     public Teacher getTeacher() {
         return teacher;

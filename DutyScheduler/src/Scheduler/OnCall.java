@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 import java.util.Date;
 
@@ -18,6 +18,7 @@ public class OnCall extends Duty{
      *
      * @param time     the time
      * @param location the location
+     * @param teacher  the teacher
      * @param date     the date
      */
     public OnCall(Time time, Location location, Teacher teacher,Date date) {

@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 /**
  * The type Location. TODO: Add description

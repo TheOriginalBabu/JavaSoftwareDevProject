@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 /**
  * The type supervisionGenerator. /TODO: Add description
@@ -46,7 +46,7 @@ public class SupervisionGenerator extends Generator {
      */
     private Teacher findBestTeacher(SupervisionDuty duty) {
         Teacher bestTeacher = null;
-        double bestMinutesAvailable = 0.0;
+        double bestMinutesAvailable = 0d;
         for (Teacher teacher : teachers) {
             if (teacher.isAvailable(duty)) {
                 double minutesAvailable = teacher.getMinutesRemaining();

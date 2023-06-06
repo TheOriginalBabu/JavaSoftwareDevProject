@@ -1,19 +1,19 @@
-package Sheduler;
+package Scheduler;
 
 /**
- * The type File reader. TODO: Add description
+ * The type File writer. TODO: Add description
  *
  * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023 -05-17
- * @File: FileReader
+ * @File: FileWriter
  */
-public class FileReader {//todo: Error Trapping/Handling
+public class FileWriter {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
     String configPath;
     /**
-     * The Backup path.
+     * The Back-up path.
      */
     String backUpPath;
     /**
@@ -22,9 +22,9 @@ public class FileReader {//todo: Error Trapping/Handling
     String storagePath;
 
     /**
-     * Instantiates a new File reader.
+     * Instantiates a new File writer.
      */
-    public FileReader() {
+    public FileWriter() {
         // initialization here
     }
 

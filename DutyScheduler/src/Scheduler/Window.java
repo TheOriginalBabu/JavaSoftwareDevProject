@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 import javax.swing.*;
 import java.awt.*;

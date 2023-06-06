@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Sheduler.Window">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Scheduler.Window">
   <grid id="27dc6" binding="Frame" layout-manager="CardLayout" hgap="0" vgap="0" show="763f8">
     <constraints>
       <xy x="20" y="20" width="614" height="630"/>

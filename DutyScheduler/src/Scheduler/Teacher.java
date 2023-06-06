@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 import java.util.Date;
 
@@ -17,7 +17,6 @@ public class Teacher {//todo: Error Trapping/Handling
     private double minutesTotal;
     private double minutesUsed;
     private double minutesRemaining;
-    private double minutesScheduled;
     private SupervisionDuty[] recentSupervisions;
     private Duty currentDuty;
 
@@ -31,7 +30,6 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @param name               the name
      * @param minutesTotal       the minutes total
-     * @param minutesScheduled   the minutes scheduled
      * @param minutesRemaining   the minutes remaining
      * @param minutesUsed        the minutes used
      * @param restrictions       the restrictions
@@ -39,10 +37,9 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param prepPeriods        the prep periods
      * @param recentSupervisions the recent supervisions
      */
-    public Teacher(String name, double minutesTotal, double minutesScheduled, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions) {
+    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions) {
         this.name = name;
         this.minutesTotal = minutesTotal;
-        this.minutesScheduled = minutesScheduled;
         this.minutesRemaining = minutesRemaining;
         this.minutesUsed = minutesUsed;
         this.restrictions = restrictions;
@@ -85,24 +82,6 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public void setMinutesTotal(double minutesTotal) {
         this.minutesTotal = minutesTotal;
-    }
-
-    /**
-     * Gets minutes scheduled.
-     *
-     * @return minutes scheduled
-     */
-    public double getMinutesScheduled() {
-        return minutesScheduled;
-    }
-
-    /**
-     * Sets minutes scheduled.
-     *
-     * @param minutesScheduled the minutes scheduled
-     */
-    public void setMinutesScheduled(double minutesScheduled) {
-        this.minutesScheduled = minutesScheduled;
     }
 
     /**

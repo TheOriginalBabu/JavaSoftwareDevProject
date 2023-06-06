@@ -1,6 +1,4 @@
-package Sheduler;
-
-import java.util.Date;
+package Scheduler;
 
 /**
  * The type Generator. TODO: Add description

@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 import java.time.LocalTime;
 

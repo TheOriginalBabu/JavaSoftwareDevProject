@@ -1,4 +1,4 @@
-package Sheduler;
+package Scheduler;
 
 /**
  * The type OnCallGenerator. /TODO: Add description
