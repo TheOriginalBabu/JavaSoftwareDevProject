@@ -8,10 +8,13 @@ package Sheduler;
  * @File: FileReader
  */
 public class FileReader {//todo: Error Trapping/Handling
+    // built based off https://chat.openai.com/share/67057196-fef5-47f6-92e6-ad2a87d123de
+
     /**
      * The Config path.
      */
-    String configPath;
+
+    String configPath = "Data/config.csv";
     /**
      * The Backup path.
      */
