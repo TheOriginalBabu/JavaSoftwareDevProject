@@ -30,13 +30,7 @@ public class Controller {//todo: Error Trapping/Handling
      * The Teacher.
      */
     Teacher teacher;
-    /**
-     * The Teacher duty.
-     */
-    TeacherDuty teacherDuty;
-    /**
-     * The Duty.
-     */
+
     Duty duty;
     /**
      * The Time.
