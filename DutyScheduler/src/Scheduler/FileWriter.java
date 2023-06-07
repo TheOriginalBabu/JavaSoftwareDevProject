@@ -11,15 +11,15 @@ public class FileWriter {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
-    String configPath;
+    private String configPath;
     /**
      * The Back-up path.
      */
-    String backUpPath;
+    private String backUpPath;
     /**
      * The Storage path.
      */
-    String storagePath;
+    private String storagePath;
 
     /**
      * Instantiates a new File writer.

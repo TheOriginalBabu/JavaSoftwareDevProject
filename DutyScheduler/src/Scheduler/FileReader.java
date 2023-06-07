@@ -13,43 +13,43 @@ public class FileReader {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
-    File configPath;
+    private File configPath;
     /**
      * The Backup path.
      */
-    File backUpPath;
+    private File backUpPath;
     /**
      * The Storage path.
      */
-    File storagePath;
+    private File storagePath;
 
     /**
      * Instantiates a new File reader.
      */
     public FileReader(File configFile) {
         this.configPath = configFile;
-        //todo: initialize other paths
+        // file = new File("Path"); Example of how to initialize a file
     }
 
     /**
      * Read config.
      */
     public void readConfig() {
-        //todo: Read config file and assign data to objects
+        //todo: Read config file and assign data to objects. Needs to send date to config object then to controller
     }
 
     /**
      * Read backup.
      */
     public void readBackup() {
-        //todo: Read backup file, assign data to objects and save to storage
+        //todo: Read backup file, assign data to objects and save to storage. Needs to send date to config object then to controller
     }
 
     /**
      * Read storage.
      */
     public void readStorage() {
-        //todo: Read storage file and assign data to objects
+        //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
     }
 
     /**

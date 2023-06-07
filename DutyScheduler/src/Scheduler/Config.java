@@ -1,5 +1,6 @@
 package Scheduler;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -13,45 +14,41 @@ public class Config {//todo: Error Trapping/Handling
     /**
      * The Config file path.
      */
-    String configFilePath;
+    private String configFilePath;
     /**
      * The Storage file path.
      */
-    String storageFilePath;
+    private String storageFilePath;
     /**
      * The Backup file path.
      */
-    String backupFilePath;
+    private String backupFilePath;
     /**
      * The Last date opened.
      */
-    Date lastDateOpened;
+    private Date lastDateOpened;
     /**
      * The Backup date.
      */
-    Date backupDate;
+    private Date backupDate;
     /**
      * The Open number.
      */
-    int openNumber;
+    private int openNumber;
+    /**
+     * The File reader.
+     */
+    private FileReader fileReader;
 
     /**
      * Instantiates a new Config.
      *
      * @param configFilePath  the config file path
-     * @param storageFilePath the storage file path
-     * @param backupFilePath  the backup file path
-     * @param lastDateOpened  the last date opened
-     * @param backupDate      the backup date
-     * @param openNumber      the open number
      */
-    public Config(String configFilePath, String storageFilePath, String backupFilePath, Date lastDateOpened, Date backupDate, int openNumber) {
+    public Config(String configFilePath) {
         this.configFilePath = configFilePath;
-        this.storageFilePath = storageFilePath;
-        this.backupFilePath = backupFilePath;
-        this.lastDateOpened = lastDateOpened;
-        this.backupDate = backupDate;
-        this.openNumber = openNumber;
+        //todo: use file reader to read config file and set variables/Objects then send to controller
+
     }
 
     /**

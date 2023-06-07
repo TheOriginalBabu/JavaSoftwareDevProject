@@ -10,40 +10,25 @@ import javax.swing.*;
  * @File: Controller
  */
 public class Controller {//todo: Error Trapping/Handling
-    /**
-     * The Config.
-     */
-    Config config;
-    /**
-     * The File reader.
-     */
-    FileReader fileReader;
-    /**
-     * The File writer.
-     */
-    FileWriter fileWriter;
-    /**
-     * The Generator.
-     */
-    Generator generator;
-    /**
-     * The Teacher.
-     */
-    Teacher teacher;
 
-    Duty duty;
     /**
-     * The Time.
+     * The File path.
      */
-    Time time;
+    private String DEFAULT_CONFIG_FILE_PATH = "Data/config.csv";
+
+
     /**
-     * The Location.
+     * Instantiates a new Controller.
      */
-    Location location;
-    /**
-     * The Restriction.
-     */
-    Restriction restriction;
+    private Controller() {
+        Config config = new Config(DEFAULT_CONFIG_FILE_PATH); //todo: Receive data from config file and set to variables/Objects
+
+        /* ↓ RUN THIS LAST. Starts GUI ↓ */
+        SwingUtilities.invokeLater(() -> {
+            Window window = new Window();
+        });
+        /* ↑ RUN THIS LAST. Starts GUI ↑ */
+    }
 
     /**
      * The entry point of application.
@@ -51,10 +36,6 @@ public class Controller {//todo: Error Trapping/Handling
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                Window window = new Window();
-            }
-        });
+        new Controller();
     }
 }

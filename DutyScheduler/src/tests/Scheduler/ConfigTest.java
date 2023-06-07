@@ -8,15 +8,10 @@ public class ConfigTest {
     @Test
     public void testConfig() {
         Date date = new Date();
-        Config config = new Config("configPath", "storagePath", "backupPath", date, date, 1);
+        Config config = new Config("configPath");
 
         // Test getters
         assertEquals("configPath", config.getConfigFilePath());
-        assertEquals("storagePath", config.getStorageFilePath());
-        assertEquals("backupPath", config.getBackupFilePath());
-        assertEquals(date, config.getLastDateOpened());
-        assertEquals(date, config.getBackupDate());
-        assertEquals(1, config.getOpenNumber());
 
         // Test setters
         Date newDate = new Date();
