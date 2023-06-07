@@ -1,6 +1,7 @@
 package Scheduler;
 
 import java.io.File;
+import java.io.FileReader;
 
 /**
  * The type File reader. TODO: Add description
@@ -9,7 +10,7 @@ import java.io.File;
  * @date: 2023 -05-17
  * @File: FileReader
  */
-public class FileReader {//todo: Error Trapping/Handling
+public class DataFileReader {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
@@ -26,7 +27,7 @@ public class FileReader {//todo: Error Trapping/Handling
     /**
      * Instantiates a new File reader.
      */
-    public FileReader(File configFile) {
+    public DataFileReader(File configFile) {
         this.configPath = configFile;
         // file = new File("Path"); Example of how to initialize a file
     }
@@ -48,8 +49,13 @@ public class FileReader {//todo: Error Trapping/Handling
     /**
      * Read storage.
      */
-    public void readStorage() {
-        //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
+    public void readStorage() {         //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
+        try{
+            FileReader csvReader = new FileReader("src/resources/CSVDEMO.csv");
+        } catch (Exception e) {
+            System.out.println("File not found");
+        }
+
     }
 
     /**
@@ -104,5 +110,10 @@ public class FileReader {//todo: Error Trapping/Handling
      */
     public void setStoragePath(File storagePath) {
         this.storagePath = storagePath;
+    }
+
+    public static void main(String[] args) {
+        DataFileReader dataFileReader = new DataFileReader(new File("src/resources/CSVDEMO.csv"));
+        dataFileReader.readStorage();
     }
 }

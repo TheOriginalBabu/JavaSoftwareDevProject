@@ -1,6 +1,5 @@
 package Scheduler;
 
-import java.io.File;
 import java.util.Date;
 
 /**
@@ -46,7 +45,7 @@ public class Config {//todo: Error Trapping/Handling
     /**
      * The File reader.
      */
-    private FileReader fileReader;
+    private DataFileReader dataFileReader;
 
     /**
      * Instantiates a new Config.
