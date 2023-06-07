@@ -24,6 +24,10 @@ public class Config {//todo: Error Trapping/Handling
      */
     private String backupFilePath;
     /**
+     * The History file path.
+     */
+    private String historyFilePath;
+    /**
      * The Last date opened.
      */
     private Date lastDateOpened;
@@ -35,6 +39,10 @@ public class Config {//todo: Error Trapping/Handling
      * The Open number.
      */
     private int openNumber;
+    /**
+     * The Num of periods.
+     */
+    private int numOfPeriods;
     /**
      * The File reader.
      */
@@ -106,6 +114,24 @@ public class Config {//todo: Error Trapping/Handling
     }
 
     /**
+     * Gets history file path.
+     *
+     * @return history file path
+     */
+    public String getHistoryFilePath() {
+        return historyFilePath;
+    }
+
+    /**
+     * Sets history file path.
+     *
+     * @param historyFilePath the history file path
+     */
+    public void setHistoryFilePath(String historyFilePath) {
+        this.historyFilePath = historyFilePath;
+    }
+
+    /**
      * Gets last date opened.
      *
      * @return last date opened
@@ -157,5 +183,23 @@ public class Config {//todo: Error Trapping/Handling
      */
     public void setOpenNumber(int openNumber) {
         this.openNumber = openNumber;
+    }
+
+    /**
+     * Gets num of periods.
+     *
+     * @return num of periods
+     */
+    public int getNumOfPeriods() {
+        return numOfPeriods;
+    }
+
+    /**
+     * Sets num of periods.
+     *
+     * @param numOfPeriods the num of periods
+     */
+    public void setNumOfPeriods(int numOfPeriods) {
+        this.numOfPeriods = numOfPeriods;
     }
 }

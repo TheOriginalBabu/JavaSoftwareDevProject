@@ -1,0 +1,8 @@
+﻿variableName,"path, path, path, date, date, int, int"
+storageFilePath,resources/storageFile
+backupFilePath,resources/backupFile
+historyFilePath,resources/historyFile
+lastDateOpened,mm/dd/yyyyLDO
+backupDate,mm/dd/yyyyBD
+openNumber,0
+NumOfPeriods,5
