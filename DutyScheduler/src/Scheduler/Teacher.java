@@ -19,6 +19,7 @@ public class Teacher {//todo: Error Trapping/Handling
     private double minutesRemaining;
     private SupervisionDuty[] recentSupervisions;
     private Duty currentDuty;
+    private boolean availability;
 
 
     // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
@@ -36,8 +37,9 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param classes            the classes
      * @param prepPeriods        the prep periods
      * @param recentSupervisions the recent supervisions
+     * @param availability       the availability
      */
-    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions) {
+    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions, boolean availability) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesRemaining = minutesRemaining;
@@ -46,6 +48,7 @@ public class Teacher {//todo: Error Trapping/Handling
         this.classes = classes;
         this.prepPeriods = prepPeriods;
         this.recentSupervisions = recentSupervisions;
+        this.availability = availability;
     }
 
     /**
@@ -337,6 +340,24 @@ public class Teacher {//todo: Error Trapping/Handling
     }
 
     /**
+     * Gets availability
+     *
+     * @return availability
+     */
+    public boolean getAvailability() {
+        return availability;
+    }
+
+    /**
+     * Sets availability
+     *
+     * @param availability the availability
+     */
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+
+    /**
      * Checks to see if teacher has been assigned to a duty at the same location in the last month.
      * @param duty Duty to be checked
      * @return True if teacher has been assigned to a duty at the same location in the last month, false otherwise
@@ -410,7 +431,7 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public boolean isAvailable (OnCall duty){
         // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
-        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+        return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
     }
 
     /**
@@ -420,6 +441,6 @@ public class Teacher {//todo: Error Trapping/Handling
      * @return the boolean
      */
     public boolean isAvailable (SupervisionDuty duty) {
-        return !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+        return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
     }
 }
