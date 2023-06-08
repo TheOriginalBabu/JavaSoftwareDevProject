@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/src/resources/StroageCSVDemo - DutyScheduler.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/src/resources/configCSVDEMO.csv">
           <value>
             <Attribute>
@@ -31,7 +24,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\resources\StroageCSVDemo - DutyScheduler.csv">
+        <entry key="\src\resources\CSVDEMO.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\resources\configCSVDEMO.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -6,15 +6,6 @@
     </constraints>
     <properties/>
     <border type="none"/>
-    <children>
-      <grid id="7ff84" layout-manager="GridBagLayout">
-        <constraints>
-          <card name="Card1"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-    </children>
+    <children/>
   </grid>
 </form>

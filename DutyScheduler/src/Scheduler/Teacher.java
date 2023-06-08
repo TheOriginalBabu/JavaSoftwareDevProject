@@ -427,33 +427,16 @@ public class Teacher {//todo: Error Trapping/Handling
     /**
      * Is available boolean.
      *
-     * @param duty the duty
-     * @return the boolean
-     */
-    public boolean isAvailable (OnCallDuty duty){
-        // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
-        return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
-    }
-
-    /**
-     * Is available boolean.
-     *
      * @param duty                    the duty
      * @param ignoreRecentSupervision the ignore recent supervision
      * @return the boolean
      */
     public boolean isAvailable (OnCallDuty duty, boolean ignoreRecentSupervision){
-        return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
-    }
-
-    /**
-     * Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
-     *
-     * @param duty the duty
-     * @return the boolean
-     */
-    public boolean isAvailable (SupervisionDuty duty) {
-        return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+        if (ignoreRecentSupervision) {
+            return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+        } else {
+            return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+        }
     }
 
     /**
@@ -464,6 +447,10 @@ public class Teacher {//todo: Error Trapping/Handling
      * @return the boolean
      */
     public boolean isAvailable (SupervisionDuty duty, boolean ignoreRecentSupervision){
-        return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+        if (ignoreRecentSupervision) {
+            return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+        } else {
+            return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+        }
     }
 }

@@ -43,4 +43,8 @@ public class OnCallDuty extends Duty{
     public void setDate(Date newDate) {
         date = newDate;
     }
+
+    public boolean isTeacherAvailable(Teacher teacher, boolean ignoreRecentDuties) {
+        return teacher.isAvailable(this, ignoreRecentDuties);
+    }
 }

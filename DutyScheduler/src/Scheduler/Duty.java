@@ -11,12 +11,14 @@ public abstract class Duty {//todo: Error Trapping/Handling
     private Time time;
     private Location location;
     private Teacher teacher;
+    private String name;
 
     /**
      * Instantiates a new Duty.
      *
      * @param time     the time
      * @param location the location
+     * @param teacher  the teacher
      */
     public Duty(Time time, Location location, Teacher teacher) {
         this.time = time;
@@ -27,7 +29,7 @@ public abstract class Duty {//todo: Error Trapping/Handling
     /**
      * Gets time.
      *
-     * @return time
+     * @return time time
      */
     public Time getTime() {
         return time;
@@ -63,7 +65,7 @@ public abstract class Duty {//todo: Error Trapping/Handling
     /**
      * Gets teacher.
      *
-     * @return teacher
+     * @return teacher teacher
      */
     public Teacher getTeacher() {
         return teacher;
@@ -77,6 +79,33 @@ public abstract class Duty {//todo: Error Trapping/Handling
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    /**
+     * Gets name.
+     *
+     * @return name name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Is teacher available boolean.
+     *
+     * @param teacher            the teacher
+     * @param ignoreRecentDuties the ignore recent duties
+     * @return the boolean
+     */
+    public abstract boolean isTeacherAvailable(Teacher teacher, boolean ignoreRecentDuties);
 
     /**
      *

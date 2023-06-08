@@ -40,4 +40,8 @@ public class SupervisionDuty extends Duty{
     public void setWeek(int newWeek) {
         week = newWeek;
     }
+
+    public boolean isTeacherAvailable(Teacher teacher, boolean ignoreRecentDuties) {
+        return teacher.isAvailable(this, ignoreRecentDuties);
+    }
 }
