@@ -1,5 +1,7 @@
 package Scheduler;
 
+import java.util.ArrayList;
+
 /**
  * The type Generator. TODO: Add description
  *
@@ -9,12 +11,35 @@ package Scheduler;
  */
 public abstract class Generator {//todo: Error Trapping/Handling
 
-    private Duty[] duties;
-    private Teacher[] teachers;
+    private ArrayList<Duty> duties;
+    private ArrayList<Teacher> teachers;
 
-    /**
-     * Instantiates a new Generator.
-     */
-    public Generator() {
+    public <T extends Duty> Teacher findBestTeacher(T duty, ArrayList<Teacher> assignedTeachers) throws Exception {
+        Teacher bestTeacher = null;
+        double bestMinutesAvailable = 0d;
+        for (Teacher teacher : teachers) {
+            if (teacher.isAvailable(duty) && !assignedTeachers.contains(teacher)){
+                double minutesAvailable = teacher.getMinutesRemaining();
+                if (minutesAvailable > bestMinutesAvailable) {
+                    bestTeacher = teacher;
+                    bestMinutesAvailable = minutesAvailable;
+                }
+            }
+        }
+        if (bestTeacher != null) {
+            return bestTeacher;
+        } else {
+            for (Teacher teacher : teachers) {
+                if (teacher.isAvailable(duty, true)) {
+                    double minutesAvailable = teacher.getMinutesRemaining();
+                    if (minutesAvailable > bestMinutesAvailable) {
+                        bestTeacher = teacher;
+                        bestMinutesAvailable = minutesAvailable;
+                    }
+                }
+            }
+        }
+        // todo: Add error handling (if bestTeacher is null) (if no teachers are available)
+        return bestTeacher;
     }
 }

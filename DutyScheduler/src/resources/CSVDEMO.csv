@@ -1,4 +1,4 @@
-﻿"Type(Teacher, Time, Location, Restriction, Duty)","Name, Name, Name, Teacher, Name","MinutesTotal, StartTime, Description, Reason, Type(OnCall/Supervision)","MinutesRemaining, EndTime, whenToSupervise(can extend to more cells for more times), Time, Time","Period1(class/prep), Null, Null, Avalable, Location","Period2(class/prep), Null, Null, Teacher","Period5(class/prep), Null/date",Period4(class/prep),Period5(class/prep)
+﻿"Type(Teacher, Time, Location, Restriction, Duty)","Name, Name, Name, Teacher, Name","MinutesTotal, StartTime, Description, Reason, Type(OnCallDuty/Supervision)","MinutesRemaining, EndTime, whenToSupervise(can extend to more cells for more times), Time, Time","Period1(class/prep), Null, Null, Avalable, Location","Period2(class/prep), Null, Null, Teacher","Period5(class/prep), Null/date",Period4(class/prep),Period5(class/prep)
 Teacher,Teach1,1000,485,prep,class,lunch,prep,class
 Teacher,Teach2,800,344,prep,class,lunch,class,prep
 Teacher,Teach3,1200,540,class,prep,lunch,class,prep
@@ -19,4 +19,4 @@ Restriction,Teach4,Leaving Early,Period4,FALSE,,,,
 Duty,MoriningBus,Supervision,beforeSchool,Buses,Null,Null,,
 Duty,AfternoonBus,Supervision,afterSchool,Buses,Null,Null,,
 Duty,CafeDuty,Supervision,Lunch,Café,Null,Null,,
-Duty,Teach4FillIn,OnCall,Period4,Teach4Class,Null,06/14/2023,,
+Duty,Teach4FillIn,OnCallDuty,Period4,Teach4Class,Null,06/14/2023,,

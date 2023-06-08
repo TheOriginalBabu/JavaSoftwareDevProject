@@ -5,9 +5,9 @@ package Scheduler;
  *
  * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023 -05-17
- * @File: FileWriter
+ * @File: DataFileWriter
  */
-public class FileWriter {//todo: Error Trapping/Handling
+public class DataFileWriter {//todo: Error Trapping/Handling
     /**
      * The Config path.
      */
@@ -24,7 +24,7 @@ public class FileWriter {//todo: Error Trapping/Handling
     /**
      * Instantiates a new File writer.
      */
-    public FileWriter() {
+    public DataFileWriter() {
         // initialization here
     }
 

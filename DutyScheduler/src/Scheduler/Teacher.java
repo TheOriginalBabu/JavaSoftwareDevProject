@@ -1,5 +1,6 @@
 package Scheduler;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -11,13 +12,13 @@ import java.util.Date;
  */
 public class Teacher {//todo: Error Trapping/Handling
     private String name;
-    private Time[] prepPeriods; //todo convert to list or map
-    private Time[] classes; //todo convert to list or map
-    private Restriction[] restrictions; //todo convert to list or map
+    private ArrayList<Time> prepPeriods; //todo convert to list or map
+    private ArrayList<Time> classes; //todo convert to list or map
+    private ArrayList<Restriction> restrictions; //todo convert to list or map
     private double minutesTotal;
     private double minutesUsed;
     private double minutesRemaining;
-    private SupervisionDuty[] recentSupervisions;
+    private ArrayList<SupervisionDuty> recentSupervisions;
     private Duty currentDuty;
     private boolean availability;
 
@@ -39,7 +40,7 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param recentSupervisions the recent supervisions
      * @param availability       the availability
      */
-    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, Restriction[] restrictions, Time[] classes, Time[] prepPeriods, SupervisionDuty[] recentSupervisions, boolean availability) {
+    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, ArrayList<Restriction> restrictions, ArrayList<Time> classes, ArrayList<Time> prepPeriods, ArrayList<SupervisionDuty> recentSupervisions, boolean availability) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesRemaining = minutesRemaining;
@@ -128,7 +129,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @return restriction [ ]
      */
-    public Restriction[] getRestrictions() {
+    public ArrayList<Restriction> getRestrictions() {
         return restrictions;
     }
 
@@ -137,7 +138,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @param restrictions the restrictions
      */
-    public void setRestrictions(Restriction[] restrictions) {
+    public void setRestrictions(ArrayList<Restriction> restrictions) {
         this.restrictions = restrictions;
     }
 
@@ -146,7 +147,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @return time [ ]
      */
-    public Time[] getClasses() {
+    public ArrayList<Time> getClasses() {
         return classes;
     }
 
@@ -155,7 +156,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @param classes the classes
      */
-    public void setClasses(Time[] classes) {
+    public void setClasses(ArrayList<Time> classes) {
         this.classes = classes;
     }
 
@@ -164,7 +165,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @return time [ ]
      */
-    public Time[] getPrepPeriods() {
+    public ArrayList<Time> getPrepPeriods() {
         return prepPeriods;
     }
 
@@ -173,7 +174,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @param prepPeriods the prep periods
      */
-    public void setPrepPeriods(Time[] prepPeriods) {
+    public void setPrepPeriods(ArrayList<Time> prepPeriods) {
         this.prepPeriods = prepPeriods;
     }
 
@@ -308,7 +309,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @return recent supervisions
      */
-    public SupervisionDuty[] getRecentSupervisions() {
+    public ArrayList<SupervisionDuty> getRecentSupervisions() {
         return recentSupervisions;
     }
 
@@ -317,7 +318,7 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @param recentSupervisions the recent supervisions
      */
-    public void setRecentSupervisions(SupervisionDuty[] recentSupervisions) {
+    public void setRecentSupervisions(ArrayList<SupervisionDuty> recentSupervisions) {
         this.recentSupervisions = recentSupervisions;
     }
 
@@ -342,7 +343,7 @@ public class Teacher {//todo: Error Trapping/Handling
     /**
      * Gets availability
      *
-     * @return availability
+     * @return availability availability
      */
     public boolean getAvailability() {
         return availability;
@@ -429,9 +430,20 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param duty the duty
      * @return the boolean
      */
-    public boolean isAvailable (OnCall duty){
+    public boolean isAvailable (OnCallDuty duty){
         // Check to see if teacher has recently supervised a duty and if the time of the duty is not during a class and does not conflict with a restriction
         return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+    }
+
+    /**
+     * Is available boolean.
+     *
+     * @param duty                    the duty
+     * @param ignoreRecentSupervision the ignore recent supervision
+     * @return the boolean
+     */
+    public boolean isAvailable (OnCallDuty duty, boolean ignoreRecentSupervision){
+        return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
     }
 
     /**
@@ -442,5 +454,16 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public boolean isAvailable (SupervisionDuty duty) {
         return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+    }
+
+    /**
+     * Is available boolean.
+     *
+     * @param duty                    the duty
+     * @param ignoreRecentSupervision the ignore recent supervision
+     * @return the boolean
+     */
+    public boolean isAvailable (SupervisionDuty duty, boolean ignoreRecentSupervision){
+        return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
     }
 }

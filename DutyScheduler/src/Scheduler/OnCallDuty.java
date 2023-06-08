@@ -3,13 +3,13 @@ package Scheduler;
 import java.util.Date;
 
 /**
- * The type OnCall. TODO: Add description
+ * The type OnCallDuty. TODO: Add description
  *
  * @author: Griffin, Izaan, Ronit, Shahmeer
  * @date: 2023 -05-17
- * @File: OnCall
+ * @File: OnCallDuty
  */
-public class OnCall extends Duty{
+public class OnCallDuty extends Duty{
 
     private Date date;
 
@@ -21,7 +21,7 @@ public class OnCall extends Duty{
      * @param teacher  the teacher
      * @param date     the date
      */
-    public OnCall(Time time, Location location, Teacher teacher,Date date) {
+    public OnCallDuty(Time time, Location location, Teacher teacher, Date date) {
         super(time, location, teacher);
         this.date = date;
     }

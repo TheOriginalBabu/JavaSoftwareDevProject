@@ -1,5 +1,7 @@
 package Scheduler;
 
+import java.util.ArrayList;
+
 /**
  * The type OnCallGenerator. /TODO: Add description
  *
@@ -9,8 +11,10 @@ package Scheduler;
  */
 public class OnCallGenerator extends Generator {
 
-    private final OnCall[] duties;
-    private final Teacher[] teachers;
+    private final ArrayList<OnCallDuty> duties;
+    private final ArrayList<Teacher> teachers;
+    private ArrayList<SupervisionDuty> assignedDuties = new ArrayList<>();
+    private ArrayList<Teacher> assignedTeachers = new ArrayList<>();
 
 
     /**
@@ -19,7 +23,7 @@ public class OnCallGenerator extends Generator {
      * @param duties   the duties
      * @param teachers the teachers
      */
-    public OnCallGenerator(OnCall[] duties, Teacher[] teachers) {
+    public OnCallGenerator(ArrayList<OnCallDuty> duties, ArrayList<Teacher> teachers) {
         this.duties = duties;
         this.teachers = teachers;
     }
@@ -28,7 +32,7 @@ public class OnCallGenerator extends Generator {
      * Generate.
      */
     public void generate() {
-        for (OnCall duty : duties) {
+        for (OnCallDuty duty : duties) {
             findBestTeacher(duty);
         }
     }
@@ -42,11 +46,11 @@ public class OnCallGenerator extends Generator {
      * @param duty the duty to find a teacher for
      * @return teacher with most minutes available and that hasn't been assigned to the duty recently
      */
-    public Teacher findBestTeacher(OnCall duty) {
+    public Teacher findBestTeacher(OnCallDuty duty) {
         Teacher bestTeacher = null;
-        double bestMinutesAvailable = 0.0;
+        double bestMinutesAvailable = 0d;
         for (Teacher teacher : teachers) {
-            if (teacher.isAvailable(duty)) {
+            if (teacher.isAvailable(duty) && !assignedTeachers.contains(teacher)){
                 double minutesAvailable = teacher.getMinutesRemaining();
                 if (minutesAvailable > bestMinutesAvailable) {
                     bestTeacher = teacher;
@@ -54,7 +58,20 @@ public class OnCallGenerator extends Generator {
                 }
             }
         }
-        // todo: Add error handling (if bestTeacher is null)
+        if (bestTeacher != null) {
+            return bestTeacher;
+        } else {
+            for (Teacher teacher : teachers) {
+                if (teacher.isAvailable(duty)) {
+                    double minutesAvailable = teacher.getMinutesRemaining();
+                    if (minutesAvailable > bestMinutesAvailable) {
+                        bestTeacher = teacher;
+                        bestMinutesAvailable = minutesAvailable;
+                    }
+                }
+            }
+        }
+        // todo: Add error handling (if bestTeacher is null) (if no teachers are available)
         return bestTeacher;
     }
 }

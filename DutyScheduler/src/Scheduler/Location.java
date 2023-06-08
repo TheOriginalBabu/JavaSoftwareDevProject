@@ -1,5 +1,7 @@
 package Scheduler;
 
+import java.util.ArrayList;
+
 /**
  * The type Location. TODO: Add description
  *
@@ -10,7 +12,7 @@ package Scheduler;
 public class Location {//todo: Error Trapping/Handling
     private String name;
     private String description;
-    private Time[] timesToWatch;
+    private ArrayList<Time> timesToWatch;
     private Restriction restriction;
 
     /**
@@ -20,7 +22,7 @@ public class Location {//todo: Error Trapping/Handling
      * @param description  the description
      * @param timesToWatch the times to watch
      */
-    public Location(String name, String description, Time[] timesToWatch) {
+    public Location(String name, String description, ArrayList<Time> timesToWatch) {
         this.name = name;
         this.description = description;
         this.timesToWatch = timesToWatch;
@@ -67,7 +69,7 @@ public class Location {//todo: Error Trapping/Handling
      *
      * @return time [ ]
      */
-    public Time[] getTimesToWatch() {
+    public ArrayList<Time> getTimesToWatch() {
         return timesToWatch;
     }
 
@@ -76,7 +78,7 @@ public class Location {//todo: Error Trapping/Handling
      *
      * @param newTimesToWatch the new times to watch
      */
-    public void setTimesToWatch(Time[] newTimesToWatch) {
+    public void setTimesToWatch(ArrayList<Time> newTimesToWatch) {
         timesToWatch = newTimesToWatch;
     }
 

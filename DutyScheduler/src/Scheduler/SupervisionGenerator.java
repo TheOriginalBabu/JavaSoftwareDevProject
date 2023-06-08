@@ -1,5 +1,8 @@
 package Scheduler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * The type supervisionGenerator. /TODO: Add description
  *
@@ -9,9 +12,12 @@ package Scheduler;
  */
 public class SupervisionGenerator extends Generator {
 
-    private final SupervisionDuty[] duties;
-    private final Teacher[] teachers;
+    private ArrayList<SupervisionDuty> duties;
+    private ArrayList<Teacher> teachers;
+    private ArrayList<SupervisionDuty> assignedDuties = new ArrayList<>();
+    private ArrayList<Teacher> assignedTeachers = new ArrayList<>();
     private final int week;
+    private HashMap<SupervisionDuty, Teacher> teacherDuties = new HashMap<>();
 
     /**
      * Instantiates a new Generator.
@@ -20,10 +26,11 @@ public class SupervisionGenerator extends Generator {
      * @param teachers the teachers
      * @param week     the week
      */
-    public SupervisionGenerator(SupervisionDuty[] duties, Teacher[] teachers, int week) {
+    public SupervisionGenerator(ArrayList<SupervisionDuty> duties, ArrayList<Teacher> teachers, int week) {
         this.duties = duties;
         this.teachers = teachers;
         this.week = week;
+        generate();
     }
 
     /**
@@ -31,7 +38,10 @@ public class SupervisionGenerator extends Generator {
      */
     public void generate() {
         for (SupervisionDuty duty : duties) {
-            findBestTeacher(duty);
+            Teacher bestTeacher = findBestTeacher(duty);
+            teacherDuties.put(duty, bestTeacher);
+            assignedDuties.add(duty);
+            assignedTeachers.add(bestTeacher);
         }
     }
 
@@ -48,7 +58,7 @@ public class SupervisionGenerator extends Generator {
         Teacher bestTeacher = null;
         double bestMinutesAvailable = 0d;
         for (Teacher teacher : teachers) {
-            if (teacher.isAvailable(duty)) {
+            if (teacher.isAvailable(duty) && !assignedTeachers.contains(teacher)) {
                 double minutesAvailable = teacher.getMinutesRemaining();
                 if (minutesAvailable > bestMinutesAvailable) {
                     bestTeacher = teacher;
@@ -56,7 +66,20 @@ public class SupervisionGenerator extends Generator {
                 }
             }
         }
-        // todo: Add error handling (if bestTeacher is null)
+        if (bestTeacher != null) {
+            return bestTeacher;
+        } else {
+            for (Teacher teacher : teachers) {
+                if (teacher.isAvailable(duty)) {
+                    double minutesAvailable = teacher.getMinutesRemaining();
+                    if (minutesAvailable > bestMinutesAvailable) {
+                        bestTeacher = teacher;
+                        bestMinutesAvailable = minutesAvailable;
+                    }
+                }
+            }
+        }
+        // todo: Add error handling (if bestTeacher is null) (if no teachers are available)
         return bestTeacher;
     }
 }

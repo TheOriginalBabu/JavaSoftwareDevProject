@@ -23,6 +23,10 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * The Storage path.
      */
     private File storagePath;
+    /**
+     * The History path.
+     */
+    private File historyPath;
 
     /**
      * Instantiates a new File reader.
@@ -49,12 +53,12 @@ public class DataFileReader {//todo: Error Trapping/Handling
     /**
      * Read storage.
      */
-    public void readStorage() {         //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-        try{
-            FileReader csvReader = new FileReader("src/resources/CSVDEMO.csv");
-        } catch (Exception e) {
-            System.out.println("File not found");
-        }
+    public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
+            try (FileReader csvReader = new FileReader("src/resources/CSVDEMO.csv")) {
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+
 
     }
 
@@ -86,6 +90,15 @@ public class DataFileReader {//todo: Error Trapping/Handling
     }
 
     /**
+     * Get history path File.
+     *
+     * @return the File
+     */
+    public File getHistoryPath() {
+        return historyPath;
+    }
+
+    /**
      * Set config path.
      *
      * @param configPath the config path
@@ -110,6 +123,15 @@ public class DataFileReader {//todo: Error Trapping/Handling
      */
     public void setStoragePath(File storagePath) {
         this.storagePath = storagePath;
+    }
+
+    /**
+     * Set history path.
+     *
+     * @param historyPath the history path
+     */
+    public void setHistoryPath(File historyPath) {
+        this.historyPath = historyPath;
     }
 
     public static void main(String[] args) {

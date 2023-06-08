@@ -14,7 +14,7 @@ public class Controller {//todo: Error Trapping/Handling
     /**
      * The File path.
      */
-    private String DEFAULT_CONFIG_FILE_PATH = "Data/config.csv";
+    private final String DEFAULT_CONFIG_FILE_PATH = "Data/config.csv";
 
 
     /**
@@ -24,9 +24,7 @@ public class Controller {//todo: Error Trapping/Handling
         Config config = new Config(DEFAULT_CONFIG_FILE_PATH); //todo: Receive data from config file and set to variables/Objects
 
         /* ↓ RUN THIS LAST. Starts GUI ↓ */
-        SwingUtilities.invokeLater(() -> {
-            Window window = new Window();
-        });
+        SwingUtilities.invokeLater(Window::new);
         /* ↑ RUN THIS LAST. Starts GUI ↑ */
     }
 
