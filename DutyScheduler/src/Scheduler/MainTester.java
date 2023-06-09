@@ -3,6 +3,7 @@ package Scheduler;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class MainTester {
     Time beforeSchool = new Time("beforeSchool", LocalTime.of(7, 40), LocalTime.of(8, 0));
@@ -19,7 +20,11 @@ public class MainTester {
     Location cafeteria = new Location("Cafe", "The cafeteria", (ArrayList<Time>) Arrays.asList(lunch));
     Location hall1 = new Location("hall1", "The main hall", (ArrayList<Time>) Arrays.asList(period1, period2, lunch, period3, period4));
     Location hall2 = new Location("hall2", "The side hall", (ArrayList<Time>) Arrays.asList(period2, period3));
-    Location hall3 = new Location("Buses", "Bus pickup zone", (ArrayList<Time>) Arrays.asList(beforeSchool, afterSchool));
-    Restriction teach2Restrict = new Restriction("Not coming in morning", );//todo: fix CSVDemo
-    Restriction Teach4Restrict = new Restriction();
+    Location buses = new Location("Buses", "Bus pickup zone", (ArrayList<Time>) Arrays.asList(beforeSchool, afterSchool));
+    Restriction teach2Restrict = new Restriction("Not coming in morning", new Date(123, 06, 16), 0, period1, false);//todo: fix CSVDemo
+    Restriction Teach4Restrict = new Restriction("Leaving Early", new Date(123, 06, 16), 0, period4, false);
+    SupervisionDuty morningBus = new SupervisionDuty("morningBus", beforeSchool, buses, null, 0);
+    SupervisionDuty afternoonBus = new SupervisionDuty();
+    SupervisionDuty cafeteriaDuty = new SupervisionDuty();
+    OnCallDuty teach4Fillin = new OnCallDuty();
 }
