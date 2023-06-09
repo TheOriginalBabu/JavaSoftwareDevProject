@@ -29,6 +29,19 @@ public abstract class Duty {//todo: Error Trapping/Handling
     }
 
     /**
+     * Instantiates a new Duty.
+     *
+     * @param name     the name
+     * @param time     the time
+     * @param location the location
+     */
+    public Duty(String name, Time time, Location location) {
+        this.name = name;
+        this.time = time;
+        this.location = location;
+    }
+
+    /**
      * Gets name.
      *
      * @return the name
@@ -114,6 +127,6 @@ public abstract class Duty {//todo: Error Trapping/Handling
      * @return String representation of Duty object
      */
     public String toString() {
-        return time + " " + location;
+        return name;
     }
 }

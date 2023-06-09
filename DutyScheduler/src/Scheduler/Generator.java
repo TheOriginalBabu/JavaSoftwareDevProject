@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public abstract class Generator {//todo: Error Trapping/Handling
 
-    private ArrayList<Duty> duties;
-    private ArrayList<Teacher> teachers;
+    private ArrayList<Duty> duties = new ArrayList<>();
+    private ArrayList<Teacher> teachers = new ArrayList<>();
 
     /**
      * Instantiates a new Generator.
@@ -30,7 +30,7 @@ public abstract class Generator {//todo: Error Trapping/Handling
      * @param assignedTeachers the assigned teachers
      * @return the best teacher for the duty
      */
-    public Teacher findBestTeacher(Duty duty, ArrayList<Teacher> assignedTeachers) {
+    public Teacher findBestTeacher(Duty duty, ArrayList<Teacher> teachers, ArrayList<Teacher> assignedTeachers) {
         Teacher bestTeacher = null;
         double bestMinutesAvailable = 0d;
         for (Teacher teacher : teachers) {
@@ -42,9 +42,7 @@ public abstract class Generator {//todo: Error Trapping/Handling
                 }
             }
         }
-        if (bestTeacher != null) {
-            return bestTeacher;
-        } else {
+        if (bestTeacher == null) {
             for (Teacher teacher : teachers) {
                 if (duty.isTeacherAvailable(teacher, true)) {
                     double minutesAvailable = teacher.getMinutesRemaining();
@@ -58,6 +56,8 @@ public abstract class Generator {//todo: Error Trapping/Handling
 
         if (bestTeacher == null) {
             System.out.println("No teacher available for duty: " + duty.getName());
+        } else {
+            System.out.println("Teacher " + bestTeacher.getName() + " assigned to duty: " + duty.getName());
         }
         // todo: Add error handling (if bestTeacher is null) (if no teachers are available) (Teacher already assigned to Oncall/Supervision)
         return bestTeacher;

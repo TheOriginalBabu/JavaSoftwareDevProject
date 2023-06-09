@@ -35,10 +35,9 @@ public class OnCallGenerator extends Generator {
     /**
      * Generate.
      */
-    public HashMap generate() {
+    public HashMap<OnCallDuty, Teacher> generate() {
         for (OnCallDuty duty : duties) {
-            findBestTeacher(duty, assignedTeachers);
-            Teacher bestTeacher = findBestTeacher(duty, assignedTeachers);
+            Teacher bestTeacher = findBestTeacher(duty, teachers, assignedTeachers);
             teacherDuties.put(duty, bestTeacher);
             assignedDuties.add(duty);
             assignedTeachers.add(bestTeacher);

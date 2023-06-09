@@ -21,7 +21,18 @@ public class SupervisionDuty extends Duty{
      */
     public SupervisionDuty(String name, Time time, Location location, Teacher teacher, int week) {
             super(name, time, location, teacher);
-        }
+    }
+
+    /**
+     * Instantiates a new Duty.
+     *
+     * @param time     the time
+     * @param location the location
+     * @param week     the week
+     */
+    public SupervisionDuty(String name, Time time, Location location, int week) {
+        super(name, time, location);
+    }
 
     /**
      * Gets week.

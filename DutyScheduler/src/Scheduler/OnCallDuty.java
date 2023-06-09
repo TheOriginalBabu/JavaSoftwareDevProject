@@ -28,6 +28,19 @@ public class OnCallDuty extends Duty{
     }
 
     /**
+     * Instantiates a new Duty.
+     *
+     * @param name     the name
+     * @param time     the time
+     * @param location the location
+     * @param date     the date
+     */
+    public OnCallDuty(String name, Time time, Location location, Date date) {
+        super(name, time, location);
+        this.date = date;
+    }
+
+    /**
      * Gets date.
      *
      * @return the date

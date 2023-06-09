@@ -35,11 +35,24 @@ public class SupervisionGenerator extends Generator {
     }
 
     /**
+     * Instantiates a new SupervisionGenerator.
+     *
+     * @param duties           the duties
+     * @param teachers         the teachers
+     * @param week             the week
+     */
+    public SupervisionGenerator(ArrayList<SupervisionDuty> duties, ArrayList<Teacher> teachers, int week) {
+        this.duties = duties;
+        this.teachers = teachers;
+        this.week = week;
+    }
+
+    /**
      * Generate.
      */
-    public HashMap generate() { //todo: Generate schedule first
+    public HashMap<SupervisionDuty, Teacher> generate() { //todo: Generate schedule first
         for (SupervisionDuty duty : duties) {
-            Teacher bestTeacher = findBestTeacher(duty, assignedTeachers);
+            Teacher bestTeacher = findBestTeacher(duty, teachers, assignedTeachers);
             teacherDuties.put(duty, bestTeacher);
             assignedDuties.add(duty);
             assignedTeachers.add(bestTeacher);

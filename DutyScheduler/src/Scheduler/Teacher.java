@@ -2,6 +2,7 @@ package Scheduler;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * The type Teacher. TODO: Add description
@@ -12,15 +13,15 @@ import java.util.Date;
  */
 public class Teacher {//todo: Error Trapping/Handling
     private String name;
-    private ArrayList<Time> prepPeriods; //todo convert to list or map
-    private ArrayList<Time> classes; //todo convert to list or map
-    private ArrayList<Restriction> restrictions; //todo convert to list or map
+    private ArrayList<Time> prepPeriods = new ArrayList<>();
+    private ArrayList<Time> classes = new ArrayList<>();
+    private ArrayList<Restriction> restrictions = new ArrayList<>();
     private double minutesTotal;
     private double minutesUsed;
     private double minutesRemaining;
-    private ArrayList<SupervisionDuty> recentSupervisions;
+    private ArrayList<SupervisionDuty> recentSupervisions = new ArrayList<>();
     private Duty currentDuty;
-    private boolean availability;
+    private HashMap<Time, Boolean> availability = new HashMap<>();
 
 
     // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
@@ -38,7 +39,7 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param recentSupervisions the recent supervisions
      * @param availability       the availability
      */
-    public Teacher(String name, double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, ArrayList<SupervisionDuty> recentSupervisions, boolean availability) {
+    public Teacher(String name, double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, ArrayList<SupervisionDuty> recentSupervisions, HashMap<Time, Boolean> availability) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesRemaining = minutesRemaining;
@@ -46,6 +47,26 @@ public class Teacher {//todo: Error Trapping/Handling
         this.classes = classes;
         this.prepPeriods = prepPeriods;
         this.recentSupervisions = recentSupervisions;
+        this.availability = availability;
+    }
+
+    /**
+     * Instantiates a new Teacher.
+     *
+     * @param name               the name
+     * @param minutesTotal       the minutes total
+     * @param minutesRemaining   the minutes remaining
+     * @param classes            the classes
+     * @param prepPeriods        the prep periods
+     * @param availability       the availability
+     */
+    public Teacher(String name, double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, Hash availability) {
+        this.name = name;
+        this.minutesTotal = minutesTotal;
+        this.minutesRemaining = minutesRemaining;
+        this.minutesUsed = minutesTotal - minutesRemaining;
+        this.classes = classes;
+        this.prepPeriods = prepPeriods;
         this.availability = availability;
     }
 
@@ -449,5 +470,9 @@ public class Teacher {//todo: Error Trapping/Handling
         } else {
             return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
         }
+    }
+
+    public String toString() {
+        return name;
     }
 }
