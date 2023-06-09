@@ -10,20 +10,40 @@ import java.time.LocalTime;
  * @File: Time
  */
 public class Time {//todo: Error Trapping/Handling
+    private String name;
     private LocalTime startTime;
     private LocalTime endTime;
 
     /**
      * Instantiates a new Time.
      *
+     * @param name      the name
      * @param startTime the start time
      * @param endTime   the end time
      */
-    public Time(LocalTime startTime, LocalTime endTime) {
+    public Time(String name, LocalTime startTime, LocalTime endTime) {
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Gets start time.

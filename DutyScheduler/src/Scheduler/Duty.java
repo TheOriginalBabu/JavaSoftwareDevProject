@@ -8,6 +8,7 @@ package Scheduler;
  * @File: Duty
  */
 public abstract class Duty {//todo: Error Trapping/Handling
+    private String name;
     private Time time;
     private Location location;
     private Teacher teacher;
@@ -15,14 +16,34 @@ public abstract class Duty {//todo: Error Trapping/Handling
     /**
      * Instantiates a new Duty.
      *
+     * @param name     the name
      * @param time     the time
      * @param location the location
      * @param teacher  the teacher
      */
-    public Duty(Time time, Location location, Teacher teacher) {
+    public Duty(String name, Time time, Location location, Teacher teacher) {
+        this.name = name;
         this.time = time;
         this.location = location;
         this.teacher = teacher;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

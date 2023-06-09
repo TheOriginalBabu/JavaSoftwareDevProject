@@ -16,13 +16,14 @@ public class OnCallDuty extends Duty{
     /**
      * Instantiates a new Duty.
      *
+     * @param name     the name
      * @param time     the time
      * @param location the location
      * @param teacher  the teacher
      * @param date     the date
      */
-    public OnCallDuty(Time time, Location location, Teacher teacher, Date date) {
-        super(time, location, teacher);
+    public OnCallDuty(String name, Time time, Location location, Teacher teacher, Date date) {
+        super(name, time, location, teacher);
         this.date = date;
     }
 

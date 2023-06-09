@@ -19,8 +19,8 @@ public class SupervisionDuty extends Duty{
      * @param teacher  the teacher
      * @param week     the week
      */
-    public SupervisionDuty(Time time, Location location, Teacher teacher, int week) {
-            super(time, location, teacher);
+    public SupervisionDuty(String name, Time time, Location location, Teacher teacher, int week) {
+            super(name, time, location, teacher);
         }
 
     /**
