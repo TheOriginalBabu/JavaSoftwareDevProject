@@ -14,6 +14,9 @@ public abstract class Generator {//todo: Error Trapping/Handling
     private ArrayList<Duty> duties;
     private ArrayList<Teacher> teachers;
 
+    /**
+     * Instantiates a new Generator.
+     */
     protected Generator() {
     }
 
@@ -23,7 +26,8 @@ public abstract class Generator {//todo: Error Trapping/Handling
      * If two teachers have the same number of minutes available, the teacher that hasn't been assigned to the duty recently is chosen.
      * Checks to make sure the teacher doesn't have another duty/class at the same time or a restriction at the same time on any day of the week.
      *
-     * @param duty the duty to find a teacher for
+     * @param duty             the duty to find a teacher for
+     * @param assignedTeachers the assigned teachers
      * @return the best teacher for the duty
      */
     public Teacher findBestTeacher(Duty duty, ArrayList<Teacher> assignedTeachers) {
@@ -55,7 +59,7 @@ public abstract class Generator {//todo: Error Trapping/Handling
         if (bestTeacher == null) {
             System.out.println("No teacher available for duty: " + duty.getName());
         }
-        // todo: Add error handling (if bestTeacher is null) (if no teachers are available)
+        // todo: Add error handling (if bestTeacher is null) (if no teachers are available) (Teacher already assigned to Oncall/Supervision)
         return bestTeacher;
     }
 }

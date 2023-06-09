@@ -20,20 +20,22 @@ public class OnCallGenerator extends Generator {
 
 
     /**
-     * Instantiates a new On call generator.
+     * Instantiates a new OnCallGenerator.
      *
-     * @param duties   the duties
-     * @param teachers the teachers
+     * @param duties           the duties
+     * @param teachers         the teachers
+     * @param assignedTeachers the assigned teachers
      */
-    public OnCallGenerator(ArrayList<OnCallDuty> duties, ArrayList<Teacher> teachers) {
+    public OnCallGenerator(ArrayList<OnCallDuty> duties, ArrayList<Teacher> teachers, ArrayList<Teacher> assignedTeachers) {
         this.duties = duties;
         this.teachers = teachers;
+        this.assignedTeachers = assignedTeachers;
     }
 
     /**
      * Generate.
      */
-    public void generate() {
+    public HashMap generate() {
         for (OnCallDuty duty : duties) {
             findBestTeacher(duty, assignedTeachers);
             Teacher bestTeacher = findBestTeacher(duty, assignedTeachers);
@@ -41,5 +43,6 @@ public class OnCallGenerator extends Generator {
             assignedDuties.add(duty);
             assignedTeachers.add(bestTeacher);
         }
+        return teacherDuties;
     }
 }

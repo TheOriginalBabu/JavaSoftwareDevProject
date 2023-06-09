@@ -11,7 +11,6 @@ import java.util.Date;
  * @File: Teacher
  */
 public class Teacher {//todo: Error Trapping/Handling
-    private String name;
     private ArrayList<Time> prepPeriods; //todo convert to list or map
     private ArrayList<Time> classes; //todo convert to list or map
     private ArrayList<Restriction> restrictions; //todo convert to list or map
@@ -30,44 +29,21 @@ public class Teacher {//todo: Error Trapping/Handling
     /**
      * Instantiates a new Teacher.
      *
-     * @param name               the name
      * @param minutesTotal       the minutes total
      * @param minutesRemaining   the minutes remaining
-     * @param minutesUsed        the minutes used
-     * @param restrictions       the restrictions
      * @param classes            the classes
      * @param prepPeriods        the prep periods
      * @param recentSupervisions the recent supervisions
      * @param availability       the availability
      */
-    public Teacher(String name, double minutesTotal, double minutesRemaining, double minutesUsed, ArrayList<Restriction> restrictions, ArrayList<Time> classes, ArrayList<Time> prepPeriods, ArrayList<SupervisionDuty> recentSupervisions, boolean availability) {
-        this.name = name;
+    public Teacher(double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, ArrayList<SupervisionDuty> recentSupervisions, boolean availability) {
         this.minutesTotal = minutesTotal;
         this.minutesRemaining = minutesRemaining;
-        this.minutesUsed = minutesUsed;
-        this.restrictions = restrictions;
+        this.minutesUsed = minutesTotal - minutesRemaining;
         this.classes = classes;
         this.prepPeriods = prepPeriods;
         this.recentSupervisions = recentSupervisions;
         this.availability = availability;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return name name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -217,10 +193,10 @@ public class Teacher {//todo: Error Trapping/Handling
     /**
      * Add restriction.
      *
-     * @param time the time
+     * @param restriction the time
      */
-    public void addRestriction(Restriction time) {
-        // TODO implement here
+    public void addRestriction(Restriction restriction) {
+        restrictions.add(restriction);
     }
 
     /**

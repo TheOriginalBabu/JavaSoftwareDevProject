@@ -11,7 +11,6 @@ public abstract class Duty {//todo: Error Trapping/Handling
     private Time time;
     private Location location;
     private Teacher teacher;
-    private String name;
 
     /**
      * Instantiates a new Duty.
@@ -78,24 +77,6 @@ public abstract class Duty {//todo: Error Trapping/Handling
      */
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return name name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
