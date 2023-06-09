@@ -8,7 +8,7 @@ Time,Period4,12:55,14:10,,,,,
 Time,afterSchool,14:10,14:30,,,,,
 Teacher,Teach1,1000,485,prep,class,lunch,prep,class
 Teacher,Teach2,800,344,prep,class,lunch,class,prep
-Teacher,Teach3,1200,540,class,prep,lunch,class,prep
+Teacher,Teach3,1200,540,class,,lunch,class,prep
 Teacher,Teach4,1050,250,class,prep,lunch,prep,class
 Location,Café,The cafeteria,Lunch,,,,,
 Location,Hall1,The main hall,Period1,Period2,Period3,Period4,,

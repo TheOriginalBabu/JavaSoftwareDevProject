@@ -11,11 +11,11 @@ public class GeneratorTester {
     public Time period3 = new Time("period3", LocalTime.of(11, 35), LocalTime.of(12, 50));
     public Time period4 = new Time("period4", LocalTime.of(12, 55), LocalTime.of(14, 10));
     public Time afterSchool = new Time("afterSchool", LocalTime.of(14, 10), LocalTime.of(14, 30));
-    public Teacher teach1 = new Teacher("Teach1", 1000, 485, new ArrayList<>(Arrays.asList(period2, period4)), new ArrayList<>(Arrays.asList(period1, period3)), new HashMap<Time, Boolean>(){{put(beforeSchool, true); put(afterSchool, true); put(lunch, true)}});
-    public Teacher teach2 = new Teacher("Teach2", 800, 344, new ArrayList<>(Arrays.asList(period2, period3)), new ArrayList<>(Arrays.asList(period1, period4)), true);
-    public Teacher teach3 = new Teacher("Teach3", 1200, 540, new ArrayList<>(Arrays.asList(period1, period3)), new ArrayList<>(Arrays.asList(period2, period4)), true);
-    public Teacher teach4 = new Teacher("Teach4", 1050, 250, new ArrayList<>(Arrays.asList(period1, period4)), new ArrayList<>(Arrays.asList(period2, period3)), true);
-    public Location cafeteria = new Location("Cafe", "The cafeteria", new ArrayList<>(Arrays.asList(lunch)));
+    public Teacher teach1 = new Teacher("Teach1", 1000, 485, new ArrayList<>(Arrays.asList(period2, period4)), new ArrayList<>(Arrays.asList(period1, period3)), new HashMap<Time, Boolean>(){{put(beforeSchool, true); put(period1, true); put(period2, true); put(lunch, true); put(period3, true); put(period3, true); put(period1, true); put(afterSchool, true);}});
+    public Teacher teach2 = new Teacher("Teach2", 800, 344, new ArrayList<>(Arrays.asList(period2, period3)), new ArrayList<>(Arrays.asList(period1, period4)), new HashMap<Time, Boolean>(){{put(beforeSchool, true); put(period1, true); put(period2, true); put(lunch, true); put(period3, true); put(period3, true); put(period1, true); put(afterSchool, true);}});
+    public Teacher teach3 = new Teacher("Teach3", 1200, 540, new ArrayList<>(Arrays.asList(period1, period3)), new ArrayList<>(Arrays.asList(period2, period4)), new HashMap<Time, Boolean>(){{put(beforeSchool, true); put(period1, true); put(period2, true); put(lunch, true); put(period3, true); put(period3, true); put(period1, true); put(afterSchool, true);}});
+    public Teacher teach4 = new Teacher("Teach4", 1050, 250, new ArrayList<>(Arrays.asList(period1, period4)), new ArrayList<>(Arrays.asList(period2, period3)), new HashMap<Time, Boolean>(){{put(beforeSchool, true); put(period1, true); put(period2, true); put(lunch, true); put(period3, true); put(period3, true); put(period1, true); put(afterSchool, true);}});
+    public Location cafeteria = new Location("Cafe", "The cafeteria", new ArrayList<>(Collections.singletonList(lunch)));
     public Location hall1 = new Location("hall1", "The main hall", new ArrayList<>(Arrays.asList(period1, period2, lunch, period3, period4)));
     public Location hall2 = new Location("hall2", "The side hall", new ArrayList<>(Arrays.asList(period2, period3)));
     public Location buses = new Location("Buses", "Bus pickup zone", new ArrayList<>(Arrays.asList(beforeSchool, afterSchool)));
@@ -46,16 +46,16 @@ public class GeneratorTester {
         SupervisionGenerator supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, 0);
         HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = supervisionGenerator.generate();
 
-        ArrayList<Teacher> assignedTeachers = new ArrayList<>();
+        HashMap<Time, ArrayList<Teacher>> assignedTeachers = new HashMap<>(){{put(beforeSchool, new ArrayList<>()); put(period1, new ArrayList<>()); put(period2, new ArrayList<>()); put(lunch, new ArrayList<>()); put(period3, new ArrayList<>()); put(period4, new ArrayList<>()); put(afterSchool, new ArrayList<>());}};
+
         for (SupervisionDuty name: assignedSupervisionDuties.keySet()) {
-            assignedTeachers.add(assignedSupervisionDuties.get(name));
+            assignedTeachers.get(name.getTime()).add(assignedSupervisionDuties.get(name));
         }
 
         OnCallGenerator onCallGenerator = new OnCallGenerator(onCallDuties, teachers, assignedTeachers);
         HashMap<OnCallDuty, Teacher> assignedOnCallDuties = onCallGenerator.generate();
-        for (SupervisionDuty name: assignedSupervisionDuties.keySet()) {
-
-            assignedTeachers.add(assignedSupervisionDuties.get(name));
+        for (OnCallDuty name: assignedOnCallDuties.keySet()) {
+            assignedTeachers.get(name.getTime()).add(assignedOnCallDuties.get(name));
         }
     }
 

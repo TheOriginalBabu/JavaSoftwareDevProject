@@ -15,7 +15,7 @@ public class OnCallGenerator extends Generator {
     private final ArrayList<OnCallDuty> duties;
     private final ArrayList<Teacher> teachers;
     private ArrayList<OnCallDuty> assignedDuties = new ArrayList<>();
-    private ArrayList<Teacher> assignedTeachers = new ArrayList<>();
+    private HashMap<Time, ArrayList<Teacher>> assignedTeachers = new HashMap<>();
     private HashMap<OnCallDuty, Teacher> teacherDuties = new HashMap<>();
 
 
@@ -26,7 +26,7 @@ public class OnCallGenerator extends Generator {
      * @param teachers         the teachers
      * @param assignedTeachers the assigned teachers
      */
-    public OnCallGenerator(ArrayList<OnCallDuty> duties, ArrayList<Teacher> teachers, ArrayList<Teacher> assignedTeachers) {
+    public OnCallGenerator(ArrayList<OnCallDuty> duties, ArrayList<Teacher> teachers, HashMap<Time, ArrayList<Teacher>> assignedTeachers) {
         this.duties = duties;
         this.teachers = teachers;
         this.assignedTeachers = assignedTeachers;
@@ -40,7 +40,12 @@ public class OnCallGenerator extends Generator {
             Teacher bestTeacher = findBestTeacher(duty, teachers, assignedTeachers);
             teacherDuties.put(duty, bestTeacher);
             assignedDuties.add(duty);
-            assignedTeachers.add(bestTeacher);
+            if (!assignedTeachers.containsKey(duty.getTime())) {
+                assignedTeachers.put(duty.getTime(), new ArrayList<>());
+            } else {
+                assignedTeachers.get(duty.getTime()).add(bestTeacher);
+            }
+            bestTeacher.changeAvailability(duty.getTime(), false);
         }
         return teacherDuties;
     }

@@ -15,7 +15,7 @@ public class SupervisionGenerator extends Generator {
     private ArrayList<SupervisionDuty> duties;
     private ArrayList<Teacher> teachers;
     private ArrayList<SupervisionDuty> assignedDuties = new ArrayList<>();
-    private ArrayList<Teacher> assignedTeachers = new ArrayList<>();
+    private HashMap<Time, ArrayList<Teacher>> assignedTeachers = new HashMap<>();
     private final int week;
     private HashMap<SupervisionDuty, Teacher> teacherDuties = new HashMap<>();
 
@@ -27,7 +27,7 @@ public class SupervisionGenerator extends Generator {
      * @param assignedTeachers the assigned teachers
      * @param week             the week
      */
-    public SupervisionGenerator(ArrayList<SupervisionDuty> duties, ArrayList<Teacher> teachers, ArrayList<Teacher> assignedTeachers, int week) {
+    public SupervisionGenerator(ArrayList<SupervisionDuty> duties, ArrayList<Teacher> teachers, HashMap<Time, ArrayList<Teacher>> assignedTeachers, int week) {
         this.duties = duties;
         this.teachers = teachers;
         this.assignedTeachers = assignedTeachers;
@@ -52,10 +52,15 @@ public class SupervisionGenerator extends Generator {
      */
     public HashMap<SupervisionDuty, Teacher> generate() { //todo: Generate schedule first
         for (SupervisionDuty duty : duties) {
-            Teacher bestTeacher = findBestTeacher(duty, teachers, assignedTeachers);
+            Teacher bestTeacher = findBestTeacher(duty, teachers);
             teacherDuties.put(duty, bestTeacher);
             assignedDuties.add(duty);
-            assignedTeachers.add(bestTeacher);
+            if (!assignedTeachers.containsKey(duty.getTime())) {
+                assignedTeachers.put(duty.getTime(), new ArrayList<>());
+            } else {
+                assignedTeachers.get(duty.getTime()).add(bestTeacher);
+            }
+            bestTeacher.changeAvailability(duty.getTime(), false);
         }
         return teacherDuties;
     }

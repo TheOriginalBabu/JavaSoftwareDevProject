@@ -60,7 +60,7 @@ public class Teacher {//todo: Error Trapping/Handling
      * @param prepPeriods        the prep periods
      * @param availability       the availability
      */
-    public Teacher(String name, double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, Hash availability) {
+    public Teacher(String name, double minutesTotal, double minutesRemaining, ArrayList<Time> classes, ArrayList<Time> prepPeriods, HashMap<Time, Boolean> availability) {
         this.name = name;
         this.minutesTotal = minutesTotal;
         this.minutesRemaining = minutesRemaining;
@@ -363,17 +363,21 @@ public class Teacher {//todo: Error Trapping/Handling
      *
      * @return availability availability
      */
-    public boolean getAvailability() {
-        return availability;
+    public boolean getAvailability(Time time) {
+        return availability.getOrDefault(time, true);
     }
 
     /**
      * Sets availability
      *
-     * @param availability the availability
+     * @param available the availability
      */
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
+    public void changeAvailability(Time time, boolean available) {
+        if (availability.containsKey(time)) {
+            availability.put(time, available);
+        } else {
+            availability.put(time, available);
+        }
     }
 
     /**
@@ -451,9 +455,9 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public boolean isAvailable (OnCallDuty duty, boolean ignoreRecentSupervision){
         if (ignoreRecentSupervision) {
-            return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+            return getAvailability(duty.getTime()) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
         } else {
-            return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
+            return getAvailability(duty.getTime()) && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnDay(duty, duty.getDate());
         }
     }
 
@@ -466,9 +470,9 @@ public class Teacher {//todo: Error Trapping/Handling
      */
     public boolean isAvailable (SupervisionDuty duty, boolean ignoreRecentSupervision){
         if (ignoreRecentSupervision) {
-            return getAvailability() && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+            return getAvailability(duty.getTime()) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
         } else {
-            return getAvailability() && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
+            return getAvailability(duty.getTime()) && !hasRecentSupervision(duty) && !isClassTime(duty.getTime()) && !hasRestrictionOnWeek(duty, duty.getWeek());
         }
     }
 
