@@ -39,9 +39,10 @@ public class Window extends JFrame {
     }
 
     private JPanel createPanel(String text) {
-        JPanel panel = createGradientPanel(new GridLayout(0, 3, 100, 10));
+        JPanel panel = createGradientPanel(new GridLayout(0, 1, 10, 10));
 
-        panel.add()
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         JLabel label = new JLabel(text);
         label.setFont(new Font(Font.SERIF, Font.BOLD, 28));
         panel.add(label);
