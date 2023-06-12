@@ -1,7 +1,9 @@
 package Scheduler;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * The type File reader. TODO: Add description
@@ -27,6 +29,22 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * The History path.
      */
     private File historyPath;
+    /**
+     * The Last date opened.
+     */
+    private Date lastDateOpened;
+    /**
+     * The Backup date.
+     */
+    private Date backupDate;
+    /**
+     * The Open number.
+     */
+    private int openNumber;
+    /**
+     * The Num of periods.
+     */
+    private int numOfPeriods;
 
     /**
      * Instantiates a new File reader.
@@ -40,7 +58,39 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * Read config.
      */
     public void readConfig() {
-        //todo: Read config file and assign data to objects. Needs to send date to config object then to controller
+        try (BufferedReader br = new BufferedReader(new FileReader(configPath))) {
+            String line;
+            SimpleDateFormat dateFormater = new SimpleDateFormat("MM/dd/yyyy");
+            int i = 0;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (i == 1) {
+                    storagePath = new File(values[1]);
+                    backUpPath = new File(values[2]);
+                    historyPath = new File(values[3]);
+                } else if (i == 2) {
+                    lastDateOpened = dateFormater.parse(values[1]);
+                } else if (i == 3) {
+                    backupDate = dateFormater.parse(values[1]);
+                } else if (i == 4) {
+                    openNumber = Integer.parseInt(values[1]);
+                } else if (i == 5) {
+                    numOfPeriods = Integer.parseInt(values[1]);
+                }
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Storage Path: " + storagePath);
+        System.out.println("Backup Path: " + backUpPath);
+        System.out.println("History Path: " + historyPath);
+        System.out.println("Last Date Opened: " + lastDateOpened);
+        System.out.println("Backup Date: " + backupDate);
+        System.out.println("Open Number: " + openNumber);
+        System.out.println("Number of Periods: " + numOfPeriods);
     }
 
     /**
@@ -134,8 +184,81 @@ public class DataFileReader {//todo: Error Trapping/Handling
         this.historyPath = historyPath;
     }
 
+
+    /**
+     * Gets last date opened.
+     *
+     * @return last date opened
+     */
+    public Date getLastDateOpened() {
+        return lastDateOpened;
+    }
+
+    /**
+     * Sets last date opened.
+     *
+     * @param lastDateOpened the last date opened
+     */
+    public void setLastDateOpened(Date lastDateOpened) {
+        this.lastDateOpened = lastDateOpened;
+    }
+
+    /**
+     * Gets backup date.
+     *
+     * @return backup date
+     */
+    public Date getBackupDate() {
+        return backupDate;
+    }
+
+    /**
+     * Sets backup date.
+     *
+     * @param backupDate the backup date
+     */
+    public void setBackupDate(Date backupDate) {
+        this.backupDate = backupDate;
+    }
+
+    /**
+     * Gets open number.
+     *
+     * @return open number
+     */
+    public int getOpenNumber() {
+        return openNumber;
+    }
+
+    /**
+     * Sets open number.
+     *
+     * @param openNumber the open number
+     */
+    public void setOpenNumber(int openNumber) {
+        this.openNumber = openNumber;
+    }
+
+    /**
+     * Gets num of periods.
+     *
+     * @return num of periods
+     */
+    public int getNumOfPeriods() {
+        return numOfPeriods;
+    }
+
+    /**
+     * Sets num of periods.
+     *
+     * @param numOfPeriods the num of periods
+     */
+    public void setNumOfPeriods(int numOfPeriods) {
+        this.numOfPeriods = numOfPeriods;
+    }
+
     public static void main(String[] args) {
-        DataFileReader dataFileReader = new DataFileReader(new File("src/resources/CSVDEMO.csv"));
-        dataFileReader.readStorage();
+        DataFileReader dataFileReader = new DataFileReader(new File("src/resources/configCSVDEMO.csv"));
+        dataFileReader.readConfig();
     }
 }

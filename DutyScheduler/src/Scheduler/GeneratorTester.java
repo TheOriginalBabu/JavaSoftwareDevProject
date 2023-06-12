@@ -57,6 +57,7 @@ public class GeneratorTester {
         for (OnCallDuty name: assignedOnCallDuties.keySet()) {
             assignedTeachers.get(name.getTime()).add(assignedOnCallDuties.get(name));
         }
+        System.out.println(assignedTeachers);
     }
 
     public static void main(String[] args) {

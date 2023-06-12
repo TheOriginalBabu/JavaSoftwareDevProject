@@ -1,8 +1,7 @@
-﻿variableName,"path, path, path, date, date, int, int"
-storageFilePath,resources/storageFile
-backupFilePath,resources/backupFile
-historyFilePath,resources/historyFile
-lastDateOpened,mm/dd/yyyyLDO
-backupDate,mm/dd/yyyyBD
-openNumber,0
-NumOfPeriods,5
+﻿variableName,"storageFilePath, date, date, int, int",backupFilePath,historyFilePath
+storageFilePath,resources/storageFile,resources/backupFile,resources/historyFile
+lastDateOpened,06/12/2023,,
+backupDate,06/09/2024,,
+openNumber,0,,
+NumOfPeriods,5,,
+,,
