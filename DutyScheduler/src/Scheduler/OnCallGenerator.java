@@ -35,7 +35,7 @@ public class OnCallGenerator extends Generator {
     /**
      * Generate.
      */
-    public HashMap<OnCallDuty, Teacher> generate() {
+    public void generate() {
         for (OnCallDuty duty : duties) {
             Teacher bestTeacher = findBestTeacher(duty, teachers, assignedTeachers);
             teacherDuties.put(duty, bestTeacher);
@@ -47,6 +47,14 @@ public class OnCallGenerator extends Generator {
             }
             bestTeacher.changeAvailability(duty.getTime(), false);
         }
+    }
+
+    /**
+     * Get assigned hashMap
+     *
+     * @return teacherDuties
+     */
+    public HashMap<OnCallDuty, Teacher> getAssignedDuties() {
         return teacherDuties;
     }
 }

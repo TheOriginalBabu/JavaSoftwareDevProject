@@ -41,10 +41,11 @@ public class GeneratorTester {
 
     public GeneratorTester() {
         teach2.addRestriction(teach2Restrict);
-        teach4.addRestriction(Teach4Restrict);
+        teach4.addRestriction(Teach4Restrict); //todo: add actual handler for restriction in base program
 
         SupervisionGenerator supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, 0);
-        HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = supervisionGenerator.generate();
+        supervisionGenerator.generate();
+        HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = supervisionGenerator.getAssignedDuties();
 
         HashMap<Time, ArrayList<Teacher>> assignedTeachers = new HashMap<>(){{put(beforeSchool, new ArrayList<>()); put(period1, new ArrayList<>()); put(period2, new ArrayList<>()); put(lunch, new ArrayList<>()); put(period3, new ArrayList<>()); put(period4, new ArrayList<>()); put(afterSchool, new ArrayList<>());}};
 
@@ -53,7 +54,8 @@ public class GeneratorTester {
         }
 
         OnCallGenerator onCallGenerator = new OnCallGenerator(onCallDuties, teachers, assignedTeachers);
-        HashMap<OnCallDuty, Teacher> assignedOnCallDuties = onCallGenerator.generate();
+        onCallGenerator.generate();
+        HashMap<OnCallDuty, Teacher> assignedOnCallDuties = onCallGenerator.getAssignedDuties();
         for (OnCallDuty name: assignedOnCallDuties.keySet()) {
             assignedTeachers.get(name.getTime()).add(assignedOnCallDuties.get(name));
         }

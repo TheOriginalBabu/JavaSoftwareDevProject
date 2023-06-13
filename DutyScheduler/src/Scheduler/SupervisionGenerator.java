@@ -50,7 +50,7 @@ public class SupervisionGenerator extends Generator {
     /**
      * Generate.
      */
-    public HashMap<SupervisionDuty, Teacher> generate() { //todo: Generate schedule first
+    public void generate() { //todo: Generate schedule first
         for (SupervisionDuty duty : duties) {
             Teacher bestTeacher = findBestTeacher(duty, teachers);
             teacherDuties.put(duty, bestTeacher);
@@ -62,6 +62,14 @@ public class SupervisionGenerator extends Generator {
             }
             bestTeacher.changeAvailability(duty.getTime(), false);
         }
+    }
+
+    /**
+     * Get assigned hashMap
+     *
+     * @return teacherDuties
+     */
+    public HashMap<SupervisionDuty, Teacher> getAssignedDuties() {
         return teacherDuties;
     }
 }

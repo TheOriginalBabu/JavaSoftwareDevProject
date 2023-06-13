@@ -38,14 +38,14 @@ public class Window extends JFrame {
 
     private JPanel createCardPanel(CardLayout layout) {
         JPanel panel = new JPanel(layout);
-        panel.add(createMenuPanel("Duty Scheduler"), "Menu");
-        panel.add(createGeneratorPanel("Page 2"), "Card2");
+        panel.add(createMenuPanel(), "Menu");
+        panel.add(createGeneratorPanel(), "Card2");
 
         return panel;
     }
 
-    private JPanel createMenuPanel(String text) {
-        JPanel menuPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), text);
+    private JPanel createMenuPanel() {
+        JPanel menuPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Duty Scheduler");
 
         menuPanel.add(createCardSwitchButton("Next Card", "Card2"));
         menuPanel.add(createCardSwitchButton("Previous Card", "Menu"));
@@ -53,14 +53,14 @@ public class Window extends JFrame {
         return menuPanel;
     }
 
-    private JPanel createGeneratorPanel(String text) {
-        JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), text);
+    private JPanel createGeneratorPanel() {
+        JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Page 2");
 
         JButton supervisionGeneratorBtn = new JButton("Generate Supervision Duties");
         supervisionGeneratorBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //todo: generate schedule
+                supervisionGenerator.generate();
             }
         });
 
