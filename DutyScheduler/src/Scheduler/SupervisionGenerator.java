@@ -53,6 +53,10 @@ public class SupervisionGenerator extends Generator {
     public void generate() { //todo: Generate schedule first
         for (SupervisionDuty duty : duties) {
             Teacher bestTeacher = findBestTeacher(duty, teachers);
+            if (bestTeacher == null) {
+                System.out.println("No teacher available for duty: " + duty.getName());
+                continue;
+            }
             teacherDuties.put(duty, bestTeacher);
             assignedDuties.add(duty);
             if (!assignedTeachers.containsKey(duty.getTime())) {

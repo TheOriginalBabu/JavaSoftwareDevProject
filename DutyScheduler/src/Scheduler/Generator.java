@@ -82,6 +82,12 @@ public abstract class Generator {//todo: Error Trapping/Handling
             System.out.println("Teacher " + bestTeacher.getName() + " assigned to duty: " + duty.getName());
         }
         // todo: Add error handling (if no teachers are available) (Teacher has too many duties)
-        return bestTeacher;
+        try {
+            return bestTeacher;
+        }
+        catch (Exception e) {
+            System.out.println("No teacher available for duty: " + duty.getName());
+            return null;
+        }
     }
 }

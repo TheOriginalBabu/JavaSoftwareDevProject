@@ -156,8 +156,6 @@ public class DataFileReader {//todo: Error Trapping/Handling
             }
         } catch (IOException e) { // Catching exceptions
             e.printStackTrace();
-        } catch (ParseException e) { // Catching exceptions
-            throw new RuntimeException(e);
         }
     }
 
