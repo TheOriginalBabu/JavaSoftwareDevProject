@@ -1,6 +1,7 @@
 package Scheduler;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -51,7 +52,7 @@ public class Config {//todo: Error Trapping/Handling
     /**
      * Instantiates a new Config.
      *
-     * @param configFilePath  the config file path
+     * @param configFilePath the config file path
      */
     public Config(String configFilePath) {
         this.configFilePath = configFilePath;
@@ -204,5 +205,41 @@ public class Config {//todo: Error Trapping/Handling
      */
     public void setNumOfPeriods(int numOfPeriods) {
         this.numOfPeriods = numOfPeriods;
+    }
+
+    /**
+     * Gets times.
+     *
+     * @return the times
+     */
+    public ArrayList<Time> getTimes() {
+        return dataFileReader.getTimes();
+    }
+
+    /**
+     * Gets supervision duties.
+     *
+     * @return the supervision duties
+     */
+    public ArrayList<SupervisionDuty> getSupervisionDuties() {
+        return dataFileReader.getSupervisionDuties();
+    }
+
+    /**
+     * Gets teachers.
+     *
+     * @return the teachers
+     */
+    public ArrayList<Teacher> getTeachers() {
+        return dataFileReader.getTeachers();
+    }
+
+    /**
+     * Gets on call duties.
+     *
+     * @return the on call duties
+     */
+    public ArrayList<OnCallDuty> getOnCallDuties() {
+        return dataFileReader.getOnCallDuties();
     }
 }

@@ -18,12 +18,15 @@ public class Window extends JFrame {
     private JPanel cards;
     private CardLayout cardLayout;
 
-    private SupervisionGenerator supervisionGenerator;
-    private OnCallGenerator onCallGenerator;
+    private GeneratorController generatorController;
 
-    public Window(SupervisionGenerator supervisionGenerator, OnCallGenerator onCallGenerator) {
-        this.supervisionGenerator = supervisionGenerator;
-        this.onCallGenerator = onCallGenerator;
+    /**
+     * Instantiates a new Window.
+     *
+     * @param generatorController the generator controller
+     */
+    public Window(GeneratorController generatorController) {
+        this.generatorController = generatorController;
 
         setPreferredSize(new Dimension(400, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,37 +39,57 @@ public class Window extends JFrame {
         pack();
     }
 
+    /**
+     * create main panel with card layout
+     *
+     * @param layout card layout
+     * @return main panel
+     */
     private JPanel createCardPanel(CardLayout layout) {
         JPanel panel = new JPanel(layout);
         panel.add(createMenuPanel(), "Menu");
-        panel.add(createGeneratorPanel(), "Card2");
+        panel.add(createGeneratorPanel(), "Generator");
 
         return panel;
     }
 
+    /**
+     * Creates the menu panel
+     *
+     * @return menu panel
+     */
     private JPanel createMenuPanel() {
         JPanel menuPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Duty Scheduler");
 
-        menuPanel.add(createCardSwitchButton("Next Card", "Card2"));
+        menuPanel.add(createCardSwitchButton("Next Card", "Generator"));
         menuPanel.add(createCardSwitchButton("Previous Card", "Menu"));
 
         return menuPanel;
     }
 
+    /**
+     * Creates the generator panel
+     *
+     * @return generator panel
+     */
     private JPanel createGeneratorPanel() {
-        JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Page 2");
+        JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Generator");
 
-        JButton supervisionGeneratorBtn = new JButton("Generate Supervision Duties");
-        supervisionGeneratorBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                supervisionGenerator.generate();
-            }
-        });
+        JButton generatorBtn = new JButton("Generate");
+        generatorBtn.addActionListener(e -> generatorController.generate());
+
+        generatorPanel.add(generatorBtn);
 
         return generatorPanel;
     }
 
+    /**
+     * Creates a gradient panel with set border and set title
+     *
+     * @param layout layout of panel
+     * @param text   text to display
+     * @return gradient panel
+     */
     private JPanel createGradientPanel(LayoutManager layout, String text) {
         JPanel panel = new JPanel(layout) {
                 @Override
@@ -92,6 +115,13 @@ public class Window extends JFrame {
         return panel;
     }
 
+    /**
+     * Creates a button that switches the card
+     *
+     * @param buttonText text to display on button
+     * @param cardName   name of card to switch to
+     * @return button
+     */
     private JButton createCardSwitchButton(String buttonText, String cardName) {
         JButton button = new JButton(buttonText);
         button.addActionListener(new ActionListener() {
@@ -103,7 +133,13 @@ public class Window extends JFrame {
         return button;
     }
 
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Window().setVisible(true));
+
     }
 }

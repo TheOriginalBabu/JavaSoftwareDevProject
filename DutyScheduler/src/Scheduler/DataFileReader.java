@@ -3,6 +3,7 @@ package Scheduler;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -45,9 +46,27 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * The Num of periods.
      */
     private int numOfPeriods;
+    /**
+     * List of times.
+     */
+    private ArrayList<Time> times;
+    /**
+     * List of supervision duties.
+     */
+    private ArrayList<SupervisionDuty> supervisionDuties;
+    /**
+     * List of teachers.
+     */
+    private ArrayList<Teacher> teachers;
+    /**
+     * List of on call duties.
+     */
+    private ArrayList<OnCallDuty> onCallDuties;
 
     /**
      * Instantiates a new File reader.
+     *
+     * @param configFile the config file
      */
     public DataFileReader(File configFile) {
         this.configPath = configFile;
@@ -259,8 +278,49 @@ public class DataFileReader {//todo: Error Trapping/Handling
         this.numOfPeriods = numOfPeriods;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         DataFileReader dataFileReader = new DataFileReader(new File("src/resources/configCSVDEMO.csv"));
         dataFileReader.readConfig();
+    }
+
+    /**
+     * Gets times.
+     *
+     * @return the times
+     */
+    public ArrayList<Time> getTimes() {
+        return times;
+    }
+
+    /**
+     * Gets supervision duties.
+     *
+     * @return the supervision duties
+     */
+    public ArrayList<SupervisionDuty> getSupervisionDuties() {
+        return supervisionDuties;
+    }
+
+    /**
+     * Gets teachers.
+     *
+     * @return the teachers
+     */
+    public ArrayList<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    /**
+     * Gets on call duties.
+     *
+     * @return the on call duties
+     */
+    public ArrayList<OnCallDuty> getOnCallDuties() {
+        return onCallDuties;
     }
 }

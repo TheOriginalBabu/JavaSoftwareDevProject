@@ -25,12 +25,13 @@ public class Restriction {//todo: Error Trapping/Handling
      * @param time        the time
      * @param isAvailable the isAvailable
      */
-    public Restriction(String description, Date date, int week,Time time, boolean isAvailable) {
+    public Restriction(String description, Date date, int week,Time time, boolean isAvailable, Teacher teacher) {
         this.description = description;
         this.date = date;
         this.week = week;
         this.time = time;
         this.isAvailable = isAvailable;
+        teacher.addRestriction(this);
     }
 
     /**

@@ -1,5 +1,6 @@
 package Scheduler;
 
+import javax.swing.*;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -19,8 +20,8 @@ public class GeneratorTester {
     public Location hall1 = new Location("hall1", "The main hall", new ArrayList<>(Arrays.asList(period1, period2, lunch, period3, period4)));
     public Location hall2 = new Location("hall2", "The side hall", new ArrayList<>(Arrays.asList(period2, period3)));
     public Location buses = new Location("Buses", "Bus pickup zone", new ArrayList<>(Arrays.asList(beforeSchool, afterSchool)));
-    public Restriction teach2Restrict = new Restriction("Not coming in morning", new Date(123, 0, 3), 0, period1, false);//todo: fix CSVDemo
-    public Restriction Teach4Restrict = new Restriction("Leaving Early", new Date(123, 0, 4), 0, period4, false);
+    public Restriction teach2Restrict = new Restriction("Not coming in morning", new Date(123, 0, 3), 0, period1, false, teach2);//todo: fix CSVDemo
+    public Restriction Teach4Restrict = new Restriction("Leaving Early", new Date(123, 0, 4), 0, period4, false, teach4);
     public SupervisionDuty morningBus = new SupervisionDuty("morningBus", beforeSchool, buses, 0);
     public SupervisionDuty afternoonBus = new SupervisionDuty("afternoonBus", afterSchool, buses, 0);
     public SupervisionDuty cafeteriaDuty = new SupervisionDuty("cafeteriaDuty", lunch, cafeteria, 0);
@@ -40,10 +41,7 @@ public class GeneratorTester {
 
 
     public GeneratorTester() {
-        teach2.addRestriction(teach2Restrict);
-        teach4.addRestriction(Teach4Restrict); //todo: add actual handler for restriction in base program
-
-        SupervisionGenerator supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, 0);
+        /*SupervisionGenerator supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, 0);
         supervisionGenerator.generate();
         HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = supervisionGenerator.getAssignedDuties();
 
@@ -53,13 +51,20 @@ public class GeneratorTester {
             assignedTeachers.get(name.getTime()).add(assignedSupervisionDuties.get(name));
         }
 
-        OnCallGenerator onCallGenerator = new OnCallGenerator(onCallDuties, teachers, assignedTeachers);
-        onCallGenerator.generate();
+        OnCallGenerator onCallGenerator = new OnCallGenerator(onCallDuties, teachers);
+        onCallGenerator.generate(assignedTeachers);
         HashMap<OnCallDuty, Teacher> assignedOnCallDuties = onCallGenerator.getAssignedDuties();
         for (OnCallDuty name: assignedOnCallDuties.keySet()) {
             assignedTeachers.get(name.getTime()).add(assignedOnCallDuties.get(name));
         }
         System.out.println(assignedTeachers);
+         */
+        windowTester();
+    }
+
+    private void windowTester() {
+        ArrayList<Time> times = new ArrayList<>(Arrays.asList(beforeSchool, period1, period2, lunch, period3, period4, afterSchool));
+        SwingUtilities.invokeLater(() -> new Window(new GeneratorController()).setVisible(true));
     }
 
     public static void main(String[] args) {
