@@ -28,10 +28,10 @@ public class GeneratorController {
         }
 
         // Initialize a supervision generator
-        SupervisionGenerator supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+        supervisionGenerator = new SupervisionGenerator(supervisionDuties, teachers, Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
 
         // Initialize an on call generator
-        OnCallGenerator onCallGenerator = new OnCallGenerator(onCallDuties, teachers);
+        onCallGenerator = new OnCallGenerator(onCallDuties, teachers);
     }
 
     public void generate() {

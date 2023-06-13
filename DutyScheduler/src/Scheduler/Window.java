@@ -1,18 +1,16 @@
 package Scheduler;
 
-/**
- * @author: Griffin Robinson
- * @date: 2023-06-12
- * @File Name: Window
- * @description: _______
- */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * The type Window.
+ * @author: Griffin Robinson
+ * @date: 2023-06-12
+ * @File Name: Window
+ * @description: _______
  */
 public class Window extends JFrame {
     private JPanel cards;
@@ -79,6 +77,7 @@ public class Window extends JFrame {
         generatorBtn.addActionListener(e -> generatorController.generate());
 
         generatorPanel.add(generatorBtn);
+        generatorPanel.add(createCardSwitchButton("Back", "Menu"), BorderLayout.SOUTH);
 
         return generatorPanel;
     }
@@ -131,15 +130,5 @@ public class Window extends JFrame {
             }
         });
         return button;
-    }
-
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-
     }
 }
