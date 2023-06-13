@@ -18,7 +18,13 @@ public class Window extends JFrame {
     private JPanel cards;
     private CardLayout cardLayout;
 
-    public Window() {
+    private SupervisionGenerator supervisionGenerator;
+    private OnCallGenerator onCallGenerator;
+
+    public Window(SupervisionGenerator supervisionGenerator, OnCallGenerator onCallGenerator) {
+        this.supervisionGenerator = supervisionGenerator;
+        this.onCallGenerator = onCallGenerator;
+
         setPreferredSize(new Dimension(400, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -32,29 +38,37 @@ public class Window extends JFrame {
 
     private JPanel createCardPanel(CardLayout layout) {
         JPanel panel = new JPanel(layout);
-        panel.add(createPanel("Duty Scheduler"), "Menu");
-        panel.add(createPanel("Page 2"), "Card2");
+        panel.add(createMenuPanel("Duty Scheduler"), "Menu");
+        panel.add(createGeneratorPanel("Page 2"), "Card2");
 
         return panel;
     }
 
-    private JPanel createPanel(String text) {
-        JPanel panel = createGradientPanel(new GridLayout(0, 1, 10, 10));
+    private JPanel createMenuPanel(String text) {
+        JPanel menuPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), text);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        menuPanel.add(createCardSwitchButton("Next Card", "Card2"));
+        menuPanel.add(createCardSwitchButton("Previous Card", "Menu"));
 
-        JLabel label = new JLabel(text);
-        label.setFont(new Font(Font.SERIF, Font.BOLD, 28));
-        panel.add(label);
-
-        panel.add(createCardSwitchButton("Next Card", "Card2"));
-        panel.add(createCardSwitchButton("Previous Card", "Menu"));
-
-        return panel;
+        return menuPanel;
     }
 
-    private JPanel createGradientPanel(LayoutManager layout) {
-        return new JPanel(layout) {
+    private JPanel createGeneratorPanel(String text) {
+        JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), text);
+
+        JButton supervisionGeneratorBtn = new JButton("Generate Supervision Duties");
+        supervisionGeneratorBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //todo: generate schedule
+            }
+        });
+
+        return generatorPanel;
+    }
+
+    private JPanel createGradientPanel(LayoutManager layout, String text) {
+        JPanel panel = new JPanel(layout) {
                 @Override
                 protected void paintComponent(Graphics graphics) {
                     super.paintComponent(graphics);
@@ -70,6 +84,12 @@ public class Window extends JFrame {
                 }
 
             };
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(new Font(Font.SERIF, Font.BOLD, 28));
+        panel.add(label);
+        return panel;
     }
 
     private JButton createCardSwitchButton(String buttonText, String cardName) {
