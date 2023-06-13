@@ -81,21 +81,28 @@ public class DataFileReader {//todo: Error Trapping/Handling
             String line;
             SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Format to convert string to date
             int i = 0;
+
             while ((line = br.readLine()) != null) { // Read each line of the file
                 String[] values = line.split(","); // Split each line into an array of strings
+
                 if (i == 1) {// Reading and assigning the file paths
                     storagePath = new File(values[1]);
                     backUpPath = new File(values[2]);
                     historyPath = new File(values[3]);
+
                 } else if (i == 2) {// Reading and assigning the last date opened
                     lastDateOpened = dateFormatter.parse(values[1]);
+
                 } else if (i == 3) {// Reading and assigning the back up date
                     backupDate = dateFormatter.parse(values[1]);
+
                 } else if (i == 4) {// Reading and assigning the open number
                     openNumber = Integer.parseInt(values[1]);
+
                 } else if (i == 5) {// Reading and assigning the number of periods
                     numOfPeriods = Integer.parseInt(values[1]);
                 }
+
                 i++;
             }
         } catch (IOException e) { // Catching exceptions
@@ -125,12 +132,33 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * Read storage.
      */
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-            try (FileReader csvReader = new FileReader("src/resources/CSVDEMO.csv")) {
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
+        try (BufferedReader br = new BufferedReader(new FileReader(configPath))) {
+            String line;
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Format to convert string to date
+            int i = 0;
+
+            while ((line = br.readLine()) != null) { // Read each line of the file
+                String[] values = line.split(","); // Split each line into an array of strings
+
+                if (i == 1) {// Reading and assigning the file paths
+
+                } else if (i == 2) {
+
+                } else if (i == 3) {
+
+                } else if (i == 4) {
+
+                } else if (i == 5) {
+
+                }
+
+                i++;
             }
-
-
+        } catch (IOException e) { // Catching exceptions
+            e.printStackTrace();
+        } catch (ParseException e) { // Catching exceptions
+            throw new RuntimeException(e);
+        }
     }
 
     /**
