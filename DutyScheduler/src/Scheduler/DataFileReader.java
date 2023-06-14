@@ -4,7 +4,12 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 /**
  * The type File reader. TODO: Add description
@@ -135,32 +140,45 @@ public class DataFileReader {//todo: Error Trapping/Handling
     /**
      * Read storage.
      */
+
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-        try (BufferedReader br = new BufferedReader(new FileReader(configPath))) {
-            String line;
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Format to convert string to date
-            int i = 0;
+        String csvFile = "your_file_path.csv";
+        String line;
+        String csvSplitBy = ",";
 
-            while ((line = br.readLine()) != null) { // Read each line of the file
-                String[] values = line.split(","); // Split each line into an array of strings
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        ArrayList<Time> times = new ArrayList<>();
+        ArrayList<Location> locations = new ArrayList<>();
+        ArrayList<Restriction> restrictions = new ArrayList<>();
+        ArrayList<Duty> duties = new ArrayList<>();
 
-                if (i == 1) {// Reading and assigning the file paths
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            br.readLine(); // Skip the header line
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(csvSplitBy);
 
-                } else if (i == 2) {
-
-                } else if (i == 3) {
-
-                } else if (i == 4) {
-
-                } else if (i == 5) {
-
+                if (data[0].equals("Teacher")) {
+                    teachers.add(new Teacher(data[1], data[2], data[3], Arrays.copyOfRange(data, 4, data.length)));
+                } else if (data[0].equals("Time")) {
+                    times.add(new Time(data[1], data[2], data[3], data[4], data[5]));
+                } else if (data[0].equals("Location")) {
+                    locations.add(new Location(data[1], data[2], Arrays.copyOfRange(data, 3, data.length)));
+                } else if (data[0].equals("Restriction")) {
+                    restrictions.add(new Restriction(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
+                } else if (data[0].equals("Duty")) {
+                    duties.add(new Duty(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
                 }
-
-                i++;
             }
-        } catch (IOException e) { // Catching exceptions
+
+            // Print the assigned values
+            System.out.println("Teachers: " + teachers);
+            System.out.println("Times: " + times);
+            System.out.println("Locations: " + locations);
+            System.out.println("Restrictions: " + restrictions);
+            System.out.println("Duties: " + duties);
+
+        } catch (IOException e) {
             e.printStackTrace();
-        }
     }
 
     /**
