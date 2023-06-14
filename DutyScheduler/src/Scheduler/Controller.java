@@ -23,7 +23,7 @@ public class Controller {//todo: Error Trapping/Handling
     private Controller() {
         Config config = new Config(DEFAULT_CONFIG_FILE_PATH); //todo: Receive data from config file and set to variables/Objects
 
-        GeneratorController generatorController = new GeneratorController(config.getTimes(), config.getSupervisionDuties(), config.getTeachers(), config.getOnCallDuties());
+        GeneratorController generatorController = new GeneratorController(config.getTimes(), config.getSupervisionDuties(), config.getTeachers(), config.getOnCallDuties(), config.getLocations());
 
         /* ↓ RUN THIS LAST. Starts GUI ↓ */
         SwingUtilities.invokeLater(() -> new Window(generatorController));

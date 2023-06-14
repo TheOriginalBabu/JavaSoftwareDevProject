@@ -62,6 +62,10 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * List of on call duties.
      */
     private ArrayList<OnCallDuty> onCallDuties;
+    /**
+     * List of locations.
+     */
+    private ArrayList<Location> locations;
 
     /**
      * Instantiates a new File reader.
@@ -348,5 +352,14 @@ public class DataFileReader {//todo: Error Trapping/Handling
      */
     public ArrayList<OnCallDuty> getOnCallDuties() {
         return onCallDuties;
+    }
+
+    /**
+     * Gets locations.
+     *
+     * @return the locations
+     */
+    public ArrayList<Location> getLocations() {
+        return locations;
     }
 }

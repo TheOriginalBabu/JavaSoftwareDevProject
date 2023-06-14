@@ -16,7 +16,7 @@ public class GeneratorController {
     private ArrayList<Time> times;
     private HashMap<Time, ArrayList<Teacher>> assignedTeachers = new HashMap<>();
 
-    public GeneratorController(ArrayList<Time> times, ArrayList<SupervisionDuty> supervisionDuties, ArrayList<Teacher> teachers, ArrayList<OnCallDuty> onCallDuties) { // Call this constructor from Controller class
+    public GeneratorController(ArrayList<Time> times, ArrayList<SupervisionDuty> supervisionDuties, ArrayList<Teacher> teachers, ArrayList<OnCallDuty> onCallDuties, ArrayList<Location> locations) { // Call this constructor from Controller class
         this.supervisionDuties = supervisionDuties;
         this.onCallDuties = onCallDuties;
         this.teachers = teachers;
@@ -50,5 +50,25 @@ public class GeneratorController {
         for (OnCallDuty name: assignedOnCallDuties.keySet()) {
             assignedTeachers.get(name.getTime()).add(assignedOnCallDuties.get(name)); //Add assigned teacher to the hashmap
         }
+    }
+
+    public HashMap<Time, ArrayList<Teacher>> getAssignedTeachers() {
+        return assignedTeachers;
+    }
+
+    public ArrayList<SupervisionDuty> getSupervisionDuties() {
+        return supervisionDuties;
+    }
+
+    public ArrayList<OnCallDuty> getOnCallDuties() {
+        return onCallDuties;
+    }
+
+    public ArrayList<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public ArrayList<Time> getTimes() {
+        return times;
     }
 }

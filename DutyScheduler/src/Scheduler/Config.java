@@ -242,4 +242,8 @@ public class Config {//todo: Error Trapping/Handling
     public ArrayList<OnCallDuty> getOnCallDuties() {
         return dataFileReader.getOnCallDuties();
     }
+
+    public ArrayList<Location> getLocations() {
+        return dataFileReader.getLocations();
+    }
 }

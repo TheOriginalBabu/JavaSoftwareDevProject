@@ -63,8 +63,7 @@ public class GeneratorTester {
     }
 
     private void windowTester() {
-        ArrayList<Time> times = new ArrayList<>(Arrays.asList(beforeSchool, period1, period2, lunch, period3, period4, afterSchool));
-        SwingUtilities.invokeLater(() -> new Window(new GeneratorController(times, supervisionDuties, teachers, onCallDuties)).setVisible(true));
+        SwingUtilities.invokeLater(() -> new Window(new GeneratorController(times, supervisionDuties, teachers, onCallDuties, locations)).setVisible(true));
     }
 
     public static void main(String[] args) {
