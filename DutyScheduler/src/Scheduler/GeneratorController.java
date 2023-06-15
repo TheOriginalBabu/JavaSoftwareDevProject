@@ -1,5 +1,6 @@
 package Scheduler;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -205,11 +206,13 @@ public class GeneratorController {
         }
 
         Teacher teacher = new Teacher(teacherName, minutesRequired, minutesLeft, classTimes, prepTimes);
+        teachers.add(teacher);
     }
 
 
-    public void addTime(String timeName, String startTime, String endTime) {//todo: finish this
-
+    public void addTime(String timeName, String startTime, String endTime) {
+        Time time = new Time(timeName, LocalTime.parse(startTime), LocalTime.parse(endTime));
+        times.add(time);
     }
 
 

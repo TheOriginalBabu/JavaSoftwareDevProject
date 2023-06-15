@@ -159,7 +159,7 @@ public class Window extends JFrame {
 
         setupPanel.add(locationsComboBox);
 
-        setupPanel.add(createCardSwitchButton("Next", "TeachInit"));
+        setupPanel.add(createCardSwitchButton("Next", "TimeInit"));
 
         setupPanel.add(createCardSwitchButton("Back", "Settings"));
 
@@ -174,8 +174,15 @@ public class Window extends JFrame {
     private JPanel createTimeInitPanel() {
         JPanel timeInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Time Initialisation");
 
+        // Get a list of teachers
+        ArrayList<String> times = new ArrayList<>(timesComboBox.getStringList());
+
+        // Create a label to display the name of the current teacher
+        JLabel teacherLabel = new JLabel();
+        teacherLabel.setText(times.get(0));
+        timeInitPanel.add(teacherLabel);
+
         HashMap<String, CustomTextField> textFields = new HashMap<>();
-        ArrayList<TimePeriod> timePeriods = new ArrayList<>();
 
         // Create text fields for Start Time and End Time
         String[] attributes = {"Start Time (hh:mm)", "End Time (hh:mm)"};
@@ -194,20 +201,32 @@ public class Window extends JFrame {
             String startTime = textFields.get("Start Time (hh:mm)").getText();
             String endTime = textFields.get("End Time (hh:mm)").getText();
 
+            // Validate startTime and endTime to make sure they are in the format hh:mm
+            if (!startTime.matches("^([01]\\d|2[0-3]):([0-5]\\d)$") || !endTime.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
+                JOptionPane.showMessageDialog(timeInitPanel, "Please enter time in the format hh:mm.", "Invalid Time Format", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Clear the text fields
             textFields.get("Start Time (hh:mm)").clearText();
             textFields.get("End Time (hh:mm)").clearText();
 
-            // TODO: Validate startTime and endTime to make sure they are in the format hh:mm
-            // If they are not valid, show an error message and return
+            // The index of the current teacher
+            int currentTimeIndex = 0;
 
-            generatorController.addTime(startTime, endTime);//todo: Finish this
-            timePeriods.add(timePeriod);
+            // Get the name of the current teacher
+            String name = times.get(currentTimeIndex);
+
+            // Increment the current teacher index
+            currentTimeIndex++;
+
+
+            generatorController.addTime(name, startTime, endTime);
 
             // TODO: Save timePeriods to wherever it needs to be stored
 
             // For testing, print the current list of time periods
-            System.out.println(timePeriods);
+            System.out.println(name + ": " + startTime + " - " + endTime);
         });
 
         return timeInitPanel;
