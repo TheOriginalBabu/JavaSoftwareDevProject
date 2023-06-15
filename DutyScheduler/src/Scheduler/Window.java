@@ -174,7 +174,13 @@ public class Window extends JFrame {
     private JPanel createTeachInitPanel() {
         JPanel teachInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Teacher Initialisation");
 
-        teachInitPanel.add(new JLabel())//todo: finish this
+        // Get a list of teachers
+        ArrayList<String> teachers = new ArrayList<>(teachersComboBox.getStringList());
+
+        // Create a label to display the name of the current teacher
+        JLabel teacherLabel = new JLabel();
+        teacherLabel.setText(teachers.get(0));
+        teachInitPanel.add(teacherLabel);
 
         HashMap<String, CustomTextField> textFields = new HashMap<>();
         ArrayList<HashMap<String, Object>> teacherData = new ArrayList<>();
@@ -189,8 +195,16 @@ public class Window extends JFrame {
 
         // Add JComboBox for class and prep periods
         ArrayList<String> periods = new ArrayList<>(timesComboBox.getStringList());
+
+        // Create table of periods
         CustomJTable table = new CustomJTable(periods);
-        teachInitPanel.add(table);
+
+        // Create scroll pane for table and remove header
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setColumnHeaderView(null);
+
+        // Add scroll pane to panel
+        teachInitPanel.add(scrollPane);
 
         // Add save button
         JButton saveButton = new JButton("Save and Next");
@@ -233,12 +247,26 @@ public class Window extends JFrame {
                 classPeriods.add((String)table.getValueAt(row, 0));
             }
 
-            // Clear the and selection in the table for next input
-            table.clearSelection();
+            // The index of the current teacher
+            int currentTeacherIndex = 0;
 
-            String name = "Name"; //todo: get each name
+            // Get the name of the current teacher
+            String name = teachers.get(currentTeacherIndex);
 
+            // Increment the current teacher index
+            currentTeacherIndex++;
+
+            // Create a Teacher object from data
             generatorController.addTeacher(name, minutesTotal.get(), minutesRemaining.get(), classPeriods);
+
+            // If there are still teachers left, update the JLabel and clear fields
+            if(currentTeacherIndex < teachers.size()) {
+                teacherLabel.setText("Teacher: " + teachers.get(currentTeacherIndex));
+                table.clearSelection();
+            } else {
+                // When all teachers are initialized go to the next card
+                cardLayout.show(cards, "LocInit");
+            }
 
             // For testing, print the current list of teacher data
             System.out.println(name + " " + minutesTotal + " " + minutesRemaining + " " + classPeriods);
