@@ -1,8 +1,5 @@
 package Scheduler;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -22,6 +19,7 @@ public class GeneratorController {
     private ArrayList<String> teachersStringList = new ArrayList<>();
     private ArrayList<String> timesStringList = new ArrayList<>();
     private ArrayList<String> locationsStringList = new ArrayList<>();
+
 
     /**
      * Instantiates a new Generator controller.
@@ -178,5 +176,44 @@ public class GeneratorController {
      */
     public ArrayList<String> getLocationsStringList() {
         return locationsStringList;
+    }
+
+    /**
+     * Adds teachers info.
+     *
+     * @param teacherName the teacher name
+     * @param classes     the periods
+     */
+    public void addTeacher(String teacherName, int minutesRequired, int minutesLeft, ArrayList<String> classes) {
+
+        ArrayList<Time> classTimes = new ArrayList<>();
+        for (String className : classes) {
+            for (Time time : times) {
+                if (time.getName().equals(className)) {
+                    classTimes.add(time);
+                }
+            }
+        }
+
+        ArrayList<Time> prepTimes = new ArrayList<>();
+        for (String className : classes) {
+            for (Time time : times) {
+                if (!time.getName().equals(className)) {
+                    classTimes.add(time);
+                }
+            }
+        }
+
+        Teacher teacher = new Teacher(teacherName, minutesRequired, minutesLeft, classTimes, prepTimes);
+    }
+
+
+    public void addTime(String timeName) {
+
+    }
+
+
+    public void addLocation(String locationName) {
+
     }
 }

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 /**
  * The type Window.
@@ -187,62 +188,50 @@ public class Window extends JFrame {
         }
 
         // Add JComboBox for class and prep periods
-        String[] periods = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        CustomJList classPeriodsList = new CustomJList(periods);
-        CustomJList prepPeriodsList = new CustomJList(periods);
+        ArrayList<String> periods = new ArrayList<>(timesComboBox.getStringList());
+        CustomJTable table = new CustomJTable(periods);
+        teachInitPanel.add(table);
 
-        // Set selection mode to multiple interval selection
-        classPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//todo: fix this
-        prepPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//todo: fix this
-
-        // Add scroll panes for the lists
-        JScrollPane classPeriodsScrollPane = new JScrollPane(classPeriodsList);
-        classPeriodsScrollPane.setBorder(BorderFactory.createTitledBorder("Select Prep Periods"));
-        teachInitPanel.add(classPeriodsScrollPane);
-
-        // Add JScroll pane for prep periods
-        JScrollPane prepPeriodsScrollPane = new JScrollPane(prepPeriodsList);
-        prepPeriodsScrollPane.setBorder(BorderFactory.createTitledBorder("Select Prep Periods"));
-        teachInitPanel.add(prepPeriodsScrollPane);
-
+        // Add save button
         JButton saveButton = new JButton("Save and Next");
         teachInitPanel.add(saveButton);
 
+        int minutesTotal = 0;
+        int minutesRemaining = 0;
+
         saveButton.addActionListener(e -> {
-            // Create a new map to store the current teacher's information
-            HashMap<String, Object> currentTeacher = new HashMap<>();
             for (Map.Entry<String, CustomTextField> entry : textFields.entrySet()) {
                 // Get the attribute and value from the text field
-                currentTeacher.put(entry.getKey(), entry.getValue().getText());
+                String attribute = entry.getKey();
+                if (attribute.equals("Minutes Required")) {
+                    minutesRequired = Integer.parseInt(entry.getValue().getText());
+                } else if (attribute.equals("Minutes Remaining")) {
+                    minutesRemaining = Integer.parseInt(entry.getValue().getText());
+                }
                 // Clear the text field
                 entry.getValue().clearText();
             }
 
-            // Create a map for the periods
-            HashMap<String, String> periodAssignments = new HashMap<>();
-            for (String period : classPeriodsList.getSelectedItems()) {
-                periodAssignments.put(period, "Class");
+            // Create a list to store the selected periods
+            ArrayList<String> classPeriods = new ArrayList<>();
+
+            // Get the selected rows from the table
+            int[] selectedRows = table.getSelectedRows();
+
+            // Retrieve the corresponding periods from the table and add to list
+            for(int row : selectedRows) {
+                classPeriods.add((String)table.getValueAt(row, 0));
             }
-            for (String period : prepPeriodsList.getSelectedItems()) {
-                periodAssignments.put(period, "Prep");
-            }
 
-            // Clear the selected items in the lists
-            classPeriodsList.clearSelectedItems();
-            prepPeriodsList.clearSelectedItems();
+            // Clear the and selection in the table for next input
+            table.clearSelection();
 
-            // Add the periods map to the current teacher's information
-            currentTeacher.put("Periods", periodAssignments);
+            String name = "Name"; //todo: get each name
 
-            // Add the current teacher's information to the list
-            teacherData.add(currentTeacher);
+            generatorController.addTeacher(name, minutesTotal, minutesRemaining, classPeriods);
 
             // For testing, print the current list of teacher data
             System.out.println(teacherData);
-
-            // Clear the selected items in the lists
-            classPeriodsList.clearSelection();
-            prepPeriodsList.clearSelection();
         });
         return teachInitPanel;
     }
