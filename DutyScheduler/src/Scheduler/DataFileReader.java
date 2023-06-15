@@ -144,7 +144,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
 
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
 
-        String csvFile = "your_file_path.csv";
+        String csvFile = "resources/CSVDEMO.csv";
         String line;
         String csvSplitBy = ",";
 
@@ -175,12 +175,20 @@ public class DataFileReader {//todo: Error Trapping/Handling
                     times.add(new Time(data[1], LocalTime.parse(data[2]),LocalTime.parse(data[3])));
                 } else if (data[0].equals("Location")) {
                     //loop similar to teachers
+                    ArrayList<Time> tempTimes  = new ArrayList<>();
+                    for (int x = 3 ; x < data.length ; x++ ){
+                        if (data[x] != null) {
+                            tempTimes.add(times.get(x - 3));
+                        }
+                    }
+
                     locations.add(new Location(data[1], data[2], Arrays.copyOfRange(data, 3, data.length)));
                 } else if (data[0].equals("Restriction")) {
                     //requires custom job.
 
+
                     restrictions.add(new Restriction(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
-                    //loop trhough teacher array until teachers.get(x).name equals data[9] then do teachers.get(x).addRestriction
+                    //loop through teacher array until teachers.get(x).name equals data[9] then do teachers.get(x).addRestriction
                 } else if (data[0].equals("Duty")) {
                     if (data[2].equals("Supervision")) {
                         data[2] = "Supervision Duty";
