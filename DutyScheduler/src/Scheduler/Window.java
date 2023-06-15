@@ -181,7 +181,6 @@ public class Window extends JFrame {
         // Create text fields for Name, Subject, and Age
         String[] attributes = {"Minutes Required", "Minutes Remaining"};
         for (String attribute : attributes) {
-            JLabel label = new JLabel(attribute);
             CustomTextField textField = new CustomTextField(attribute);
             textFields.put(attribute, textField);
             teachInitPanel.add(textField);
@@ -189,19 +188,25 @@ public class Window extends JFrame {
 
         // Add JComboBox for class and prep periods
         String[] periods = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        JList<String> classPeriodsList = new JList<>(periods);
-        JList<String> prepPeriodsList = new JList<>(periods);
+        CustomJList classPeriodsList = new CustomJList(periods);
+        CustomJList prepPeriodsList = new CustomJList(periods);
 
-        classPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        prepPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        // Set selection mode to multiple interval selection
+        classPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//todo: fix this
+        prepPeriodsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);//todo: fix this
 
-        teachInitPanel.add(new JLabel("Select class periods:"));//todo: Remove this and make a custom class and add a border with label
-        teachInitPanel.add(new JScrollPane(classPeriodsList));
-        teachInitPanel.add(new JLabel("Select prep periods:"));
-        teachInitPanel.add(new JScrollPane(prepPeriodsList));
+        // Add scroll panes for the lists
+        JScrollPane classPeriodsScrollPane = new JScrollPane(classPeriodsList);
+        classPeriodsScrollPane.setBorder(BorderFactory.createTitledBorder("Select Prep Periods"));
+        teachInitPanel.add(classPeriodsScrollPane);
+
+        // Add JScroll pane for prep periods
+        JScrollPane prepPeriodsScrollPane = new JScrollPane(prepPeriodsList);
+        prepPeriodsScrollPane.setBorder(BorderFactory.createTitledBorder("Select Prep Periods"));
+        teachInitPanel.add(prepPeriodsScrollPane);
 
         JButton saveButton = new JButton("Save and Next");
-        add(saveButton);
+        teachInitPanel.add(saveButton);
 
         saveButton.addActionListener(e -> {
             // Create a new map to store the current teacher's information
@@ -214,22 +219,30 @@ public class Window extends JFrame {
             }
 
             // Create a map for the periods
-            HashMap<String, String> periods1 = new HashMap<>();
-            for (String period : classPeriodsList.getSelectedValuesList()) {
-                periods1.put(period, "Class");
+            HashMap<String, String> periodAssignments = new HashMap<>();
+            for (String period : classPeriodsList.getSelectedItems()) {
+                periodAssignments.put(period, "Class");
             }
-            for (String period : prepPeriodsList.getSelectedValuesList()) {
-                periods1.put(period, "Prep");
+            for (String period : prepPeriodsList.getSelectedItems()) {
+                periodAssignments.put(period, "Prep");
             }
 
+            // Clear the selected items in the lists
+            classPeriodsList.clearSelectedItems();
+            prepPeriodsList.clearSelectedItems();
+
             // Add the periods map to the current teacher's information
-            currentTeacher.put("Periods", periods1);
+            currentTeacher.put("Periods", periodAssignments);
 
             // Add the current teacher's information to the list
             teacherData.add(currentTeacher);
 
             // For testing, print the current list of teacher data
             System.out.println(teacherData);
+
+            // Clear the selected items in the lists
+            classPeriodsList.clearSelection();
+            prepPeriodsList.clearSelection();
         });
         return teachInitPanel;
     }
@@ -276,7 +289,8 @@ public class Window extends JFrame {
      * @return gradient panel
      */
     private JPanel createGradientPanel(LayoutManager layout, String text) {
-        JPanel panel = new JPanel(layout) {
+
+        JPanel panel = new JPanel(layout) {//https://stackoverflow.com/questions/14364291/jpanel-gradient-background - Mohammed Sayed
                 @Override
                 protected void paintComponent(Graphics graphics) {
                     super.paintComponent(graphics);
