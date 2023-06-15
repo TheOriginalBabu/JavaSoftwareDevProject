@@ -3,6 +3,7 @@ package Scheduler;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -142,7 +143,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
      */
 
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-        /*
+
         String csvFile = "your_file_path.csv";
         String line;
         String csvSplitBy = ",";
@@ -151,7 +152,8 @@ public class DataFileReader {//todo: Error Trapping/Handling
         ArrayList<Time> times = new ArrayList<>();
         ArrayList<Location> locations = new ArrayList<>();
         ArrayList<Restriction> restrictions = new ArrayList<>();
-        ArrayList<Duty> duties = new ArrayList<>();
+        ArrayList<SupervisionDuty> supervisionDuties = new ArrayList<>();
+        ArrayList<OnCallDuty> onCallDuties = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine(); // Skip the header line
@@ -159,14 +161,32 @@ public class DataFileReader {//todo: Error Trapping/Handling
                 String[] data = line.split(csvSplitBy);
 
                 if (data[0].equals("Teacher")) {
-                    teachers.add(new Teacher(data[1], data[2], data[3], Arrays.copyOfRange(data, 4, data.length)));
+                    ArrayList<Time> tempClasses  = new ArrayList<>();
+                    ArrayList<Time> tempPreps  = new ArrayList<>();
+                    for (int x = 4 ; x < 9 ; x++ ){
+                        if (data[x].equals("class")) {
+                            tempClasses.add(times.get(x - 4));
+                        } else if (data[x].equals("prep")) {
+                            tempPreps.add(times.get(x - 4));
+                        }
+                    }
+                    teachers.add(new Teacher(data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]),tempClasses,tempPreps));
                 } else if (data[0].equals("Time")) {
-                    times.add(new Time(data[1], data[2], data[3], data[4], data[5]));
+                    times.add(new Time(data[1], LocalTime.parse(data[2]),LocalTime.parse(data[3])));
                 } else if (data[0].equals("Location")) {
+                    //loop similar to teachers
                     locations.add(new Location(data[1], data[2], Arrays.copyOfRange(data, 3, data.length)));
                 } else if (data[0].equals("Restriction")) {
+                    //requires custom job.
+
                     restrictions.add(new Restriction(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
+                    //loop trhough teacher array until teachers.get(x).name equals data[9] then do teachers.get(x).addRestriction
                 } else if (data[0].equals("Duty")) {
+                    if (data[2].equals("Supervision")) {
+                        data[2] = "Supervision Duty";
+                    } else if (data[2].equals("OnCall")) {
+                        data[2] = "On Call Duty";
+                    }
                     duties.add(new Duty(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
                 }
             }
@@ -181,7 +201,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
     /**

@@ -1,5 +1,5 @@
 ﻿"Type(Teacher, Time, Location, Restriction, Duty)","Name, Name, Name, Teacher, Name","MinutesTotal, StartTime, Description, Reason, Type(OnCallDuty/Supervision)","MinutesRemaining, EndTime, whenToSupervise(can extend to more cells for more times), Date, Time","Period1(class/prep), Null, Null, Week, Location","Period2(class/prep), Null, Null, Time, Teacher","Period5(class/prep), Null, Null, Availability, Null/date","Period4(class/prep), Null, Null, Teacher",Period5(class/prep)
-Time,beforeSchool,7:40,8:00,,,,,
+Time,beforeSchool,07:40,08:00,,,,,
 Time,Period1,8:00,9:15,,,,,
 Time,Period2,9:20,10:35,,,,,
 Time,Lunch,10:35,11:35,,,,,

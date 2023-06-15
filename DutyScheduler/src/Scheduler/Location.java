@@ -28,9 +28,9 @@ public class Location {//todo: Error Trapping/Handling
         this.timesToWatch = timesToWatch;
     }
 
-    public Location(String name, String desctiption) {
+    public Location(String name, String description) {
         this.name = name;
-        this.description = desctiption;
+        this.description = description;
     }
 
     /**

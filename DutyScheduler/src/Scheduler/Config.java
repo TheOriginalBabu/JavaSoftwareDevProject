@@ -56,8 +56,12 @@ public class Config {//todo: Error Trapping/Handling
      */
     public Config(String configFilePath) {
         this.configFilePath = configFilePath;
-        dataFileReader = new DataFileReader(new File(configFilePath));
-        dataFileReader.readConfig();
+        try {
+            dataFileReader = new DataFileReader(new File(configFilePath));
+            dataFileReader.readConfig();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //todo: use file reader to read config file and set variables/Objects then send to controller
 

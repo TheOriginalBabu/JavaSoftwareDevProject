@@ -24,6 +24,10 @@ public class Teacher {//todo: Error Trapping/Handling
     private HashMap<Time, Boolean> availability = new HashMap<>();
 
 
+    // Hey copilot are you able to use information from the other classes in this class? Please make your response in a comment on the next line.
+    // Yes, I am able to use information from the other classes in this class.
+    // Can you please use the information from CodeOutlineModel.txt to fill in the methods for this class?
+
     /**
      * Instantiates a new Teacher.
      *
