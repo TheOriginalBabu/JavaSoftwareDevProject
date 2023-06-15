@@ -3,12 +3,10 @@ package Scheduler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The type Window.
@@ -176,6 +174,8 @@ public class Window extends JFrame {
     private JPanel createTeachInitPanel() {
         JPanel teachInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Teacher Initialisation");
 
+        teachInitPanel.add(new JLabel())//todo: finish this
+
         HashMap<String, CustomTextField> textFields = new HashMap<>();
         ArrayList<HashMap<String, Object>> teacherData = new ArrayList<>();
 
@@ -196,17 +196,27 @@ public class Window extends JFrame {
         JButton saveButton = new JButton("Save and Next");
         teachInitPanel.add(saveButton);
 
-        int minutesTotal = 0;
-        int minutesRemaining = 0;
+        // Create atomic integers to store the minutes required and remaining
+        AtomicInteger minutesTotal = new AtomicInteger();
+        AtomicInteger minutesRemaining = new AtomicInteger();
 
+        // Add action listener to save button
         saveButton.addActionListener(e -> {
             for (Map.Entry<String, CustomTextField> entry : textFields.entrySet()) {
                 // Get the attribute and value from the text field
                 String attribute = entry.getKey();
                 if (attribute.equals("Minutes Required")) {
-                    minutesRequired = Integer.parseInt(entry.getValue().getText());
+                    if (entry.getValue().getText().equals("")) {
+                        minutesTotal.set(0);
+                    } else {
+                        minutesTotal.set(Integer.parseInt(entry.getValue().getText()));
+                    }
                 } else if (attribute.equals("Minutes Remaining")) {
-                    minutesRemaining = Integer.parseInt(entry.getValue().getText());
+                    if (entry.getValue().getText().equals("")) {
+                        minutesRemaining.set(0);
+                    } else {
+                        minutesRemaining.set(Integer.parseInt(entry.getValue().getText()));
+                    }
                 }
                 // Clear the text field
                 entry.getValue().clearText();
@@ -228,10 +238,10 @@ public class Window extends JFrame {
 
             String name = "Name"; //todo: get each name
 
-            generatorController.addTeacher(name, minutesTotal, minutesRemaining, classPeriods);
+            generatorController.addTeacher(name, minutesTotal.get(), minutesRemaining.get(), classPeriods);
 
             // For testing, print the current list of teacher data
-            System.out.println(teacherData);
+            System.out.println(name + " " + minutesTotal + " " + minutesRemaining + " " + classPeriods);
         });
         return teachInitPanel;
     }
