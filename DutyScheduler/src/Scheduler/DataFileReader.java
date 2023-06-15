@@ -142,6 +142,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
      */
 
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
+        /*
         String csvFile = "your_file_path.csv";
         String line;
         String csvSplitBy = ",";
@@ -179,6 +180,8 @@ public class DataFileReader {//todo: Error Trapping/Handling
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        */
     }
 
     /**

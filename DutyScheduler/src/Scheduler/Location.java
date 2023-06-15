@@ -111,6 +111,6 @@ public class Location {//todo: Error Trapping/Handling
      */
     @Override
     public String toString() {
-        return name + " " + description + " " + timesToWatch;
+        return name;
     }
 }

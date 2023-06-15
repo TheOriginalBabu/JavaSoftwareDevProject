@@ -96,6 +96,6 @@ public class Time {//todo: Error Trapping/Handling
      */
     @Override
     public String toString() {
-        return startTime + " " + endTime;
+        return name;
     }
 }

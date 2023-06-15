@@ -25,9 +25,8 @@ public class Controller {//todo: Error Trapping/Handling
 
         GeneratorController generatorController = new GeneratorController(config.getTimes(), config.getSupervisionDuties(), config.getTeachers(), config.getOnCallDuties(), config.getLocations());
 
-        /* ↓ RUN THIS LAST. Starts GUI ↓ */
+        /* ↓ Starts GUI ↓ */
         SwingUtilities.invokeLater(() -> new Window(generatorController));
-        /* ↑ RUN THIS LAST. Starts GUI ↑ */
     }
 
     /**
