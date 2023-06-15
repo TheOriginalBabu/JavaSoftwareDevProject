@@ -167,6 +167,53 @@ public class Window extends JFrame {
     }
 
     /**
+     * Creates the time initialisation panel
+     *
+     * @return time initialisation panel
+     */
+    private JPanel createTimeInitPanel() {
+        JPanel timeInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Time Initialisation");
+
+        HashMap<String, CustomTextField> textFields = new HashMap<>();
+        ArrayList<TimePeriod> timePeriods = new ArrayList<>();
+
+        // Create text fields for Start Time and End Time
+        String[] attributes = {"Start Time (hh:mm)", "End Time (hh:mm)"};
+        for (String attribute : attributes) {
+            CustomTextField textField = new CustomTextField(attribute);
+            textFields.put(attribute, textField);
+            timeInitPanel.add(textField);
+        }
+
+        // Add save button
+        JButton saveButton = new JButton("Save and Next");
+        timeInitPanel.add(saveButton);
+
+        // Add action listener to save button
+        saveButton.addActionListener(e -> {
+            String startTime = textFields.get("Start Time (hh:mm)").getText();
+            String endTime = textFields.get("End Time (hh:mm)").getText();
+
+            // Clear the text fields
+            textFields.get("Start Time (hh:mm)").clearText();
+            textFields.get("End Time (hh:mm)").clearText();
+
+            // TODO: Validate startTime and endTime to make sure they are in the format hh:mm
+            // If they are not valid, show an error message and return
+
+            generatorController.addTime(startTime, endTime);//todo: Finish this
+            timePeriods.add(timePeriod);
+
+            // TODO: Save timePeriods to wherever it needs to be stored
+
+            // For testing, print the current list of time periods
+            System.out.println(timePeriods);
+        });
+
+        return timeInitPanel;
+    }
+
+    /**
      * Creates the teacher initialisation panel
      *
      * @return teacher initialisation panel
@@ -216,8 +263,9 @@ public class Window extends JFrame {
 
         // Add action listener to save button
         saveButton.addActionListener(e -> {
-            for (Map.Entry<String, CustomTextField> entry : textFields.entrySet()) {
-                // Get the attribute and value from the text field
+            // Get the attribute and value from the text field
+            // Clear the text field
+            textFields.entrySet().forEach(entry -> {
                 String attribute = entry.getKey();
                 if (attribute.equals("Minutes Required")) {
                     if (entry.getValue().getText().equals("")) {
@@ -232,9 +280,8 @@ public class Window extends JFrame {
                         minutesRemaining.set(Integer.parseInt(entry.getValue().getText()));
                     }
                 }
-                // Clear the text field
                 entry.getValue().clearText();
-            }
+            });
 
             // Create a list to store the selected periods
             ArrayList<String> classPeriods = new ArrayList<>();
@@ -272,23 +319,6 @@ public class Window extends JFrame {
             System.out.println(name + " " + minutesTotal + " " + minutesRemaining + " " + classPeriods);
         });
         return teachInitPanel;
-    }
-
-    /**
-     * Creates the time initialisation panel
-     *
-     * @return time initialisation panel
-     */
-    private JPanel createTimeInitPanel() {
-        JPanel timeInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Time Initialisation");
-
-        timeInitPanel.add(new EditableComboBox<>("Times", generatorController.getTimes()));
-
-        timeInitPanel.add(createCardSwitchButton("Next", "LocInit"));
-
-        timeInitPanel.add(createCardSwitchButton("Back", "TeachInit"));
-
-        return timeInitPanel;
     }
 
     /**

@@ -143,7 +143,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
      */
 
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-
+/*
         String csvFile = "resources/CSVDEMO.csv";
         String line;
         String csvSplitBy = ",";
@@ -181,8 +181,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
                             tempTimes.add(times.get(x - 3));
                         }
                     }
-
-                    locations.add(new Location(data[1], data[2], Arrays.copyOfRange(data, 3, data.length)));
+                    locations.add(new Location(data[1], data[2], new ArrayList<Time>(Arrays.copyOfRange(data, 3, data.length)));
                 } else if (data[0].equals("Restriction")) {
                     //requires custom job.
 
@@ -209,7 +208,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
     }
 
     /**

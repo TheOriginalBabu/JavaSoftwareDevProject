@@ -1,10 +1,13 @@
 package Scheduler;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,28 +15,28 @@ public class CustomJTable extends JTable {
 
     public CustomJTable(ArrayList<String> data) {
         super(new CustomTableModel(data));
-        this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        this.setColumnSelectionAllowed(false);
-        this.setRowSelectionAllowed(true);
 
-        // Remove table header
-        this.setTableHeader(null);
+        // Custom selection model
+        this.setSelectionModel(new DefaultListSelectionModel() {
+            @Serial
+            private static final long serialVersionUID = 1L;
 
-        // Allow multiple row selection
-        this.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        // Add mouse listener to handle row selection
-        this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseReleased(MouseEvent event) {//todo: fix this
-                int row = rowAtPoint(event.getPoint());
-                if (getSelectionModel().isSelectedIndex(row)) {
-                    removeRowSelectionInterval(row, row);
-                } else {
-                    addRowSelectionInterval(row, row);
+            public void setSelectionInterval(int index0, int index1) {
+                if(super.isSelectedIndex(index0)) {
+                    super.removeSelectionInterval(index0, index1);
+                }
+                else {
+                    super.addSelectionInterval(index0, index1);
                 }
             }
         });
+
+        // Disable cell editing
+        this.setDefaultEditor(Object.class, null);
+
+        // Remove table header
+        this.setTableHeader(null);
     }
 }
 

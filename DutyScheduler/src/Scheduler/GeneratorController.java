@@ -208,7 +208,7 @@ public class GeneratorController {
     }
 
 
-    public void addTime(String timeName) {
+    public void addTime(String timeName, String startTime, String endTime) {//todo: finish this
 
     }
 
