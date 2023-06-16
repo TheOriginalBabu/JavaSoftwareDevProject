@@ -4,6 +4,7 @@ package Scheduler;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -33,6 +34,8 @@ public class Window extends JFrame {
      */
     EditableComboBox<? extends Location> locationsComboBox;
 
+    private JPanel scheduleDisplayPanel, cardPanel;
+
     /**
      * Instantiates a new Window.
      *
@@ -59,17 +62,17 @@ public class Window extends JFrame {
      * @return main panel
      */
     private JPanel createCardPanel(CardLayout layout) {
-        JPanel panel = new JPanel(layout);
-        panel.add(createMenuPanel(), "Menu");
-        panel.add(createGeneratorPanel(), "Generator");
-        panel.add(createViewPanel(), "View");
-        panel.add(createSettingsPanel(), "Settings");
-        panel.add(createValInitPanel(), "ValInit");
-        panel.add(createTeachInitPanel(), "TeachInit");
-        panel.add(createTimeInitPanel(), "TimeInit");
-        panel.add(createLocInitPanel(), "LocInit");
+        cardPanel = new JPanel(layout);
+        cardPanel.add(createMenuPanel(), "Menu");
+        cardPanel.add(createGeneratorPanel(), "Generator");
+        cardPanel.add(createViewPanel(), "View");
+        cardPanel.add(createSettingsPanel(), "Settings");
+        cardPanel.add(createValInitPanel(), "ValInit");
+        cardPanel.add(createTeachInitPanel(), "TeachInit");
+        cardPanel.add(createTimeInitPanel(), "TimeInit");
+        cardPanel.add(createLocInitPanel(), "LocInit");
 
-        return panel;
+        return cardPanel;
     }
 
     /**
@@ -82,8 +85,19 @@ public class Window extends JFrame {
 
         menuPanel.add(createCardSwitchButton("Generator", "Generator"));
 
-        menuPanel.add(createCardSwitchButton("Schedule View", "View"));
+        // create a button to view the schedule
+        JButton viewScheduleBtn = new JButton("View Schedule");
 
+        // add an action listener to the button to switch to the schedule display panel
+        viewScheduleBtn.addActionListener(e -> {
+            scheduleDisplayPanel = createScheduleDisplayPanel();
+            cardPanel.add(scheduleDisplayPanel, "ScheduleDisplay");
+            cardLayout.show(cardPanel, "ScheduleDisplay");
+        });
+
+        menuPanel.add(viewScheduleBtn);
+
+        // create a button to view the schedule
         menuPanel.add(createCardSwitchButton("Settings", "Settings"));
 
         JButton refreshBtn = new JButton("Refresh");
@@ -105,7 +119,11 @@ public class Window extends JFrame {
         JPanel generatorPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Generator");
 
         JButton generatorBtn = new JButton("Generate");
-        generatorBtn.addActionListener(e -> generatorController.generate());
+        generatorBtn.addActionListener(e -> {
+            generatorController.generate();
+            scheduleDisplayPanel.revalidate();
+            scheduleDisplayPanel.repaint();
+        });
 
         generatorPanel.add(generatorBtn);
         generatorPanel.add(createCardSwitchButton("Back", "Menu"));
@@ -174,13 +192,18 @@ public class Window extends JFrame {
     private JPanel createTimeInitPanel() {
         JPanel timeInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Time Initialisation");
 
-        // Get a list of teachers
+        // Get a list of times
         ArrayList<String> times = new ArrayList<>(timesComboBox.getStringList());
 
-        // Create a label to display the name of the current teacher
-        JLabel teacherLabel = new JLabel();
-        teacherLabel.setText(times.get(0));
-        timeInitPanel.add(teacherLabel);
+        // The index of the current time
+        var ref = new Object() {
+            int currentTimeIndex = 0;
+        };
+
+        // Create a label to display the name of the current time
+        JLabel timeLabel = new JLabel();
+        timeLabel.setText("Time: " + times.get(ref.currentTimeIndex));
+        timeInitPanel.add(timeLabel);
 
         HashMap<String, CustomTextField> textFields = new HashMap<>();
 
@@ -202,7 +225,7 @@ public class Window extends JFrame {
             String endTime = textFields.get("End Time (hh:mm)").getText();
 
             // Validate startTime and endTime to make sure they are in the format hh:mm
-            if (!startTime.matches("^([01]\\d|2[0-3]):([0-5]\\d)$") || !endTime.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
+            if (!startTime.matches("^(.\\d|2[0-3]):([0-5]\\d)$") || !endTime.matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
                 JOptionPane.showMessageDialog(timeInitPanel, "Please enter time in the format hh:mm.", "Invalid Time Format", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -211,20 +234,21 @@ public class Window extends JFrame {
             textFields.get("Start Time (hh:mm)").clearText();
             textFields.get("End Time (hh:mm)").clearText();
 
-            // The index of the current teacher
-            int currentTimeIndex = 0;
+            // Get the name of the current time
+            String name = times.get(ref.currentTimeIndex);
 
-            // Get the name of the current teacher
-            String name = times.get(currentTimeIndex);
-
-            // Increment the current teacher index
-            currentTimeIndex++;
-
-
+            // Create Time object
             generatorController.addTime(name, startTime, endTime);
 
-            // TODO: Save timePeriods to wherever it needs to be stored
+            // Increment the current time index
+            ref.currentTimeIndex++;
 
+            if (ref.currentTimeIndex >= times.size()) {
+                cardLayout.show(cards, "TeachInit");
+            } else {
+                // If there are still times left to initialize, update the JLabel
+                timeLabel.setText("Time: " + times.get(ref.currentTimeIndex));
+            }
             // For testing, print the current list of time periods
             System.out.println(name + ": " + startTime + " - " + endTime);
         });
@@ -242,6 +266,11 @@ public class Window extends JFrame {
 
         // Get a list of teachers
         ArrayList<String> teachers = new ArrayList<>(teachersComboBox.getStringList());
+
+        // The index of the current teacher
+        var ref = new Object() {
+            int currentTeacherIndex = 0;
+        };
 
         // Create a label to display the name of the current teacher
         JLabel teacherLabel = new JLabel();
@@ -313,25 +342,22 @@ public class Window extends JFrame {
                 classPeriods.add((String)table.getValueAt(row, 0));
             }
 
-            // The index of the current teacher
-            int currentTeacherIndex = 0;
-
             // Get the name of the current teacher
-            String name = teachers.get(currentTeacherIndex);
+            String name = teachers.get(ref.currentTeacherIndex);
 
             // Increment the current teacher index
-            currentTeacherIndex++;
+            ref.currentTeacherIndex++;
 
             // Create a Teacher object from data
             generatorController.addTeacher(name, minutesTotal.get(), minutesRemaining.get(), classPeriods);
 
             // If there are still teachers left, update the JLabel and clear fields
-            if(currentTeacherIndex < teachers.size()) {
-                teacherLabel.setText("Teacher: " + teachers.get(currentTeacherIndex));
-                table.clearSelection();
-            } else {
+            if(ref.currentTeacherIndex >= teachers.size()) {
                 // When all teachers are initialized go to the next card
                 cardLayout.show(cards, "LocInit");
+            } else {
+                teacherLabel.setText("Teacher: " + teachers.get(ref.currentTeacherIndex));
+                table.clearSelection();
             }
 
             // For testing, print the current list of teacher data
@@ -348,14 +374,148 @@ public class Window extends JFrame {
     private JPanel createLocInitPanel() {
         JPanel locInitPanel = createGradientPanel(new GridLayout(0, 1, 10, 10), "Setup - Location Initialisation");
 
-        locInitPanel.add(new EditableComboBox<>("Locations", generatorController.getLocations()));
+        // Get a list of locations
+        ArrayList<String> locations = new ArrayList<>(locationsComboBox.getStringList());
 
-        locInitPanel.add(createCardSwitchButton("Next", null));
+        // The index of the current location
+        var ref = new Object() {
+            int currentLocationIndex = 0;
+        };
 
-        locInitPanel.add(createCardSwitchButton("Back", "TimeInit"));
+        // Create a label to display the name of the current location
+        JLabel locationLabel = new JLabel();
+        locationLabel.setText(locations.get(0));
+        locInitPanel.add(locationLabel);
+
+        HashMap<String, CustomTextField> textFields = new HashMap<>();
+
+        // Create a text field for the Location Description
+        CustomTextField textField = new CustomTextField("Location Description");
+        textFields.put("Location Description", textField);
+        locInitPanel.add(textField);
+
+        // Add JComboBox for supervised times
+        ArrayList<String> times = new ArrayList<>(timesComboBox.getStringList());
+
+        // Create table of times
+        CustomJTable table = new CustomJTable(times);
+
+        // Create scroll pane for table and remove header
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setColumnHeaderView(null);
+
+        // Add scroll pane to panel
+        locInitPanel.add(scrollPane);
+
+        // Add save button
+        JButton saveButton = new JButton("Save and Next");
+        locInitPanel.add(saveButton);
+
+        // Add action listener to save button
+        saveButton.addActionListener(e -> {
+            // Get the description from the text field
+            // Clear the text field
+            String locationDescription = textFields.get("Location Description").getText();
+            textFields.get("Location Description").clearText();
+
+            // Create a list to store the selected times
+            ArrayList<String> supervisedTimes = new ArrayList<>();
+
+            // Get the selected rows from the table
+            int[] selectedRows = table.getSelectedRows();
+
+            // Retrieve the corresponding times from the table and add to list
+            for (int row : selectedRows) {
+                supervisedTimes.add((String)table.getValueAt(row, 0));
+            }
+
+            // Get the name of the current location
+            String name = locations.get(ref.currentLocationIndex);
+
+            // Increment the current location index
+            ref.currentLocationIndex++;
+
+            // Create a Location object and add it to the list
+            generatorController.addLocation(name, locationDescription, supervisedTimes);
+
+            // If there are still locations left, update the JLabel and clear fields
+            if (ref.currentLocationIndex >= locations.size()) {
+                // When all locations are initialized go to the next card
+                cardLayout.show(cards, "Menu");
+            } else {
+                locationLabel.setText("Location: " + locations.get(ref.currentLocationIndex));
+                table.clearSelection();
+            }
+
+            // For testing, print the current list of location data
+            System.out.println(name + " " + locationDescription + " " + supervisedTimes);
+        });
 
         return locInitPanel;
     }
+
+    /**
+     * Create schedule display panel jpanel.
+     *
+     * @return the jpanel
+     */
+    public JPanel createScheduleDisplayPanel() {
+        // Create a new panel with a BorderLayout
+        JPanel schedulePanel = new JPanel(new BorderLayout());
+
+        // Get the assigned duties
+        HashMap<SupervisionDuty, Teacher> assignedDuties = generatorController.getAssignedSupervisionDuties();
+
+        // DEBUG: Print out assigned duties
+        System.out.println("Assigned Duties: " + assignedDuties);
+
+        // Create column names for the JTable
+        String[] columnNames = {"Teacher", "Time", "Location"};
+
+        // Create a 2D array to store the data for the JTable
+        String[][] data = new String[assignedDuties.size()][3];
+
+        // Iterate over the entries in the map
+        int index = 0;
+        for (Map.Entry<SupervisionDuty, Teacher> entry : assignedDuties.entrySet()) {
+            SupervisionDuty duty = entry.getKey();
+            Teacher teacher = entry.getValue();
+
+            // Add the data to the 2D array
+            data[index][0] = teacher.getName();
+            data[index][1] = duty.getTime().getName();
+            data[index][2] = duty.getLocation().getName();
+
+            // DEBUG: Print out data for this row
+            System.out.println("Row data: " + Arrays.toString(data[index]));
+
+            index++;
+        }
+
+        // DEBUG: Print out full 2D data array
+        System.out.println("Full data array: " + Arrays.deepToString(data));
+
+        // Create a new JTable with the data and column names
+        JTable table = new JTable(data, columnNames);
+
+        // Make the table read-only (i.e., user cannot edit)
+        table.setDefaultEditor(Object.class, null);
+
+        // Create a JScrollPane containing the JTable
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Add the scroll pane to the panel
+        schedulePanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Revalidate and repaint the table to ensure it updates with the data
+        table.revalidate();
+        table.repaint();
+
+        schedulePanel.add(createCardSwitchButton("Return to Menu", "Menu"), BorderLayout.PAGE_END);
+
+        return schedulePanel;
+    }
+
 
     /**
      * Creates a gradient panel with set border and set title

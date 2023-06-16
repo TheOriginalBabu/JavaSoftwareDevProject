@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Location {//todo: Error Trapping/Handling
     private String name;
     private String description;
-    private ArrayList<Time> timesToWatch = new ArrayList<>();
+    private ArrayList<Time> timesToWatch;
     private Restriction restriction;
 
     /**

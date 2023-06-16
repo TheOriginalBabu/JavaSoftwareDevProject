@@ -1,9 +1,12 @@
 package Scheduler;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The type Generator controller.
@@ -20,6 +23,7 @@ public class GeneratorController {
     private ArrayList<String> teachersStringList = new ArrayList<>();
     private ArrayList<String> timesStringList = new ArrayList<>();
     private ArrayList<String> locationsStringList = new ArrayList<>();
+    HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = new HashMap<>();
 
 
     /**
@@ -56,7 +60,7 @@ public class GeneratorController {
     public void generate() {
         // Generate supervision schedule and assign it to a hashmap
         supervisionGenerator.generate();
-        HashMap<SupervisionDuty, Teacher> assignedSupervisionDuties = supervisionGenerator.getAssignedDuties();
+        assignedSupervisionDuties = supervisionGenerator.getAssignedDuties();
 
         // Determine which teachers are assigned to which times
         for (SupervisionDuty name : assignedSupervisionDuties.keySet()) {
@@ -182,8 +186,10 @@ public class GeneratorController {
     /**
      * Adds teachers info.
      *
-     * @param teacherName the teacher name
-     * @param classes     the periods
+     * @param teacherName     the teacher name
+     * @param minutesRequired the minutes required
+     * @param minutesLeft     the minutes left
+     * @param classes         the periods
      */
     public void addTeacher(String teacherName, int minutesRequired, int minutesLeft, ArrayList<String> classes) {
 
@@ -210,13 +216,68 @@ public class GeneratorController {
     }
 
 
+    /**
+     * Add time.
+     *
+     * @param timeName  the time name
+     * @param startTime the start time
+     * @param endTime   the end time
+     */
     public void addTime(String timeName, String startTime, String endTime) {
         Time time = new Time(timeName, LocalTime.parse(startTime), LocalTime.parse(endTime));
         times.add(time);
     }
 
+    /**
+     * Add location.
+     *
+     * @param name                the name
+     * @param locationDescription the location description
+     * @param supervisedTimes     the supervised times
+     */
+    public void addLocation(String name, String locationDescription, ArrayList<String> supervisedTimes) {
+        ArrayList<Time> watchTimes = new ArrayList<>();
+        for (String timeName : supervisedTimes) {
+            for (Time time : times) {
+                if (time.getName().equals(timeName)) {
+                    watchTimes.add(time);
+                }
+            }
+        }
 
-    public void addLocation(String locationName) {
+        Location location = new Location(name, locationDescription, watchTimes);
+        locations.add(location);
+    }
 
+    /**
+     * Create supervision duties array list.
+     *
+     * @return the array list
+     */
+    public ArrayList<SupervisionDuty> createSupervisionDuties() {
+        ArrayList<SupervisionDuty> supervisionDuties = new ArrayList<>();
+
+        // Get the current week
+        int currentWeek = currentWeekOfYear();
+
+        for (Location location : locations) {
+            for (Time time : location.getTimesToWatch()) {
+                // Create a new SupervisionDuty for each combination of location and time
+                String name = location.getName() + " " + time.getName();
+                SupervisionDuty duty = new SupervisionDuty(name, time, location, currentWeek);
+                supervisionDuties.add(duty);
+            }
+        }
+
+        return supervisionDuties;
+    }
+
+    private int currentWeekOfYear() {
+        LocalDate date = LocalDate.now();
+        return date.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+    }
+
+    public HashMap<SupervisionDuty, Teacher> getAssignedSupervisionDuties() {
+        return assignedSupervisionDuties;
     }
 }
