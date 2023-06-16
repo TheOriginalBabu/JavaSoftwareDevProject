@@ -140,7 +140,13 @@ public class Window extends JFrame {
      * @return parameter initialisation panel
      */
     private JPanel createParamInitPanel() {
-        JPanel paramInitPanel = new JPanel(new GridLayout(0, 1, 10, 10));
+        // The main panel which includes everything.
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        // The content panel which includes all your components. This panel will be added to the JScrollPane.
+        JPanel paramInitPanel = createGradientPanel(new GridLayout(), "Parameter Initialisation");
+        paramInitPanel.setLayout(new BoxLayout(paramInitPanel, BoxLayout.Y_AXIS));
+        paramInitPanel.add(Box.createRigidArea(new Dimension(0, 500)));// todo: fix this
 
         // Create radio buttons for the user to select the type of object they want to create
         JRadioButton restrictionButton = new JRadioButton("Create Restriction");
@@ -152,35 +158,39 @@ public class Window extends JFrame {
         buttonGroup.add(onCallDutyButton);
 
         // Create panels to hold the input fields for each type of object
-        JPanel restrictionFields = new JPanel(new GridLayout(0, 1, 10, 10));
-        JPanel onCallDutyFields = new JPanel(new GridLayout(0, 1, 10, 10));
+        JPanel restrictionFields = new JPanel(new GridLayout(0, 1, 10, 5));
+        JPanel onCallDutyFields = new JPanel(new GridLayout(0, 1, 10, 5));
 
         // Define the input fields for creating a Restriction
         JTextField restrictionDescriptionField = new JTextField(20);
-        restrictionFields.add(new JLabel("Description:"));
+        restrictionDescriptionField.setBorder(BorderFactory.createTitledBorder("Description"));
         restrictionFields.add(restrictionDescriptionField);
 
         JTextField restrictionDateField = new JTextField(20);
-        restrictionFields.add(new JLabel("Date (dd-MM-yyyy):"));
+        restrictionDateField.setBorder(BorderFactory.createTitledBorder("Date (dd-MM-yyyy)"));
         restrictionFields.add(restrictionDateField);
 
         JTextField restrictionWeekField = new JTextField(20);
-        restrictionFields.add(new JLabel("Week:"));
+        restrictionWeekField.setBorder(BorderFactory.createTitledBorder("Week"));
         restrictionFields.add(restrictionWeekField);
 
-        JTextField restrictionStartTimeField = new JTextField(20);
-        restrictionFields.add(new JLabel("Start Time (hh:mm):"));
-        restrictionFields.add(restrictionStartTimeField);
+        ArrayList<String> timesList = new ArrayList<>();
+        for (Time time : generatorController.getTimes()) {
+            timesList.add(time.toString());
+        }
 
-        JTextField restrictionEndTimeField = new JTextField(20);
-        restrictionFields.add(new JLabel("End Time (hh:mm):"));
-        restrictionFields.add(restrictionEndTimeField);
+        CustomJTable restrictionTimesTable = new CustomJTable(timesList);
+        JScrollPane restrictionTimeScrollPane = new JScrollPane(restrictionTimesTable);
+        restrictionTimeScrollPane.setColumnHeaderView(null);
+        restrictionTimeScrollPane.setBorder(BorderFactory.createTitledBorder("Times"));
+        restrictionFields.add(restrictionTimeScrollPane);
 
         JCheckBox restrictionAvailableField = new JCheckBox("Is Available");
         restrictionFields.add(restrictionAvailableField);
 
         JComboBox<Teacher> restrictionTeacherField = new JComboBox<>(generatorController.getTeachers().toArray(new Teacher[0]));
-        restrictionFields.add(new JLabel("Teacher:"));
+        restrictionTeacherField.setEditable(false);
+        restrictionTeacherField.setBorder(BorderFactory.createTitledBorder("Teacher"));
         restrictionFields.add(restrictionTeacherField);
 
         JButton restrictionSaveButton = new JButton("Save Restriction");
@@ -188,23 +198,21 @@ public class Window extends JFrame {
 
         // Define the input fields for creating an OnCallDuty
         JTextField onCallDutyNameField = new JTextField(20);
-        onCallDutyFields.add(new JLabel("Name:"));
+        onCallDutyNameField.setBorder(BorderFactory.createTitledBorder("Name"));
         onCallDutyFields.add(onCallDutyNameField);
 
-        JComboBox<Time> onCallDutyTimeField = new JComboBox<>(generatorController.getTimes().toArray(new Time[0]));
-        onCallDutyFields.add(new JLabel("Time:"));
-        onCallDutyFields.add(onCallDutyTimeField);
-
         JComboBox<Location> onCallDutyLocationField = new JComboBox<>(generatorController.getLocations().toArray(new Location[0]));
-        onCallDutyFields.add(new JLabel("Location:"));
+        onCallDutyLocationField.setBorder(BorderFactory.createTitledBorder("Location"));
         onCallDutyFields.add(onCallDutyLocationField);
 
-        JComboBox<Teacher> onCallDutyTeacherField = new JComboBox<>(generatorController.getTeachers().toArray(new Teacher[0]));
-        onCallDutyFields.add(new JLabel("Teacher:"));
-        onCallDutyFields.add(onCallDutyTeacherField);
+        CustomJTable onCallDutyTimesTable = new CustomJTable(timesList);
+        JScrollPane onCallDutyTimeScrollPane = new JScrollPane(onCallDutyTimesTable);
+        onCallDutyTimeScrollPane.setColumnHeaderView(null);
+        onCallDutyTimeScrollPane.setBorder(BorderFactory.createTitledBorder("Times"));
+        onCallDutyFields.add(onCallDutyTimeScrollPane);
 
         JTextField onCallDutyDateField = new JTextField(20);
-        onCallDutyFields.add(new JLabel("Date (dd-MM-yyyy):"));
+        onCallDutyDateField.setBorder(BorderFactory.createTitledBorder("Date (dd-MM-yyyy)"));
         onCallDutyFields.add(onCallDutyDateField);
 
         JButton onCallDutySaveButton = new JButton("Save OnCallDuty");
@@ -213,6 +221,9 @@ public class Window extends JFrame {
         // Create action listeners for the radio buttons to show the appropriate input fields
         restrictionButton.addActionListener(e -> {
             paramInitPanel.removeAll();
+            JLabel titleLabel = new JLabel("Parameter Initialization");
+            titleLabel.setFont(new Font(Font.SERIF, Font.BOLD, 28));
+            paramInitPanel.add(titleLabel);
             paramInitPanel.add(restrictionButton);
             paramInitPanel.add(onCallDutyButton);
             paramInitPanel.add(restrictionFields);
@@ -222,6 +233,9 @@ public class Window extends JFrame {
 
         onCallDutyButton.addActionListener(e -> {
             paramInitPanel.removeAll();
+            JLabel titleLabel = new JLabel("Parameter Initialization");
+            titleLabel.setFont(new Font(Font.SERIF, Font.BOLD, 28));
+            paramInitPanel.add(titleLabel);
             paramInitPanel.add(restrictionButton);
             paramInitPanel.add(onCallDutyButton);
             paramInitPanel.add(onCallDutyFields);
@@ -235,12 +249,6 @@ public class Window extends JFrame {
 
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date date = null;
-
-            if (!restrictionStartTimeField.getText().matches("^(.\\d|2[0-3]):([0-5]\\d)$") || !restrictionEndTimeField.getText().matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
-                JOptionPane.showMessageDialog(paramInitPanel, "Please enter time in the format hh:mm.", "Invalid Time Format", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             try {
                 date = dateFormat.parse(restrictionDateField.getText());
             } catch (ParseException parseException) {
@@ -249,24 +257,32 @@ public class Window extends JFrame {
 
             int week = Integer.parseInt(restrictionWeekField.getText());
 
-            String[] timeParts = restrictionTimeField.getText().split("-"); //todo: fix below code
-            Time time = new Time(Integer.parseInt(timeParts[0].split(":")[0]), Integer.parseInt(timeParts[0].split(":")[1]), Integer.parseInt(timeParts[1].split(":")[0]));
-
             boolean isAvailable = restrictionAvailableField.isSelected();
-
             Teacher teacher = (Teacher)restrictionTeacherField.getSelectedItem();
 
             if(date != null) {
-                assert teacher != null;
-                new Restriction(description, date, week, time, isAvailable, teacher);
+                // Get the selected rows from the table
+                int[] selectedRows = restrictionTimesTable.getSelectedRows();
+
+                // Retrieve the corresponding times from the table and create a restriction for each
+                for(int row : selectedRows) {
+                    Time time = null;
+                    for (Time t : generatorController.getTimes()) {
+                        if (t.toString().equals(restrictionTimesTable.getValueAt(row, 0))) {
+                            time = t;
+                        }
+                    }
+
+                    assert teacher != null;
+                    Restriction restriction = new Restriction(description, date, week, time, isAvailable, teacher);
+                }
             }
         });
 
         onCallDutySaveButton.addActionListener(e -> {
             String name = onCallDutyNameField.getText();
-            Time time = (Time)onCallDutyTimeField.getSelectedItem();
+
             Location location = (Location)onCallDutyLocationField.getSelectedItem();
-            Teacher teacher = (Teacher)onCallDutyTeacherField.getSelectedItem();
 
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date date = null;
@@ -277,15 +293,32 @@ public class Window extends JFrame {
             }
 
             if(date != null) {
-                OnCallDuty onCallDuty = new OnCallDuty(name, time, location, teacher, date);
-                generatorController.addOnCallDuty(onCallDuty);
+                // Get the selected rows from the table
+                int[] selectedRows = onCallDutyTimesTable.getSelectedRows();
+
+                // Retrieve the corresponding times from the table and create an OnCallDuty for each
+                for(int row : selectedRows) {
+                    Time time = null;
+                    for (Time t : generatorController.getTimes()) {
+                        if (t.toString().equals(onCallDutyTimesTable.getValueAt(row, 0))) {
+                            time = t;
+                        }
+                    }
+
+                    OnCallDuty onCallDuty = new OnCallDuty(name, time, location, date);
+                    generatorController.addOnCallDuty(onCallDuty);
+                }
             }
         });
 
         paramInitPanel.add(restrictionButton);
         paramInitPanel.add(onCallDutyButton);
 
-        return paramInitPanel;
+        // Create JScrollPane and add contentPanel to it.
+        JScrollPane scrollPane = new JScrollPane(paramInitPanel);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        return mainPanel;
     }
 
     /**
@@ -615,7 +648,7 @@ public class Window extends JFrame {
      *
      * @return the jpanel
      */
-    public JPanel createScheduleDisplayPanel() {
+    private JPanel createScheduleDisplayPanel() {
         // Create a new panel with a BorderLayout
         JPanel schedulePanel = new JPanel(new BorderLayout());
 
