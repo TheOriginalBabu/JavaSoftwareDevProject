@@ -3,13 +3,18 @@ package Scheduler;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoField;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 
 
 /**
@@ -142,8 +147,12 @@ public class DataFileReader {//todo: Error Trapping/Handling
      * Read storage.
      */
 
+    private int currentWeekOfYear() {
+        LocalDate date = LocalDate.now();
+        return date.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+    }
     public void readStorage() { //todo: Read storage file and assign data to objects. Needs to send date to config object then to controller
-/*
+
         String csvFile = "resources/CSVDEMO.csv";
         String line;
         String csvSplitBy = ",";
@@ -173,7 +182,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
                     teachers.add(new Teacher(data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]),tempClasses,tempPreps));
                 } else if (data[0].equals("Time")) {
                     times.add(new Time(data[1], LocalTime.parse(data[2]),LocalTime.parse(data[3])));
-                } else if (data[0].equals("Location")) {
+                } else if (data[0].equals("Location")) { // MIGHT BE BROKEN
                     //loop similar to teachers
                     ArrayList<Time> tempTimes  = new ArrayList<>();
                     for (int x = 3 ; x < data.length ; x++ ){
@@ -181,13 +190,37 @@ public class DataFileReader {//todo: Error Trapping/Handling
                             tempTimes.add(times.get(x - 3));
                         }
                     }
-                    locations.add(new Location(data[1], data[2], new ArrayList<Time>(Arrays.copyOfRange(data, 3, data.length)));
+                    locations.add(new Location(data[1], data[2], tempTimes));
                 } else if (data[0].equals("Restriction")) {
-                    //requires custom job.
+                    Teacher teacher = null;
+                    for (Teacher t : teachers) {
+                        if (t.getName().equals(data[9])) {
+                            teacher = t;
+                            break;
+                        }
+                    }
+                    if (teacher != null) {
+                        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Format to convert string to date
+                        Date date = null;
+                        LocalDate datechanga = null;
+                        try {
+                            date = dateFormatter.parse(data[5]); // Assuming you have a method to parse the date string
+                            datechanga = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        int weekOfYear = datechanga.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+                        Time time = null;
+                        for (Time t : times) {
+                            if (t.getName().equals(data[8])) {
+                                time = t;
+                                break;
+                            }
+                        }
+                        boolean isAvailable = Boolean.parseBoolean(data[6]);
 
-
-                    restrictions.add(new Restriction(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
-                    //loop through teacher array until teachers.get(x).name equals data[9] then do teachers.get(x).addRestriction
+                        teacher.addRestriction(new Restriction(data[2], date, weekOfYear, time, isAvailable, teacher));
+                    }
                 } else if (data[0].equals("Duty")) {
                     if (data[2].equals("Supervision")) {
                         data[2] = "Supervision Duty";
@@ -208,7 +241,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
+
     }
 
     /**
