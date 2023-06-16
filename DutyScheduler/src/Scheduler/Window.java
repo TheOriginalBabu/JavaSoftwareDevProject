@@ -3,10 +3,10 @@ package Scheduler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -65,6 +65,7 @@ public class Window extends JFrame {
         cardPanel = new JPanel(layout);
         cardPanel.add(createMenuPanel(), "Menu");
         cardPanel.add(createGeneratorPanel(), "Generator");
+        cardPanel.add(createParamInitPanel(), "ParamInit");
         cardPanel.add(createViewPanel(), "View");
         cardPanel.add(createSettingsPanel(), "Settings");
         cardPanel.add(createValInitPanel(), "ValInit");
@@ -125,10 +126,166 @@ public class Window extends JFrame {
             scheduleDisplayPanel.repaint();
         });
 
+        generatorPanel.add(createCardSwitchButton("Add Parameters", "ParamInit"));
+
         generatorPanel.add(generatorBtn);
         generatorPanel.add(createCardSwitchButton("Back", "Menu"));
 
         return generatorPanel;
+    }
+
+    /**
+     * Creates the parameter initialisation panel
+     *
+     * @return parameter initialisation panel
+     */
+    private JPanel createParamInitPanel() {
+        JPanel paramInitPanel = new JPanel(new GridLayout(0, 1, 10, 10));
+
+        // Create radio buttons for the user to select the type of object they want to create
+        JRadioButton restrictionButton = new JRadioButton("Create Restriction");
+        JRadioButton onCallDutyButton = new JRadioButton("Create OnCallDuty");
+
+        // Group the radio buttons
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(restrictionButton);
+        buttonGroup.add(onCallDutyButton);
+
+        // Create panels to hold the input fields for each type of object
+        JPanel restrictionFields = new JPanel(new GridLayout(0, 1, 10, 10));
+        JPanel onCallDutyFields = new JPanel(new GridLayout(0, 1, 10, 10));
+
+        // Define the input fields for creating a Restriction
+        JTextField restrictionDescriptionField = new JTextField(20);
+        restrictionFields.add(new JLabel("Description:"));
+        restrictionFields.add(restrictionDescriptionField);
+
+        JTextField restrictionDateField = new JTextField(20);
+        restrictionFields.add(new JLabel("Date (dd-MM-yyyy):"));
+        restrictionFields.add(restrictionDateField);
+
+        JTextField restrictionWeekField = new JTextField(20);
+        restrictionFields.add(new JLabel("Week:"));
+        restrictionFields.add(restrictionWeekField);
+
+        JTextField restrictionStartTimeField = new JTextField(20);
+        restrictionFields.add(new JLabel("Start Time (hh:mm):"));
+        restrictionFields.add(restrictionStartTimeField);
+
+        JTextField restrictionEndTimeField = new JTextField(20);
+        restrictionFields.add(new JLabel("End Time (hh:mm):"));
+        restrictionFields.add(restrictionEndTimeField);
+
+        JCheckBox restrictionAvailableField = new JCheckBox("Is Available");
+        restrictionFields.add(restrictionAvailableField);
+
+        JComboBox<Teacher> restrictionTeacherField = new JComboBox<>(generatorController.getTeachers().toArray(new Teacher[0]));
+        restrictionFields.add(new JLabel("Teacher:"));
+        restrictionFields.add(restrictionTeacherField);
+
+        JButton restrictionSaveButton = new JButton("Save Restriction");
+        restrictionFields.add(restrictionSaveButton);
+
+        // Define the input fields for creating an OnCallDuty
+        JTextField onCallDutyNameField = new JTextField(20);
+        onCallDutyFields.add(new JLabel("Name:"));
+        onCallDutyFields.add(onCallDutyNameField);
+
+        JComboBox<Time> onCallDutyTimeField = new JComboBox<>(generatorController.getTimes().toArray(new Time[0]));
+        onCallDutyFields.add(new JLabel("Time:"));
+        onCallDutyFields.add(onCallDutyTimeField);
+
+        JComboBox<Location> onCallDutyLocationField = new JComboBox<>(generatorController.getLocations().toArray(new Location[0]));
+        onCallDutyFields.add(new JLabel("Location:"));
+        onCallDutyFields.add(onCallDutyLocationField);
+
+        JComboBox<Teacher> onCallDutyTeacherField = new JComboBox<>(generatorController.getTeachers().toArray(new Teacher[0]));
+        onCallDutyFields.add(new JLabel("Teacher:"));
+        onCallDutyFields.add(onCallDutyTeacherField);
+
+        JTextField onCallDutyDateField = new JTextField(20);
+        onCallDutyFields.add(new JLabel("Date (dd-MM-yyyy):"));
+        onCallDutyFields.add(onCallDutyDateField);
+
+        JButton onCallDutySaveButton = new JButton("Save OnCallDuty");
+        onCallDutyFields.add(onCallDutySaveButton);
+
+        // Create action listeners for the radio buttons to show the appropriate input fields
+        restrictionButton.addActionListener(e -> {
+            paramInitPanel.removeAll();
+            paramInitPanel.add(restrictionButton);
+            paramInitPanel.add(onCallDutyButton);
+            paramInitPanel.add(restrictionFields);
+            paramInitPanel.revalidate();
+            paramInitPanel.repaint();
+        });
+
+        onCallDutyButton.addActionListener(e -> {
+            paramInitPanel.removeAll();
+            paramInitPanel.add(restrictionButton);
+            paramInitPanel.add(onCallDutyButton);
+            paramInitPanel.add(onCallDutyFields);
+            paramInitPanel.revalidate();
+            paramInitPanel.repaint();
+        });
+
+        // Add action listeners for the save buttons to create the appropriate object
+        restrictionSaveButton.addActionListener(e -> {
+            String description = restrictionDescriptionField.getText();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = null;
+
+            if (!restrictionStartTimeField.getText().matches("^(.\\d|2[0-3]):([0-5]\\d)$") || !restrictionEndTimeField.getText().matches("^([01]\\d|2[0-3]):([0-5]\\d)$")) {
+                JOptionPane.showMessageDialog(paramInitPanel, "Please enter time in the format hh:mm.", "Invalid Time Format", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                date = dateFormat.parse(restrictionDateField.getText());
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+
+            int week = Integer.parseInt(restrictionWeekField.getText());
+
+            String[] timeParts = restrictionTimeField.getText().split("-"); //todo: fix below code
+            Time time = new Time(Integer.parseInt(timeParts[0].split(":")[0]), Integer.parseInt(timeParts[0].split(":")[1]), Integer.parseInt(timeParts[1].split(":")[0]));
+
+            boolean isAvailable = restrictionAvailableField.isSelected();
+
+            Teacher teacher = (Teacher)restrictionTeacherField.getSelectedItem();
+
+            if(date != null) {
+                assert teacher != null;
+                new Restriction(description, date, week, time, isAvailable, teacher);
+            }
+        });
+
+        onCallDutySaveButton.addActionListener(e -> {
+            String name = onCallDutyNameField.getText();
+            Time time = (Time)onCallDutyTimeField.getSelectedItem();
+            Location location = (Location)onCallDutyLocationField.getSelectedItem();
+            Teacher teacher = (Teacher)onCallDutyTeacherField.getSelectedItem();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = null;
+            try {
+                date = dateFormat.parse(onCallDutyDateField.getText());
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+
+            if(date != null) {
+                OnCallDuty onCallDuty = new OnCallDuty(name, time, location, teacher, date);
+                generatorController.addOnCallDuty(onCallDuty);
+            }
+        });
+
+        paramInitPanel.add(restrictionButton);
+        paramInitPanel.add(onCallDutyButton);
+
+        return paramInitPanel;
     }
 
     /**
@@ -313,22 +470,21 @@ public class Window extends JFrame {
         saveButton.addActionListener(e -> {
             // Get the attribute and value from the text field
             // Clear the text field
-            textFields.entrySet().forEach(entry -> {
-                String attribute = entry.getKey();
+            textFields.forEach((attribute, value) -> {
                 if (attribute.equals("Minutes Required")) {
-                    if (entry.getValue().getText().equals("")) {
+                    if (value.getText().equals("")) {
                         minutesTotal.set(0);
                     } else {
-                        minutesTotal.set(Integer.parseInt(entry.getValue().getText()));
+                        minutesTotal.set(Integer.parseInt(value.getText()));
                     }
                 } else if (attribute.equals("Minutes Remaining")) {
-                    if (entry.getValue().getText().equals("")) {
+                    if (value.getText().equals("")) {
                         minutesRemaining.set(0);
                     } else {
-                        minutesRemaining.set(Integer.parseInt(entry.getValue().getText()));
+                        minutesRemaining.set(Integer.parseInt(value.getText()));
                     }
                 }
-                entry.getValue().clearText();
+                value.clearText();
             });
 
             // Create a list to store the selected periods

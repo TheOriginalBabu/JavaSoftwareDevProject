@@ -280,4 +280,8 @@ public class GeneratorController {
     public HashMap<SupervisionDuty, Teacher> getAssignedSupervisionDuties() {
         return assignedSupervisionDuties;
     }
+
+    public void addOnCallDuty(OnCallDuty onCallDuty) {
+        onCallDuties.add(onCallDuty);
+    }
 }
