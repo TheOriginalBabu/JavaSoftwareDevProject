@@ -101,13 +101,6 @@ public class Window extends JFrame {
         // create a button to view the schedule
         menuPanel.add(createCardSwitchButton("Settings", "Settings"));
 
-        JButton refreshBtn = new JButton("Refresh");
-        refreshBtn.addActionListener(e -> {
-            this.dispose();
-            SwingUtilities.invokeLater(() -> new Window(generatorController).setVisible(true));
-        });
-        menuPanel.add(refreshBtn);
-
         return menuPanel;
     }
 
@@ -146,7 +139,6 @@ public class Window extends JFrame {
         // The content panel which includes all your components. This panel will be added to the JScrollPane.
         JPanel paramInitPanel = createGradientPanel(new GridLayout(), "Parameter Initialisation");
         paramInitPanel.setLayout(new BoxLayout(paramInitPanel, BoxLayout.Y_AXIS));
-        paramInitPanel.add(Box.createRigidArea(new Dimension(0, 500)));// todo: fix this
 
         // Create radio buttons for the user to select the type of object they want to create
         JRadioButton restrictionButton = new JRadioButton("Create Restriction");
@@ -158,8 +150,13 @@ public class Window extends JFrame {
         buttonGroup.add(onCallDutyButton);
 
         // Create panels to hold the input fields for each type of object
-        JPanel restrictionFields = new JPanel(new GridLayout(0, 1, 10, 5));
-        JPanel onCallDutyFields = new JPanel(new GridLayout(0, 1, 10, 5));
+        JPanel restrictionFields = new JPanel();
+        restrictionFields.setLayout(new BoxLayout(restrictionFields, BoxLayout.Y_AXIS));
+        restrictionFields.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JPanel onCallDutyFields = new JPanel();
+        onCallDutyFields.setLayout(new BoxLayout(onCallDutyFields, BoxLayout.Y_AXIS));
+        onCallDutyFields.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Define the input fields for creating a Restriction
         JTextField restrictionDescriptionField = new JTextField(20);
@@ -227,6 +224,7 @@ public class Window extends JFrame {
             paramInitPanel.add(restrictionButton);
             paramInitPanel.add(onCallDutyButton);
             paramInitPanel.add(restrictionFields);
+            paramInitPanel.add(createCardSwitchButton("Back", "Menu"));
             paramInitPanel.revalidate();
             paramInitPanel.repaint();
         });
@@ -239,6 +237,7 @@ public class Window extends JFrame {
             paramInitPanel.add(restrictionButton);
             paramInitPanel.add(onCallDutyButton);
             paramInitPanel.add(onCallDutyFields);
+            paramInitPanel.add(createCardSwitchButton("Back", "Menu"));
             paramInitPanel.revalidate();
             paramInitPanel.repaint();
         });
@@ -247,22 +246,44 @@ public class Window extends JFrame {
         restrictionSaveButton.addActionListener(e -> {
             String description = restrictionDescriptionField.getText();
 
+            if(description.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Description field is empty. Please fill in all fields.");
+                return;
+            }
+
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date date = null;
             try {
                 date = dateFormat.parse(restrictionDateField.getText());
             } catch (ParseException parseException) {
-                parseException.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Invalid date. Please enter a date in the format dd-MM-yyyy.");
+                return;
             }
 
-            int week = Integer.parseInt(restrictionWeekField.getText());
+            String weekText = restrictionWeekField.getText();
+            if(weekText.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Week field is empty. Please fill in all fields.");
+                return;
+            }
+
+            int week = Integer.parseInt(weekText);
 
             boolean isAvailable = restrictionAvailableField.isSelected();
             Teacher teacher = (Teacher)restrictionTeacherField.getSelectedItem();
 
+            if(teacher == null) {
+                JOptionPane.showMessageDialog(null, "No teacher selected. Please select a teacher.");
+                return;
+            }
+
             if(date != null) {
                 // Get the selected rows from the table
                 int[] selectedRows = restrictionTimesTable.getSelectedRows();
+
+                if(selectedRows.length == 0) {
+                    JOptionPane.showMessageDialog(null, "No times selected. Please select at least one time.");
+                    return;
+                }
 
                 // Retrieve the corresponding times from the table and create a restriction for each
                 for(int row : selectedRows) {
@@ -272,29 +293,44 @@ public class Window extends JFrame {
                             time = t;
                         }
                     }
-
-                    assert teacher != null;
-                    Restriction restriction = new Restriction(description, date, week, time, isAvailable, teacher);
+                    new Restriction(description, date, week, time, isAvailable, teacher);
                 }
             }
         });
 
+
         onCallDutySaveButton.addActionListener(e -> {
             String name = onCallDutyNameField.getText();
 
+            if(name.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Name field is empty. Please fill in all fields.");
+                return;
+            }
+
             Location location = (Location)onCallDutyLocationField.getSelectedItem();
+
+            if(location == null) {
+                JOptionPane.showMessageDialog(null, "No location selected. Please select a location.");
+                return;
+            }
 
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date date = null;
             try {
                 date = dateFormat.parse(onCallDutyDateField.getText());
             } catch (ParseException parseException) {
-                parseException.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Invalid date. Please enter a date in the format dd-MM-yyyy.");
+                return;
             }
 
             if(date != null) {
                 // Get the selected rows from the table
                 int[] selectedRows = onCallDutyTimesTable.getSelectedRows();
+
+                if(selectedRows.length == 0) {
+                    JOptionPane.showMessageDialog(null, "No times selected. Please select at least one time.");
+                    return;
+                }
 
                 // Retrieve the corresponding times from the table and create an OnCallDuty for each
                 for(int row : selectedRows) {
@@ -313,6 +349,8 @@ public class Window extends JFrame {
 
         paramInitPanel.add(restrictionButton);
         paramInitPanel.add(onCallDutyButton);
+
+        paramInitPanel.add(createCardSwitchButton("Back", "Menu"));
 
         // Create JScrollPane and add contentPanel to it.
         JScrollPane scrollPane = new JScrollPane(paramInitPanel);
@@ -443,6 +481,8 @@ public class Window extends JFrame {
             System.out.println(name + ": " + startTime + " - " + endTime);
         });
 
+        timeInitPanel.add(createCardSwitchButton("Back", "ValInit"));
+
         return timeInitPanel;
     }
 
@@ -498,6 +538,8 @@ public class Window extends JFrame {
         // Create atomic integers to store the minutes required and remaining
         AtomicInteger minutesTotal = new AtomicInteger();
         AtomicInteger minutesRemaining = new AtomicInteger();
+
+        teachInitPanel.add(createCardSwitchButton("Back", "TimeInit"));
 
         // Add action listener to save button
         saveButton.addActionListener(e -> {
@@ -599,6 +641,8 @@ public class Window extends JFrame {
         // Add save button
         JButton saveButton = new JButton("Save and Next");
         locInitPanel.add(saveButton);
+
+        locInitPanel.add(createCardSwitchButton("Back", "TeachInit"));
 
         // Add action listener to save button
         saveButton.addActionListener(e -> {
@@ -715,9 +759,9 @@ public class Window extends JFrame {
      */
     private JPanel createGradientPanel(LayoutManager layout, String text) {
 
-        JPanel panel = new JPanel(layout) {//https://stackoverflow.com/questions/14364291/jpanel-gradient-background - Mohammed Sayed
+        JPanel panel = new JPanel(layout) {
                 @Override
-                protected void paintComponent(Graphics graphics) {
+                protected void paintComponent(Graphics graphics) {//https://stackoverflow.com/questions/14364291/jpanel-gradient-background - Mohammed Sayed
                     super.paintComponent(graphics);
                     Graphics2D g2d = (Graphics2D) graphics;
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -729,7 +773,6 @@ public class Window extends JFrame {
                     g2d.fillRect(0, 0, getWidth(), getHeight());
 
                 }
-
             };
 
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
