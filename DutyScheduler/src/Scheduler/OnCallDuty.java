@@ -35,7 +35,7 @@ public class OnCallDuty extends Duty{
      * @param location the location
      * @param date     the date
      */
-    public OnCallDuty(String name, Time time, Location location, Date date) {
+    public OnCallDuty(String name, Time time, Location location, Date date) { // used for filereading
         super(name, time, location);
         this.date = date;
     }

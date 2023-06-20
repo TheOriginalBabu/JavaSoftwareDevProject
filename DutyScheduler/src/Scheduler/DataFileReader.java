@@ -224,11 +224,24 @@ public class DataFileReader {//todo: Error Trapping/Handling
                 } else if (data[0].equals("Duty")) {
                     if (data[2].equals("Supervision")) {
                         data[2] = "Supervision Duty";
+
+                        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Format to convert string to date
+                        Date date = null;
+                        LocalDate datechanga = null;
+                        try {
+                            date = dateFormatter.parse(data[3]); // Assuming you have a method to parse the date string
+                            datechanga = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        int weekOfYear = datechanga.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+                        supervisionDuties.add(new SupervisionDuty(data[1], date, data[4], weekOfYear));
                     } else if (data[2].equals("OnCall")) {
                         data[2] = "On Call Duty";
+                        onCallDuties.add(new OnCallDuty(data[1], data[3], data[4], data[5]));
                     }
                     //TODO FIX THIS, WHAT IS TEACHER STORED IN CSV FILE (assuming index 5), AND GET RID OF ERROR
-                    //duties.add(new Duty(data[1], data[3], data[4], data[5]));
+
                 }
             }
 

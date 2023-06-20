@@ -20,6 +20,7 @@ public class SupervisionDuty extends Duty{
      */
     public SupervisionDuty(String name, Time time, Location location, int week) {
         super(name, time, location);
+        this.week = week;
     }
 
     /**
