@@ -169,7 +169,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(csvSplitBy);
 
-                if (data[0].equals("Teacher")) {
+                if (data[0].equals("Teacher")) { // completed, do not convert to switchcase
                     ArrayList<Time> tempClasses  = new ArrayList<>();
                     ArrayList<Time> tempPreps  = new ArrayList<>();
                     for (int x = 4 ; x < 9 ; x++ ){
@@ -182,7 +182,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
                     teachers.add(new Teacher(data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]),tempClasses,tempPreps));
                 } else if (data[0].equals("Time")) {
                     times.add(new Time(data[1], LocalTime.parse(data[2]),LocalTime.parse(data[3])));
-                } else if (data[0].equals("Location")) { // MIGHT BE BROKEN
+                } else if (data[0].equals("Location")) { // UNFINISHED, MAYBE BROKEN
                     //loop similar to teachers
                     ArrayList<Time> tempTimes  = new ArrayList<>();
                     for (int x = 3 ; x < data.length ; x++ ){
@@ -191,7 +191,7 @@ public class DataFileReader {//todo: Error Trapping/Handling
                         }
                     }
                     locations.add(new Location(data[1], data[2], tempTimes));
-                } else if (data[0].equals("Restriction")) {
+                } else if (data[0].equals("Restriction")) { // UNFINISHED, MAYBE BROKEN
                     Teacher teacher = null;
                     for (Teacher t : teachers) {
                         if (t.getName().equals(data[9])) {
@@ -227,7 +227,8 @@ public class DataFileReader {//todo: Error Trapping/Handling
                     } else if (data[2].equals("OnCall")) {
                         data[2] = "On Call Duty";
                     }
-                    //duties.add(new Duty(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]));
+                    //TODO FIX THIS, WHAT IS TEACHER STORED IN CSV FILE (assuming index 5), AND GET RID OF ERROR
+                    //duties.add(new Duty(data[1], data[3], data[4], data[5]));
                 }
             }
 
